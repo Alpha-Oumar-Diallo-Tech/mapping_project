@@ -6,3 +6,26 @@
     width: 100vw;
     height: 100vh;
 }
+
+
+.pop {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    margin: 0;
+}
+
+.title {
+    font-size: 15px;
+    text-transform: uppercase;
+}
+
+.description {
+    margin: 0;
+}
+
+.btn {
+    padding: 5px 10px;
+    background-color: black;
+    color: white;
+}
