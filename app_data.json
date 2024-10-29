@@ -58,5 +58,103 @@
             "latitude" : 11.318665,
             "longitude" : -12.285218
         }
+    },
+    {
+        "category" : "ecole",
+        "name" : "Lycée 2 Octobre ",
+        "city" : "conakry",
+        "neighborhood" : "kaloum",
+        "founder" : "etat",
+        "year_of_foundation" : "1958",
+        "coordonee" : {
+            "latitude" : 9.511091,
+            "longitude" : -13.7182829
+        }
+    },
+    {
+        "category" : "ecole",
+        "name" : "Lycée Donka ",
+        "city" : "conakry",
+        "neighborhood" : "Donka",
+        "founder" : "etat",
+        "year_of_foundation" : "1960",
+        "coordonee" : {
+            "latitude" : 9.5402257,
+            "longitude" : -13.6854998
+        }
+    },
+    {
+        "category" : "ecole",
+        "name" : "École Primaire de Dixinn 1 ",
+        "city" : "conakry",
+        "neighborhood" : "Dixinn",
+        "founder" : "etat",
+        "year_of_foundation" : "1960",
+        "coordonee" : {
+            "latitude" : 9.5483851,
+            "longitude" : -13.6770372
+        }
+    },
+    {
+        "category" : "ecole",
+        "name" : "Lycee Ahmed sekou toure  ",
+        "city" : "Labe",
+        "neighborhood" : "Labe",
+        "founder" : "privées",
+        "year_of_foundation" : "1972",
+        "coordonee" : {
+            "latitude" : 9.5806351,
+            "longitude" : -13.6199063
+        }
+    },
+    {
+        "category" : "ecole",
+        "name" : "Lycee Alpha yaya Diallo de kankan ",
+        "city" : "kankan",
+        "neighborhood" : "kankan",
+        "founder" : "etat",
+        "year_of_foundation" : "1978",
+        "coordonee" : {
+            "latitude" : 10.3667419,
+            "longitude" : -9.3097624
+        }
+    },
+    {
+        "category" : "ecole",
+        "name" : "Lycee jean mermoz  ",
+        "city" : "conakry",
+        "neighborhood" : "Conakry",
+        "founder" : "etat",
+        "year_of_foundation" : "1980",
+        "coordonee" : {
+            "latitude" : 9.6002061,
+            "longitude" :-13.6054553
+        }
+    },
+    {
+        "category" : "ecole",
+        "name" : "École Nationale des Arts et Métiers ",
+        "city" : "conakry",
+        "neighborhood" : "kaloum",
+        "founder" : "etat",
+        "year_of_foundation" : "1965",
+        "coordonee" : {
+            "latitude" : 9.5252285,
+            "longitude" : -13.6879142
+        }
+    },
+    {
+        "category" : "ecole",
+        "name" : "Centre de Formation Professionnelle de Donka ",
+        "city" : "conakry",
+        "neighborhood" : "kaloum",
+        "founder" : "etat",
+        "year_of_foundation" : "1965",
+        "coordonee" : {
+            "latitude" : 9.537696,
+            "longitude" : -13.6835888
+        }
     }
+    
+    
 ]
