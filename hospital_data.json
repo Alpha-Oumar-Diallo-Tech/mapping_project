@@ -49,5 +49,22 @@
             "email": "info@clinique-pasteur.gn"
         },
         "services": ["General Consultations", "Maternity", "Cardiology"]
+    },
+    {
+        "category": "hospital",
+        "name": "Pasteur Clinic",
+        "city": "Conakry",
+        "district": "Ratoma",
+        "founder": "Individual",
+        "year_established": 2002,
+        "coordinates": {
+            "latitude": 9.571,
+            "longitude": -13.621
+        },
+        "contact": {
+            "phone": "+224 624 22 22 22",
+            "email": "info@clinique-pasteur.gn"
+        },
+        "services": ["General Consultations", "Maternity", "Cardiology"]
     }
 ]
