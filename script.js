@@ -11,6 +11,10 @@ class Infrastructure {
     }
 }
 
+const confirm_modal = document.querySelector (".modal")
+const stop_modal = document.querySelector (".modal_container")
+const no_btn = document.querySelector (".unconfirm_btn")
+
 class App {
     #map
     #marqueur
@@ -19,19 +23,23 @@ class App {
     #infrastructure_data = new Array ()
     #state
     constructor () {
-        this.showMap ()
+        this.guineaLat = 10.973549898080215
+        this.guineaLon = -10.973549898080215
+        // this.showMap (this.guineaLat, this.guineaLon,7.5)
         this.get_all_initial_data ()
         this.map_click ()
+        this.no_click ()
     }
-    showMap () {
-        const guinea = [10.973549898080215, -10.973549898080215]
-        this.#map = L.map('map').setView(guinea, 7.5);
+    showMap (lat, long, zoom) {
+        const guinea = [lat, long]
+        this.#map = L.map('map').setView(guinea, zoom);
 
         L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.#map);
     }
     get_all_initial_data () {
+        this.showMap (this.guineaLat, this.guineaLon, 7.5)
         this._get_initial_app_data ("hospital_data.json")
         this._get_initial_app_data ("app_data.json")
     }
@@ -48,39 +56,15 @@ class App {
         }
     }
     popupContent (name, category) {
-        let my_popup_content = `
+        const my_popup_content = `
             <div class = "popup_container">
                 <h1 class = "popup_title">${name}</h1>
                 <span class = "popup_categorie">${category}</span>
                 <button class = "popup_button">en savoir plus</button>
             </div>
         `
-        // const container = document.querySelector (".leaflet-popup-content-wrapper")
-        // console.log (container)
-        // const pops = container.closest (".leaflet-popup-content-wrapper")
-        // pops.style.color = "black"
-        // this.#marqueur.on ("popupopen", function () {
-        //     const pop = document.querySelector (".leaflet-popup-content-wrapper")
-        //     if (container) {
-        //         switch (category) {
-        //             case "hospital":
-        //                 document.querySelector (".leaflet-popup-content-wrapper").style.color = "black"
-        //                 return my_popup_content
-        //                 // break;
-        //             default:
-        //                 break;
-        //         }
-        //     }
-        // })
-        
-        // switch (category) {
-        //     case "hospital":
-        //         document.querySelector (".leaflet-popup-content-wrapper").style.color = "black"
-        //         return my_popup_content
-        //         // break;
-        //     default:
-        //         break;
-        // }
+        const learn_more = document.querySelector (".popup_button")
+        console.log (learn_more)
         return my_popup_content
     }
     destructure_data (data) {
@@ -88,7 +72,6 @@ class App {
             const {name, category, coordinates : {latitude, longitude}} = data
             const popup_content = this.popupContent (name, category)
             this.show_indicator (latitude, longitude, popup_content, category)
-            // this.popup_customize (category)
         })
         
     }
@@ -102,40 +85,49 @@ class App {
         )
         this.check_marker_loading (marqueur, category)
         marqueur.openPopup();
-        
     }
     check_marker_loading (marqueur, category) {
         marqueur.on("popupopen", function (e) {
-            const popupElement = e.popup.getElement()
-            const me = popupElement.querySelector (".leaflet-popup-content-wrapper")
-            console.log (popupElement.querySelector (".leaflet-popup-content-wrapper"))
+            const popup = e.popup.getElement().querySelector (".leaflet-popup-content-wrapper")
+            
+            // this.check_marker_click (me)
             switch (category) {
                 case "hospital":
-                    me.style.backgroundColor  = "red";
-                    me.style.color  = "white";
-                    me.style.opacity  = "0.8";
+                    popup.style.backgroundColor  = "red";
+                    popup.style.color  = "white";
+                    popup.style.opacity  = "0.8";
                     break;
                 case "university":
-                    me.style.backgroundColor  = "blue";
-                    me.style.color  = "white";
-                    me.style.opacity  = "0.8";
+                    popup.style.backgroundColor  = "blue";
+                    popup.style.color  = "white";
+                    popup.style.opacity  = "0.8";
                     break;
                 case "ecole":
-                    me.style.backgroundColor  = "yellow";
-                    me.style.color  = "black";
-                    me.style.opacity  = "0.8";
+                    popup.style.backgroundColor  = "yellow";
+                    popup.style.color  = "black";
+                    popup.style.opacity  = "0.8";
                     break;
                 case "bookcase":
-                    me.style.backgroundColor  = "green";
-                    me.style.color  = "white";
-                    me.style.opacity  = "0.8";
+                    popup.style.backgroundColor  = "green";
+                    popup.style.color  = "white";
+                    popup.style.opacity  = "0.8";
                     break;
                 default:
-                    me.style.backgroundColor  = "white";
+                    popup.style.backgroundColor  = "white";
+                    popup.style.color  = "black";
+                    popup.style.opacity  = "0.8";
                     break;
             }
         })
     }
+    check_marker_click (pop) {
+        pop.addEventListener ("popupclick", function () {
+            const modal = this.show_modal ()
+            console.log ("success")
+        })
+    }
+
+// fonction qui devrait prendre mais qui prend pas, mais qui va voir (avec sa grosse tête là)
     popup_customize (category) {
         let pop = document.querySelector (".leaflet-popup-content-wrapper")
         switch (category) {
@@ -150,51 +142,38 @@ class App {
                 break;
         }
     }
-    no_showIndicator (infras) {
-        infras.forEach(infras => {
-            const {name, category, coordinates : {latitude, longitude}} = infras
 
-            const my_popup_content = this.popupContent (name, category)
-            this.true_show_indicator (latitude, longitude, my_popup_content)
-            switch (category) {
-                case "hospital":
-                    document.querySelector (".leaflet-popup-content-wrapper").style.backgroundColor  = "black";
-                    break;
-                case "university":
-                    document.querySelector (".leaflet-popup-content-wrapper").style.backgroundColor  = "blue";
-                    break;
-                default:
-                    document.querySelector (".leaflet-popup-content-wrapper").style.backgroundColor  = "initial";
-                    break;
-            }
-            // marqueur.on("popupopen", (e) => {
-            //     const pop = e.popup._wrapper; // Accède directement à l'élément du popup via l'événement
-            //     if (pop) {
-            //         switch (category) {
-            //             case "hospital":
-            //                 pop.style.backgroundColor  = "black";
-            //                 break;
-            //             case "university":
-            //                 pop.style.backgroundColor  = "blue";
-            //                 break;
-            //             default:
-            //                 pop.style.backgroundColor  = "initial";
-            //                 break;
-            //         }
-            //     }
-            // });
-        });
-        
-    }
     map_click () {
         this.#map.on ("click", function (e) {
             const {lat, lng} = e.latlng
-            
+            console.log (lat, lng)
+            // this.showMap (lat, lng, 3)
+            confirm_modal.classList.remove ("not")
         }, function () {
             console.log ("erreur")
         })
     }
-    
+    no_click () {
+        no_btn.addEventListener ("click", function () {
+            confirm_modal.classList.add ("not")
+        })
+        confirm_modal.addEventListener ("click", function () {
+            confirm_modal.classList.add ("not")
+        })
+        stop_modal.addEventListener ("click", function (e) {
+            e.stopPropagation ()
+        })
+    }
+    show_modal () {
+        const modal = `
+            <div>
+                <div>
+
+                </div>
+            </div>
+        `
+        return modal
+    }
 }
 
 new App ()

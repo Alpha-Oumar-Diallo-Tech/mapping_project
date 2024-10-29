@@ -53,6 +53,16 @@
     backdrop-filter: blur(1px);
     z-index: 1;
     text-align: center;
+    animation: sortie 500ms ease-in-out 1;
+}
+
+@keyframes sortie {
+    0% {
+        opacity: 0;
+    }
+    100% {
+        opacity: 1;
+    }
 }
 
 .modal_container {
