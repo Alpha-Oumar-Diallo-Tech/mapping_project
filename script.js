@@ -17,9 +17,11 @@ class App {
     #map_event
     #infrastructure
     #infrastructure_data = new Array ()
+    #state
     constructor () {
         this.showMap ()
         this.get_all_initial_data ()
+        this.map_click ()
     }
     showMap () {
         const guinea = [10.973549898080215, -10.973549898080215]
@@ -39,7 +41,7 @@ class App {
                 throw new Error("Erreur");
             }
             const data = await json_data.json ()
-            this.showIndicator (data)
+            this.destructure_data (data)
         } catch (error) {
             console.log (error)
         }
@@ -80,30 +82,76 @@ class App {
         // }
         return my_popup_content
     }
-    showIndicator (infras) {
+    destructure_data (data) {
+        data.forEach(data => {
+            const {name, category, coordinates : {latitude, longitude}} = data
+            const popup_content = this.popupContent (name, category)
+            this.show_indicator (latitude, longitude, popup_content, category)
+            // this.popup_customize (category)
+        })
+        
+    }
+    show_indicator (latitude, longitude, popup_content, category) {
+        const marqueur = L.marker([latitude, longitude]).addTo(this.#map)
+        marqueur.bindPopup(popup_content,
+            {
+                autoClose: false,
+                closeOnClick: false
+            }
+        )
+        this.check_marker_loading (marqueur, category)
+        marqueur.openPopup();
+        
+    }
+    check_marker_loading (marqueur, category) {
+        marqueur.on("popupopen", function (e) {
+            const popupElement = e.popup.getElement()
+            const me = popupElement.querySelector (".leaflet-popup-content-wrapper")
+            console.log (popupElement.querySelector (".leaflet-popup-content-wrapper"))
+            switch (category) {
+                case "hospital":
+                    me.style.backgroundColor  = "green";
+                    break;
+                case "university":
+                    me.style.backgroundColor  = "red";
+                    break;
+                default:
+                    me.style.backgroundColor  = "white";
+                    break;
+            }
+        })
+    }
+    popup_customize (category) {
+        let pop = document.querySelector (".leaflet-popup-content-wrapper")
+        switch (category) {
+            case "hospital":
+                pop.style.backgroundColor  = "blue";
+                break;
+            case "university":
+                pop.style.backgroundColor  = "red";
+                break;
+            default:
+                pop.style.backgroundColor  = "white";
+                break;
+        }
+    }
+    no_showIndicator (infras) {
         infras.forEach(infras => {
             const {name, category, coordinates : {latitude, longitude}} = infras
 
             const my_popup_content = this.popupContent (name, category)
-            const marqueur = L.marker([latitude, longitude]).addTo(this.#map)
-            .bindPopup(my_popup_content,
-                {
-                    autoClose: false,
-                    closeOnClick: false
-                }
-            )
-            .openPopup();
-            // switch (category) {
-            //     case "hospital":
-            //         pop.style.backgroundColor  = "black";
-            //         break;
-            //     case "university":
-            //         pop.style.backgroundColor  = "blue";
-            //         break;
-            //     default:
-            //         pop.style.backgroundColor  = "initial";
-            //         break;
-            // }
+            this.true_show_indicator (latitude, longitude, my_popup_content)
+            switch (category) {
+                case "hospital":
+                    document.querySelector (".leaflet-popup-content-wrapper").style.backgroundColor  = "black";
+                    break;
+                case "university":
+                    document.querySelector (".leaflet-popup-content-wrapper").style.backgroundColor  = "blue";
+                    break;
+                default:
+                    document.querySelector (".leaflet-popup-content-wrapper").style.backgroundColor  = "initial";
+                    break;
+            }
             // marqueur.on("popupopen", (e) => {
             //     const pop = e.popup._wrapper; // Accède directement à l'élément du popup via l'événement
             //     if (pop) {
@@ -123,7 +171,14 @@ class App {
         });
         
     }
-    
+    map_click () {
+        this.#map.on ("click", function (e) {
+            const {lat, lng} = e.latlng
+            
+        }, function () {
+            console.log ("erreur")
+        })
+    }
     
 }
 

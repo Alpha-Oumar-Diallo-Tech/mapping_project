@@ -1,6 +1,6 @@
 [
     {
-        "category": "hospital",
+        "category": "university",
         "name": "Ignace Deen National Hospital",
         "city": "Conakry",
         "district": "Kaloum",
@@ -17,7 +17,7 @@
         "services": ["Emergency", "Pediatrics", "Surgery", "Radiology"]
     },
     {
-        "category": "hospital",
+        "category": "university",
         "name": "Donka Hospital",
         "city": "Conakry",
         "district": "Dixinn",
@@ -51,7 +51,7 @@
         "services": ["General Consultations", "Maternity", "Cardiology"]
     },
     {
-        "category": "hospital",
+        "category": "university",
         "name": "Pasteur Clinic",
         "city": "Conakry",
         "district": "Ratoma",
