@@ -34,7 +34,7 @@
         "services": ["Emergency", "Gynecology", "Dermatology", "Laboratory"]
     },
     {
-        "category": "hospital",
+        "category": "university",
         "name": "Pasteur Clinic",
         "city": "Conakry",
         "district": "Ratoma",
@@ -51,7 +51,7 @@
         "services": ["General Consultations", "Maternity", "Cardiology"]
     },
     {
-        "category": "university",
+        "category": "hospital",
         "name": "Pasteur Clinic",
         "city": "Conakry",
         "district": "Ratoma",

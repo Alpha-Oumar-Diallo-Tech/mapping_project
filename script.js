@@ -33,6 +33,7 @@ class App {
     }
     get_all_initial_data () {
         this._get_initial_app_data ("hospital_data.json")
+        this._get_initial_app_data ("app_data.json")
     }
     async _get_initial_app_data (json_file) {
         try {
@@ -110,10 +111,24 @@ class App {
             console.log (popupElement.querySelector (".leaflet-popup-content-wrapper"))
             switch (category) {
                 case "hospital":
-                    me.style.backgroundColor  = "green";
+                    me.style.backgroundColor  = "red";
+                    me.style.color  = "white";
+                    me.style.opacity  = "0.8";
                     break;
                 case "university":
-                    me.style.backgroundColor  = "red";
+                    me.style.backgroundColor  = "blue";
+                    me.style.color  = "white";
+                    me.style.opacity  = "0.8";
+                    break;
+                case "ecole":
+                    me.style.backgroundColor  = "yellow";
+                    me.style.color  = "black";
+                    me.style.opacity  = "0.8";
+                    break;
+                case "bookcase":
+                    me.style.backgroundColor  = "green";
+                    me.style.color  = "white";
+                    me.style.opacity  = "0.8";
                     break;
                 default:
                     me.style.backgroundColor  = "white";

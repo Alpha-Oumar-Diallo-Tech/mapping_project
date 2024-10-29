@@ -6,7 +6,7 @@
         "neighborhood" : "camayenne",
         "founder" : "etat",
         "year_of_foundation" : "1965",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.535637,
             "longitude" : -13.683418
         }
@@ -18,7 +18,7 @@
         "neighborhood" : "kaloum",
         "founder" : "etat",
         "year_of_foundation" : "1965",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.647795,
             "longitude" : -13.569664
         }
@@ -30,7 +30,7 @@
         "neighborhood" : "kaloum",
         "founder" : "etat",
         "year_of_foundation" : "1965",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.599934,
             "longitude" : -13.647792
         }
@@ -42,7 +42,7 @@
         "neighborhood" : "kaloum",
         "founder" : "etat",
         "year_of_foundation" : "1965",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 10.369135,
             "longitude" : -9.305245
         }
@@ -54,7 +54,7 @@
         "neighborhood" : "kaloum",
         "founder" : "etat",
         "year_of_foundation" : "1965",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 11.318665,
             "longitude" : -12.285218
         }
@@ -66,7 +66,7 @@
         "neighborhood" : "kaloum",
         "founder" : "etat",
         "year_of_foundation" : "1958",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.511091,
             "longitude" : -13.7182829
         }
@@ -78,7 +78,7 @@
         "neighborhood" : "Donka",
         "founder" : "etat",
         "year_of_foundation" : "1960",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.5402257,
             "longitude" : -13.6854998
         }
@@ -90,7 +90,7 @@
         "neighborhood" : "Dixinn",
         "founder" : "etat",
         "year_of_foundation" : "1960",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.5483851,
             "longitude" : -13.6770372
         }
@@ -102,7 +102,7 @@
         "neighborhood" : "Labe",
         "founder" : "privées",
         "year_of_foundation" : "1972",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.5806351,
             "longitude" : -13.6199063
         }
@@ -114,7 +114,7 @@
         "neighborhood" : "kankan",
         "founder" : "etat",
         "year_of_foundation" : "1978",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 10.3667419,
             "longitude" : -9.3097624
         }
@@ -126,7 +126,7 @@
         "neighborhood" : "Conakry",
         "founder" : "etat",
         "year_of_foundation" : "1980",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.6002061,
             "longitude" :-13.6054553
         }
@@ -138,7 +138,7 @@
         "neighborhood" : "kaloum",
         "founder" : "etat",
         "year_of_foundation" : "1965",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.5252285,
             "longitude" : -13.6879142
         }
@@ -150,7 +150,7 @@
         "neighborhood" : "kaloum",
         "founder" : "etat",
         "year_of_foundation" : "1965",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" : 9.537696,
             "longitude" : -13.6835888
         }

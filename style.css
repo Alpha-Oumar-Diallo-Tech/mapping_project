@@ -14,7 +14,7 @@
     flex-direction: column;
     align-items: start;
     gap: 5px;
-    color: white;
+    /* color: white; */
 }
 
 .leaflet-popup-content-wrapper {
