@@ -63,8 +63,9 @@ class App {
                 <button class = "popup_button">en savoir plus</button>
             </div>
         `
-        const learn_more = document.querySelector (".popup_button")
-        console.log (learn_more)
+        // const learn_more = document.querySelector (".popup_button")
+        // console.log (learn_more)
+        // console.log (my_popup_content)
         return my_popup_content
     }
     destructure_data (data) {
@@ -89,6 +90,12 @@ class App {
     check_marker_loading (marqueur, category) {
         marqueur.on("popupopen", function (e) {
             const popup = e.popup.getElement().querySelector (".leaflet-popup-content-wrapper")
+            const learn_more = document.querySelector (".popup_button")
+            console.log (learn_more)
+            popup.addEventListener ("click", function () {
+                console.log ("yoo steve")
+            })
+            
             
             // this.check_marker_click (me)
             switch (category) {
