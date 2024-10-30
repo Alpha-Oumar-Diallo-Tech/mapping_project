@@ -103,8 +103,35 @@
     z-index: 11;
     border-radius: 0;
     background-color: white;
+    cursor: pointer;
+}
+
+.detail_modal {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 30%;
+    height: 100%;
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    z-index: 1;
+    animation: sortie 1s ease-in 1;
+}
+
+.detail_modal_content {
+    background-color: white;
+    color: black;
+    height: 50%;
+    width: 100%;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    gap: 10px;
 }
 
 .not {
     display: none;
 }
+

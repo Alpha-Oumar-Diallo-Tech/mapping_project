@@ -70,13 +70,13 @@ class App {
     }
     destructure_data (data) {
         data.forEach(data => {
-            const {name, category, coordinates : {latitude, longitude}} = data
+            const {name, category, city, district, contact : {phone = "non définis"} = "non précis", coordinates : {latitude, longitude}} = data
             const popup_content = this.popupContent (name, category)
-            this.show_indicator (latitude, longitude, popup_content, category)
+            this.show_indicator (latitude, longitude, popup_content, name, category, city, district, phone)
         })
         
     }
-    show_indicator (latitude, longitude, popup_content, category) {
+    show_indicator (latitude, longitude, popup_content, name, category, city, district, phone) {
         const marqueur = L.marker([latitude, longitude]).addTo(this.#map)
         marqueur.bindPopup(popup_content,
             {
@@ -84,68 +84,50 @@ class App {
                 closeOnClick: false
             }
         )
-        this.check_marker_loading (marqueur, category)
+        this.check_marker_loading (marqueur, name, category, city, district, phone)
         marqueur.openPopup();
     }
-    check_marker_loading (marqueur, category) {
-        marqueur.on("popupopen", function (e) {
+    check_marker_loading (marqueur, name, category, city, district, phone) {
+        marqueur.on("popupopen", (e) => {
             const popup = e.popup.getElement().querySelector (".leaflet-popup-content-wrapper")
-            const learn_more = document.querySelector (".popup_button")
-            console.log (learn_more)
-            popup.addEventListener ("click", function () {
-                console.log ("yoo steve")
-            })
-            
-            
-            // this.check_marker_click (me)
-            switch (category) {
-                case "hospital":
-                    popup.style.backgroundColor  = "red";
-                    popup.style.color  = "white";
-                    popup.style.opacity  = "0.8";
-                    break;
-                case "university":
-                    popup.style.backgroundColor  = "blue";
-                    popup.style.color  = "white";
-                    popup.style.opacity  = "0.8";
-                    break;
-                case "ecole":
-                    popup.style.backgroundColor  = "yellow";
-                    popup.style.color  = "black";
-                    popup.style.opacity  = "0.8";
-                    break;
-                case "bookcase":
-                    popup.style.backgroundColor  = "green";
-                    popup.style.color  = "white";
-                    popup.style.opacity  = "0.8";
-                    break;
-                default:
-                    popup.style.backgroundColor  = "white";
-                    popup.style.color  = "black";
-                    popup.style.opacity  = "0.8";
-                    break;
-            }
+            // const learn_more = document.querySelector (".popup_button")
+            this.popup_customize (category, popup)
+            this.check_marker_click (popup, name, category, city, district, phone)
         })
     }
-    check_marker_click (pop) {
-        pop.addEventListener ("popupclick", function () {
-            const modal = this.show_modal ()
-            console.log ("success")
+    check_marker_click (popup, name, category, city, district, phone) {
+        popup.addEventListener ("click", () => {
+            this.show_modal (name, category, city, district, phone)
+            
         })
     }
 
-// fonction qui devrait prendre mais qui prend pas, mais qui va voir (avec sa grosse tête là)
-    popup_customize (category) {
-        let pop = document.querySelector (".leaflet-popup-content-wrapper")
+    popup_customize (category, popup) {
         switch (category) {
             case "hospital":
-                pop.style.backgroundColor  = "blue";
+                popup.style.backgroundColor  = "red";
+                popup.style.color  = "white";
+                popup.style.opacity  = "0.8";
                 break;
             case "university":
-                pop.style.backgroundColor  = "red";
+                popup.style.backgroundColor  = "blue";
+                popup.style.color  = "white";
+                popup.style.opacity  = "0.8";
+                break;
+            case "ecole":
+                popup.style.backgroundColor  = "yellow";
+                popup.style.color  = "black";
+                popup.style.opacity  = "0.8";
+                break;
+            case "bookcase":
+                popup.style.backgroundColor  = "green";
+                popup.style.color  = "white";
+                popup.style.opacity  = "0.8";
                 break;
             default:
-                pop.style.backgroundColor  = "white";
+                popup.style.backgroundColor  = "white";
+                popup.style.color  = "black";
+                popup.style.opacity  = "0.8";
                 break;
         }
     }
@@ -171,15 +153,21 @@ class App {
             e.stopPropagation ()
         })
     }
-    show_modal () {
+    show_modal (name, category, city, district, phone) {
         const modal = `
-            <div>
-                <div>
-
+            <div class = "detail_modal">
+                <div class = "detail_modal_content">
+                    <h1>${name}</h1>
+                    <h2>${category}</h2>
+                    <p>Addresse: ${city}, ${district}</p>
+                    <p>Téléphone: ${phone}</p>
                 </div>
             </div>
         `
-        return modal
+        console.log ("success")
+        const corps = document.querySelector ("body")
+        console.log (corps)
+        corps.insertAdjacentHTML ("afterbegin", modal)
     }
 }
 
