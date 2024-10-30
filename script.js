@@ -25,8 +25,14 @@ class App {
     #bookCase = new Array ()
     #all_app_data = new Array ()
 
+// marker
+    #marker
+    #marker_event
+
+// popup
+    #popup
+
     #map
-    #marqueur
     #map_event
     #infrastructure
     #infrastructure_data = new Array ()
@@ -47,51 +53,57 @@ class App {
 
 
     data_separation (datas) {
-        datas.forEach (data => {
-            switch (data.category) {
-                case "hospital":
-                    // console.log (data)
-                    // this.#hospital.push (data)
-                    // console.log (this.#hospital)
-                    this.hospital_management_function (data)
-                    break;
-                case "university":
-                    console.log (data)
-                    // this.university_management_function (data)
-                    // break;
-                // case "school":
-                //     this.school_management_function (data)
-                //     break;
-                // case "bookCase":
-                //     this.bookCase_management_function (data)
-                //     break;
-                default:
-                    break;
-            }
-        })
+        this.#hospital = datas.filter (data => data.category === "hospital")
+        this.#university = datas.filter (data => data.category === "university")
+        this.#school = datas.filter (data => data.category === "ecole")
+        this.#bookCase = datas.filter (data => data.category === "bibliotèque")
+        this.#all_app_data = [this.#hospital, this.#university, this.#school, this.#bookCase]
     }
 
-    hospital_management_function (data) {
-        this.#hospital.push (data)
+    hospital_management_function () {
         console.log (this.#hospital)
-        // this.#hospital.forEach (data => {
-        //     const {
-        //         name, 
-        //         category, 
-        //         city, 
-        //         district, 
-        //         founder, 
-        //         year_established, 
-        //         coordinates: {
-        //             // latitude, 
-        //             longitude
-        //         }, 
-        //         contact: {
-        //             phone, 
-        //             email
-        //         }, services
-        //     } = data
-        // })
+        this.#hospital.forEach (data => {
+            const {
+                name, 
+                category, 
+                city, 
+                district, 
+                founder, 
+                year_established, 
+                coordinates: {
+                    latitude, 
+                    longitude
+                }, 
+                contact: {
+                    phone, 
+                    email
+                }, services
+            } = data
+            const popup_content = this.popupContent (name, category)
+            this.show_indicator (latitude, longitude, popup_content)
+            if (this.check_marker_loading ()) {
+                console.log ("je suis un génie")
+                this.popup_customize (category)
+            } else {
+                console.log ("bil gate")
+            }
+            
+
+            
+            console.log (
+            name, 
+            category, 
+            city, 
+            district, 
+            founder, 
+            year_established, 
+            latitude, 
+            longitude, 
+            phone, 
+            email, 
+            services)
+        })
+        
     }
 
 
@@ -115,7 +127,7 @@ class App {
     }
     get_all_initial_data () {
         this.showMap (this.guineaLat, this.guineaLon, 7.5)
-        this._get_initial_app_data ("hospital_data.json")
+        // this._get_initial_app_data ("hospital_data.json")
         this._get_initial_app_data ("app_data.json")
     }
     async _get_initial_app_data (json_file) {
@@ -125,8 +137,9 @@ class App {
                 throw new Error("Erreur");
             }
             const data = await json_data.json ()
-            // this.hospital_management_function (data)
-            this.destructure_data (data)
+            this.data_separation (data)
+            this.hospital_management_function ()
+            // this.destructure_data (data)
         } catch (error) {
             console.log (error)
         }
@@ -149,23 +162,32 @@ class App {
         })
         
     }
-    show_indicator (latitude, longitude, popup_content, name, category, city, district, phone) {
-        const marqueur = L.marker([latitude, longitude]).addTo(this.#map)
-        marqueur.bindPopup(popup_content,
+    show_indicator (latitude, longitude, popup_content) {
+        this.#marker = L.marker([latitude, longitude]).addTo(this.#map)
+        this.#marker.bindPopup(popup_content,
             {
                 autoClose: false,
                 closeOnClick: false
             }
         )
-        this.check_marker_loading (latitude, longitude, marqueur, name, category, city, district, phone)
-        marqueur.openPopup();
+        this.#marker.openPopup();
     }
-    check_marker_loading (lat, lng, marqueur, name, category, city, district, phone) {
-        marqueur.on("popupopen", (e) => {
-            const popup = e.popup.getElement().querySelector (".leaflet-popup-content-wrapper")
-            this.popup_customize (category, popup)
-            this.check_marker_click (lat, lng, popup, name, category, city, district, phone)
+    check_marker_loading () {
+        this.#marker.on("popupopen", (e) => {
+            this.#marker_event = e
+            if (this.#popup) {
+                console.log ("sa marche")
+                return true
+            } else {
+                console.log ("sa marche pas")
+                return false
+            }
+            // this.popup_customize (category, popup)
+            // this.check_marker_click (lat, lng, popup, name, category, city, district, phone)
         })
+        this.#popup = this.#marker_event.popup.getElement().querySelector (".leaflet-popup-content-wrapper")
+        console.log (this.#popup)
+        // return true
     }
     check_marker_click (lat, lng, popup, name, category, city, district, phone) {
         popup.addEventListener ("click", () => {
@@ -200,32 +222,32 @@ class App {
         }
     }
 
-    popup_customize (category, popup) {
+    popup_customize (category) {
         switch (category) {
             case "hospital":
-                popup.style.backgroundColor  = "red";
-                popup.style.color  = "white";
-                popup.style.opacity  = "0.8";
+                this.#popup.style.backgroundColor  = "red";
+                this.#popup.style.color  = "white";
+                this.#popup.style.opacity  = "0.8";
                 break;
             case "university":
-                popup.style.backgroundColor  = "blue";
-                popup.style.color  = "white";
-                popup.style.opacity  = "0.8";
+                this.#popup.style.backgroundColor  = "blue";
+                this.#popup.style.color  = "white";
+                this.#popup.style.opacity  = "0.8";
                 break;
             case "ecole":
-                popup.style.backgroundColor  = "yellow";
-                popup.style.color  = "black";
-                popup.style.opacity  = "0.8";
+                this.#popup.style.backgroundColor  = "yellow";
+                this.#popup.style.color  = "black";
+                this.#popup.style.opacity  = "0.8";
                 break;
             case "bookcase":
-                popup.style.backgroundColor  = "green";
-                popup.style.color  = "white";
-                popup.style.opacity  = "0.8";
+                this.#popup.style.backgroundColor  = "green";
+                this.#popup.style.color  = "white";
+                this.#popup.style.opacity  = "0.8";
                 break;
             default:
-                popup.style.backgroundColor  = "white";
-                popup.style.color  = "black";
-                popup.style.opacity  = "0.8";
+                this.#popup.style.backgroundColor  = "white";
+                this.#popup.style.color  = "black";
+                this.#popup.style.opacity  = "0.8";
                 break;
         }
     }
@@ -234,7 +256,6 @@ class App {
         this.#map.on ("click", (e) => {
             const {lat, lng} = e.latlng
             console.log (lat, lng)
-            // this.showMap (lat, lng, 3)
             if (detail_modal.classList.contains ("not")) {
                 confirm_modal.classList.remove ("not")
             } else {

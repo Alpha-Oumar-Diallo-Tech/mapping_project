@@ -1,63 +1,54 @@
 [
     {
-        "category" : "hospital",
-        "name" : "chu donka",
-        "city" : "conakry",
-        "neighborhood" : "camayenne",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 9.535637,
-            "longitude" : -13.683418
-        }
+        "category": "hospital",
+        "name": "Ignace Deen National Hospital",
+        "city": "Conakry",
+        "district": "Kaloum",
+        "founder": "State",
+        "year_established": 1951,
+        "coordinates": {
+            "latitude": 9.512,
+            "longitude": -13.707
+        },
+        "contact": {
+            "phone": "+224 622 00 00 00",
+            "email": "contact@ignacedeen.gn"
+        },
+        "services": ["Emergency", "Pediatrics", "Surgery", "Radiology"]
     },
     {
-        "category" : "university",
-        "name" : "ignace deen",
-        "city" : "conakry",
-        "neighborhood" : "kaloum",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 9.647795,
-            "longitude" : -13.569664
-        }
+        "category": "hospital",
+        "name": "Donka Hospital",
+        "city": "Conakry",
+        "district": "Dixinn",
+        "founder": "State",
+        "year_established": 1959,
+        "coordinates": {
+            "latitude": 9.531,
+            "longitude": -13.680
+        },
+        "contact": {
+            "phone": "+224 623 11 11 11",
+            "email": "contact@donka.gn"
+        },
+        "services": ["Emergency", "Gynecology", "Dermatology", "Laboratory"]
     },
     {
-        "category" : "hospital",
-        "name" : "ignace deen",
-        "city" : "conakry",
-        "neighborhood" : "kaloum",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 9.599934,
-            "longitude" : -13.647792
-        }
-    },
-    {
-        "category" : "hospital",
-        "name" : "kankan",
-        "city" : "conakry",
-        "neighborhood" : "kaloum",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 10.369135,
-            "longitude" : -9.305245
-        }
-    },
-    {
-        "category" : "hospital",
-        "name" : "ignace deen",
-        "city" : "conakry",
-        "neighborhood" : "kaloum",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 11.318665,
-            "longitude" : -12.285218
-        }
+        "category": "hospital",
+        "name": "Pasteur Clinic",
+        "city": "Conakry",
+        "district": "Ratoma",
+        "founder": "Individual",
+        "year_established": 2002,
+        "coordinates": {
+            "latitude": 9.571,
+            "longitude": -13.621
+        },
+        "contact": {
+            "phone": "+224 624 22 22 22",
+            "email": "info@clinique-pasteur.gn"
+        },
+        "services": ["General Consultations", "Maternity", "Cardiology"]
     },
     {
         "category" : "ecole",

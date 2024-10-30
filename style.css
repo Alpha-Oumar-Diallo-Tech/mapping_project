@@ -18,7 +18,7 @@
 }
 
 .leaflet-popup-content-wrapper {
-    background: red;
+    background: blue;
     border-radius: 0;
     cursor: pointer;
 }
