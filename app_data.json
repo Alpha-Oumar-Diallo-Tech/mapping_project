@@ -80,7 +80,7 @@
         "year_of_foundation" : "1960",
         "coordonee" : {
             "latitude" : 9.5402257,
-            "longitude" : -13.6854998
+            "longitude" : -13.6834613
         }
     },
     {
@@ -153,6 +153,18 @@
         "coordonee" : {
             "latitude" : 9.537696,
             "longitude" : -13.6835888
+        }
+    },
+    {
+        "category" : "ecole",
+        "name" : "Lycée Collège de Timbi Madina ",
+        "city" : "gaoual",
+        "neighborhood" : "gaoul",
+        "founder" : "etat",
+        "year_of_foundation" : "1965",
+        "coordonee" : {
+            "latitude" :11.186822,
+            "longitude" : -13.7719597
         }
     }
     
