@@ -119,6 +119,15 @@
     animation: sortie 1s ease-in 1;
 }
 
+@media (max-width: 740px) {
+    .detail_modal {
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 30%;
+    }
+}
+
 .detail_modal_content {
     background-color: white;
     color: black;
