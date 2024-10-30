@@ -12,6 +12,8 @@ class Infrastructure {
 }
 
 const confirm_modal = document.querySelector (".modal")
+const detail_modal = document.querySelector (".detail_modal")
+const detail_modal_content = document.querySelector (".detail_modal_content")
 const stop_modal = document.querySelector (".modal_container")
 const no_btn = document.querySelector (".unconfirm_btn")
 
@@ -63,9 +65,6 @@ class App {
                 <button class = "popup_button">en savoir plus</button>
             </div>
         `
-        // const learn_more = document.querySelector (".popup_button")
-        // console.log (learn_more)
-        // console.log (my_popup_content)
         return my_popup_content
     }
     destructure_data (data) {
@@ -84,22 +83,47 @@ class App {
                 closeOnClick: false
             }
         )
-        this.check_marker_loading (marqueur, name, category, city, district, phone)
+        this.check_marker_loading (latitude, longitude, marqueur, name, category, city, district, phone)
         marqueur.openPopup();
     }
-    check_marker_loading (marqueur, name, category, city, district, phone) {
+    check_marker_loading (lat, lng, marqueur, name, category, city, district, phone) {
         marqueur.on("popupopen", (e) => {
             const popup = e.popup.getElement().querySelector (".leaflet-popup-content-wrapper")
-            // const learn_more = document.querySelector (".popup_button")
             this.popup_customize (category, popup)
-            this.check_marker_click (popup, name, category, city, district, phone)
+            this.check_marker_click (lat, lng, popup, name, category, city, district, phone)
         })
     }
-    check_marker_click (popup, name, category, city, district, phone) {
+    check_marker_click (lat, lng, popup, name, category, city, district, phone) {
         popup.addEventListener ("click", () => {
-            this.show_modal (name, category, city, district, phone)
-            
+            this.show_modal (lat, lng, name, category, city, district, phone)
+            this.modal_customise (category)
         })
+    }
+
+    modal_customise (category) {
+        switch (category) {
+            case "hospital":
+                detail_modal_content.style.backgroundColor = "red"
+                detail_modal_content.style.color = "white"
+                break;
+            case "university":
+                detail_modal_content.style.backgroundColor = "blue"
+                detail_modal_content.style.color = "white"
+                break;
+            case "ecole":
+                detail_modal_content.style.backgroundColor = "yellow"
+                detail_modal_content.style.color = "black"
+                break;
+            case "bookcase":
+                detail_modal_content.style.backgroundColor = "green"
+                detail_modal_content.style.color = "white"
+                break;
+            default:
+                popup.style.backgroundColor  = "white";
+                popup.style.color  = "black";
+                popup.style.opacity  = "0.8";
+                break;
+        }
     }
 
     popup_customize (category, popup) {
@@ -133,12 +157,16 @@ class App {
     }
 
     map_click () {
-        this.#map.on ("click", function (e) {
+        this.#map.on ("click", (e) => {
             const {lat, lng} = e.latlng
             console.log (lat, lng)
             // this.showMap (lat, lng, 3)
-            confirm_modal.classList.remove ("not")
-            document.querySelector (".detail_modal").classList.add ("not")
+            if (detail_modal.classList.contains ("not")) {
+                confirm_modal.classList.remove ("not")
+            } else {
+                detail_modal.classList.add ("not")
+            }
+            
         }, function () {
             console.log ("erreur")
         })
@@ -154,21 +182,26 @@ class App {
             e.stopPropagation ()
         })
     }
-    show_modal (name, category, city, district, phone) {
-        const modal = `
-            <div class = "detail_modal">
-                <div class = "detail_modal_content">
-                    <h1>${name}</h1>
-                    <h2>${category}</h2>
-                    <p>Addresse: ${city}, ${district}</p>
-                    <p>Téléphone: ${phone}</p>
-                </div>
-            </div>
-        `
-        console.log ("success")
-        const corps = document.querySelector ("body")
-        console.log (corps)
-        corps.insertAdjacentHTML ("afterbegin", modal)
+    show_modal (lat, lng, name, category, city, district, phone) {
+        const nom = document.querySelector (".detail_modal_name")
+        const categorie = document.querySelector (".detail_modal_category")
+        const addresse = document.querySelector (".detail_modal_addresse")
+        const telephone = document.querySelector (".detail_modal_telephone")
+        if (detail_modal.classList.contains ("not")) {
+            detail_modal.classList.remove ("not")
+            nom.textContent = name
+            categorie.textContent = category
+            addresse.textContent = `Addresse: ${city}, ${district}`
+            telephone.textContent = phone
+            console.log (name)
+            console.log ("hello")
+            // this.showMap (lat, lng, 3)
+        } else {
+            nom.textContent = name
+            categorie.textContent = category
+            addresse.textContent = `Addresse: ${city}, ${district}`
+            telephone.textContent = phone
+        }
     }
 }
 
