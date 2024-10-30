@@ -138,6 +138,7 @@ class App {
             console.log (lat, lng)
             // this.showMap (lat, lng, 3)
             confirm_modal.classList.remove ("not")
+            document.querySelector (".detail_modal").classList.add ("not")
         }, function () {
             console.log ("erreur")
         })
