@@ -18,6 +18,13 @@ const stop_modal = document.querySelector (".modal_container")
 const no_btn = document.querySelector (".unconfirm_btn")
 
 class App {
+// app data
+    #university = new Array ()
+    #school = new Array ()
+    #hospital = new Array ()
+    #bookCase = new Array ()
+    #all_app_data = new Array ()
+
     #map
     #marqueur
     #map_event
@@ -32,6 +39,72 @@ class App {
         this.map_click ()
         this.no_click ()
     }
+// beta version
+
+
+
+
+
+
+    data_separation (datas) {
+        datas.forEach (data => {
+            switch (data.category) {
+                case "hospital":
+                    // console.log (data)
+                    // this.#hospital.push (data)
+                    // console.log (this.#hospital)
+                    this.hospital_management_function (data)
+                    break;
+                case "university":
+                    console.log (data)
+                    // this.university_management_function (data)
+                    // break;
+                // case "school":
+                //     this.school_management_function (data)
+                //     break;
+                // case "bookCase":
+                //     this.bookCase_management_function (data)
+                //     break;
+                default:
+                    break;
+            }
+        })
+    }
+
+    hospital_management_function (data) {
+        this.#hospital.push (data)
+        console.log (this.#hospital)
+        // this.#hospital.forEach (data => {
+        //     const {
+        //         name, 
+        //         category, 
+        //         city, 
+        //         district, 
+        //         founder, 
+        //         year_established, 
+        //         coordinates: {
+        //             // latitude, 
+        //             longitude
+        //         }, 
+        //         contact: {
+        //             phone, 
+        //             email
+        //         }, services
+        //     } = data
+        // })
+    }
+
+
+
+
+
+
+
+
+
+
+
+
     showMap (lat, long, zoom) {
         const guinea = [lat, long]
         this.#map = L.map('map').setView(guinea, zoom);
@@ -52,6 +125,7 @@ class App {
                 throw new Error("Erreur");
             }
             const data = await json_data.json ()
+            // this.hospital_management_function (data)
             this.destructure_data (data)
         } catch (error) {
             console.log (error)
