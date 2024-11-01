@@ -211,34 +211,19 @@ class App {
     #bookCase = new Array ()
     #all_app_data = new Array ()
 
-// marker
-    #marker
-    #is_marker_open = false
-
-// popup
-    #popup
-    #is_popup_cliked
-
-// indicator
-    #is_indicator_show = false
-
+// map
     #map
-    #map_event
-    #infrastructure
-    #infrastructure_data = new Array ()
-    #state
+
     constructor () {
         this.guineaLat = 10.973549898080215
         this.guineaLon = -10.973549898080215
-        // this.showMap (this.guineaLat, this.guineaLon,7.5)
-        this.get_all_initial_data ()
+
+        this.showMap (this.guineaLat, this.guineaLon, 7.5)
+        this._get_initial_app_data ("app_data.json")
+
         this.map_click ()
         this.no_click ()
-        // this.check_marker_loading ()
-        // this.check_marker_click ()
-        // this.hospital_management_function ()
     }
-// beta version
 
 
 
@@ -254,7 +239,6 @@ class App {
     }
 
     hospital_management_function () {
-        console.log (this.#hospital)
         this.#hospital.forEach (data => {
             const {
                 name, 
@@ -272,61 +256,11 @@ class App {
                     email
                 }, services
             } = data
-            // this.marker_logic_management_function (latitude, longitude, name, category, city, district, founder, year_established, phone, email, services)
-            new Infrastructure (this.#map, latitude, longitude, name, category, city, district, founder, year_established, phone, email)
-            // const popup_content = this.popupContent (name, category)
-            // this.show_indicator (latitude, longitude, popup_content)
-            // if (this.#is_marker_open) {
-            //     this.popup_customize (category)
-            //     // this.show_modal (name, category, city, district, phone)
-            //     // this.modal_customise (category)
-            // }
-            // if (this.#is_popup_cliked) {
-            //     console.log (this.#is_popup_cliked)
-            //     console.log ("fin du test")
-            //     // this.show_modal (name, category, city, district, phone)
-                
-            //     // this.modal_customise (category)
-                
-            // } else {
-            //     console.log ("non")
-            // }
-            
-            
-
-            
-            console.log (
-            name, 
-            category, 
-            city, 
-            district, 
-            founder, 
-            year_established, 
-            latitude, 
-            longitude, 
-            phone, 
-            email, 
-            services)
+            new Hospital (this.#map, latitude, longitude, name, category, city, district, founder, year_established, phone, email)
         })
-        
     }
 
-    marker_logic_management_function (latitude, longitude, name, category) {
-        const popup_content = this.popupContent (name, category)
-        this.show_indicator (latitude, longitude, popup_content)
-        if (this.#is_indicator_show) {
-            this.check_marker_loading ()
-        }
-    }
-
-
-
-
-
-
-
-
-
+// je reproduis trois autre fonction semblable à hospital_management_function pour les trois autres types d'établissement aussi
 
     showMap (lat, long, zoom) {
         const guinea = [lat, long]
@@ -336,12 +270,7 @@ class App {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(this.#map);
     }
-    get_all_initial_data () {
-        this.showMap (this.guineaLat, this.guineaLon, 7.5)
-        // this._get_initial_app_data ("hospital_data.json")
-        this._get_initial_app_data ("app_data.json")
-        // this.hospital_management_function ()
-    }
+
     async _get_initial_app_data (json_file) {
         try {
             const json_data = await fetch (json_file)
@@ -351,21 +280,11 @@ class App {
             const data = await json_data.json ()
             this.data_separation (data)
             this.hospital_management_function ()
-            // this.destructure_data (data)
         } catch (error) {
             console.log (error)
         }
     }
-    popupContent (name, category) {
-        const my_popup_content = `
-            <div class = "popup_container">
-                <h1 class = "popup_title">${name}</h1>
-                <span class = "popup_categorie">${category}</span>
-                <button class = "popup_button">en savoir plus</button>
-            </div>
-        `
-        return my_popup_content
-    }
+    
     destructure_data (data) {
         data.forEach(data => {
             const {name, category, city, district, contact : {phone = "non définis"} = "non précis", coordinates : {latitude, longitude}} = data
@@ -373,109 +292,6 @@ class App {
             this.show_indicator (latitude, longitude, popup_content, name, category, city, district, phone)
         })
         
-    }
-    show_indicator (latitude, longitude, popup_content) {
-        this.#marker = L.marker([latitude, longitude]).addTo(this.#map)
-        this.#marker.bindPopup(popup_content,
-            {
-                autoClose: false,
-                closeOnClick: false
-            }
-        )
-        // this.check_marker_loading ()
-        this.inter ()
-        // this.#is_indicator_show = true
-        this.#marker.openPopup();
-        
-    }
-    inter () {
-        console.log ("diariou")
-        this.#marker.on("popupopen", (e) => {
-            console.log ("condé")
-            this.#is_indicator_show = true
-            this.#popup = e.popup.getElement ().querySelector (".leaflet-popup-content-wrapper")
-            if (this.#marker) {
-                this.#is_marker_open = true
-                console.log (this.#is_marker_open)
-            }
-        })
-    }
-    check_marker_loading () {
-        // console.log ("diariou")
-        // this.#marker.on("popupopen", (e) => {
-        //     console.log ("condé")
-        console.log ("ressu")
-            
-            this.check_marker_click ()
-        // })
-    }
-    check_marker_click (latitude, longitude, name, category, city, district, phone) {
-        this.#popup.addEventListener ("click", () => {
-            this.#is_popup_cliked = true
-            console.log (this.#is_popup_cliked)
-            console.log ("bonjour")
-            // return true
-            this.show_modal (latitude, longitude, name, category, city, district, phone)
-            this.modal_customise (category)
-        })
-    }
-
-    modal_customise (category) {
-        switch (category) {
-            case "hospital":
-                detail_modal_content.style.backgroundColor = "red"
-                detail_modal_content.style.color = "white"
-                break;
-            case "university":
-                detail_modal_content.style.backgroundColor = "blue"
-                detail_modal_content.style.color = "white"
-                break;
-            case "ecole":
-                detail_modal_content.style.backgroundColor = "yellow"
-                detail_modal_content.style.color = "black"
-                break;
-            case "bookcase":
-                detail_modal_content.style.backgroundColor = "green"
-                detail_modal_content.style.color = "white"
-                break;
-            default:
-                popup.style.backgroundColor  = "white";
-                popup.style.color  = "black";
-                popup.style.opacity  = "0.8";
-                break;
-        }
-    }
-
-    popup_customize (category) {
-        console.log (this.#popup)
-        switch (category) {
-            case "hospital":
-                this.#popup.style.backgroundColor  = "red";
-                this.#popup.style.color  = "white";
-                this.#popup.style.opacity  = "0.8";
-                break;
-            case "university":
-                this.#popup.style.backgroundColor  = "blue";
-                this.#popup.style.color  = "white";
-                this.#popup.style.opacity  = "0.8";
-                break;
-            case "ecole":
-                this.#popup.style.backgroundColor  = "yellow";
-                this.#popup.style.color  = "black";
-                this.#popup.style.opacity  = "0.8";
-                break;
-            case "bookcase":
-                this.#popup.style.backgroundColor  = "green";
-                this.#popup.style.color  = "white";
-                this.#popup.style.opacity  = "0.8";
-                break;
-            default:
-                this.#popup.style.backgroundColor  = "white";
-                this.#popup.style.color  = "black";
-                this.#popup.style.opacity  = "0.8";
-                break;
-        }
-        console.log (this.#popup)
     }
 
     map_click () {
@@ -523,57 +339,7 @@ class App {
             e.stopPropagation ()
         })
     }
-    show_modal (name, category, city, district, phone) {
-        const nom = document.querySelector (".detail_modal_name")
-        const categorie = document.querySelector (".detail_modal_category")
-        const addresse = document.querySelector (".detail_modal_addresse")
-        const telephone = document.querySelector (".detail_modal_telephone")
-        if (detail_modal.classList.contains ("not")) {
-            detail_modal.classList.remove ("not")
-            nom.textContent = name
-            categorie.textContent = category
-            addresse.textContent = `Addresse: ${city}, ${district}`
-            telephone.textContent = phone
-            console.log (name)
-            console.log ("hello")
-            // this.showMap (lat, lng, 3)
-        } else {
-            nom.textContent = name
-            categorie.textContent = category
-            addresse.textContent = `Addresse: ${city}, ${district}`
-            telephone.textContent = phone
-        }
-    }
+
 }
 
 new App ()
-
-// map.on ("click", function (e) {
-//     console.log (e)
-// }, () => {
-//     console.log ("erreur")
-// })
-
-// file reader ()
-
-
-
-
-
-
-
-// const map = L.map('map').setView([51.505, -0.09], 13);
-
-// L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-//     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-// }).addTo(map);
-
-// L.marker([51.5, -0.09]).addTo(map)
-//     .bindPopup('A pretty CSS popup.<br> Easily customizable.')
-//     .openPopup();
-
-// map.on ("click", function (e) {
-//     console.log (e)
-// }, function () {
-//     console.log ("erreur")
-// })
