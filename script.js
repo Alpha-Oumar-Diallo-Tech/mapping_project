@@ -16,6 +16,8 @@ const detail_modal = document.querySelector (".detail_modal")
 const detail_modal_content = document.querySelector (".detail_modal_content")
 const stop_modal = document.querySelector (".modal_container")
 const no_btn = document.querySelector (".unconfirm_btn")
+const oui_btn = document.querySelector(".confirm_btn")
+const formulaire = document.querySelector(".hidden")
 
 class App {
 // app data
@@ -234,19 +236,8 @@ class App {
         this.#map.on ("click", (e) => {
             const {lat, lng} = e.latlng
             console.log (lat, lng)
-            L.marker([lat,lng])
-            .addTo(map)
-            .bindPopup(
-                L.popup({
-                    minWidth:250,
-                    maxWidth:100,
-                    autoClose: false,
-                    closeOnClick:false,
-                    // className: 
-                })
-            )
-            .setPopupContent('workout')
-            .openPopup();
+            // show_indicator(lat,lng,)
+        
 
             // this.showMap (lat, lng, 3)
             if (detail_modal.classList.contains ("not")) {
@@ -259,9 +250,60 @@ class App {
             console.log ("erreur")
         })
 
+        ////////////////////
+
         ////////////////////////////////
        
-       
+        document.addEventListener("DOMContentLoaded", function() {
+            const formulaire = document.getElementById("formulaire");
+        
+            formulaire.addEventListener("submit", function(event) {
+                event.preventDefault(); // Empêche le rechargement de la page
+        
+                const nom = document.getElementById("nom").value.trim();
+                const email = document.getElementById("email").value.trim();
+                const contact = document.getElementById("contact").value.trim();
+                const categorie = document.getElementById("categories").value.trim();
+                const Anneefondation = document.getElementById("Anneefondation ").value.trim();
+
+                const messageErreur = document.getElementById("messageErreur");
+        
+                let erreurs = [];
+        
+                // Vérification du champs nom 
+                if (nom.length >0) {
+                    erreurs.push("Le champs est vide veuillez remplir le champs");
+                }
+                 // Vérification du champs contact
+                 if (nom.length >0) {
+                    erreurs.push("Le champs est vide veuillez remplir le champs");
+                }
+                 // Vérification du champs categories
+                 if (nom.length >0) {
+                    erreurs.push("Le champs est vide veuillez remplir le champs");
+                }
+                 // Vérification du champs categories
+                 if (nom.length >0) {
+                    erreurs.push("Le champs est vide veuillez remplir le champs");
+                }
+
+
+                // Vérification de l'email (vérifié par le type="email" et par le format @)
+                if (!email.includes("@")) {
+                    erreurs.push("Veuillez entrer un email valide.");
+                }
+        
+        
+                // Affichage des erreurs ou soumission du formulaire
+                if (erreurs.length > 0) {
+                    messageErreur.textContent = erreurs.join(" ");
+                } else {
+                    messageErreur.textContent = "";
+                    alert("Formulaire soumis avec succès !");
+                    formulaire.reset();
+                }
+            });
+        });
        //////////////////////////////
     }
     no_click () {
@@ -274,6 +316,15 @@ class App {
         stop_modal.addEventListener ("click", function (e) {
             e.stopPropagation ()
         })
+    }
+    oui_click () {
+        oui_btn.addEventListener ("click", function () {
+            formulaire.style.opacity = 1
+            // confirm_modal.classList.add ("not")
+        })
+        
+       
+       
     }
     show_modal (lat, lng, name, category, city, district, phone) {
         const nom = document.querySelector (".detail_modal_name")
