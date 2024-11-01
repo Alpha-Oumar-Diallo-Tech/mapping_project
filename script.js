@@ -106,14 +106,17 @@ class Infrastructure {
             case "hospital" || "bibliothèque":
                 departement.classList.add ("not")
                 niveau.classList.add ("not")
+                service.textContent = this.service.join (", ")
                 break;
             case "university":
                 service.classList.add ("not")
                 niveau.classList.add ("not")
+                departement.textContent = this.departement.join (", ")
                 break;
             case "ecole":
                 service.classList.add ("not")
-                niveau.classList.add ("not")
+                departement.classList.add ("not")
+                niveau.textContent = this.niveau.join (", ")
                 break;
             default:
                 break;
@@ -129,6 +132,9 @@ class Infrastructure {
             year_established.textContent = this.year_established
             telephone.textContent = this.phone
             email.textContent = this.email
+            service.textContent = this.service
+            departement.textContent = this.departement
+            niveau.textContent = this.niveau
             console.log (this.name)
             // this.showMap (lat, lng, 3)
         } else {
@@ -140,6 +146,9 @@ class Infrastructure {
             year_established.textContent = this.year_established
             telephone.textContent = this.phone
             email.textContent = this.email
+            service.textContent = this.service
+            departement.textContent = this.departement
+            niveau.textContent = this.niveau
         }
     }
     modal_customise () {
@@ -242,7 +251,8 @@ class App {
         this.#hospital.forEach (data => {
             const {
                 name, 
-                category, 
+                category,
+                type, 
                 city, 
                 district, 
                 founder, 
@@ -254,9 +264,75 @@ class App {
                 contact: {
                     phone, 
                     email
-                }, services
+                }, service
             } = data
-            new Hospital (this.#map, latitude, longitude, name, category, city, district, founder, year_established, phone, email)
+            new Hospital (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
+        })
+    }
+    University_management_function () {
+        this.#university.forEach (data => {
+            const {
+                name, 
+                category,
+                type, 
+                city, 
+                district, 
+                founder, 
+                year_established, 
+                coordinates: {
+                    latitude, 
+                    longitude
+                }, 
+                contact: {
+                    phone, 
+                    email
+                }, service
+            } = data
+            new University (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
+        })
+    }
+    school_management_function () {
+        this.#school.forEach (data => {
+            const {
+                name, 
+                category,
+                type, 
+                city, 
+                district, 
+                founder, 
+                year_established, 
+                coordinates: {
+                    latitude, 
+                    longitude
+                }, 
+                contact: {
+                    phone, 
+                    email
+                }, niveau
+            } = data
+            new School (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau)
+        })
+    }
+    bookcase_management_function () {
+        this.#bookCase.forEach (data => {
+            const {
+                name, 
+                category,
+                type, 
+                city, 
+                district, 
+                founder, 
+                year_established, 
+                coordinates: {
+                    latitude, 
+                    longitude
+                }, 
+                contact: {
+                    phone, 
+                    email
+                }, service
+            } = data
+            new Book_Case (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
         })
     }
 
@@ -280,6 +356,7 @@ class App {
             const data = await json_data.json ()
             this.data_separation (data)
             this.hospital_management_function ()
+            this.school_management_function ()
         } catch (error) {
             console.log (error)
         }
