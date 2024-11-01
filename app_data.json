@@ -1,171 +1,219 @@
 [
     {
-        "category" : "hospital",
-        "name" : "chu donka",
-        "city" : "conakry",
-        "neighborhood" : "camayenne",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 9.535637,
-            "longitude" : -13.683418
-        }
+        "category": "hospital",
+        "type": "public",
+        "name": "Ignace Deen National Hospital",
+        "city": "Conakry",
+        "district": "Kaloum",
+        "founder": "State",
+        "year_established": 1951,
+        "coordinates": {
+            "latitude": 9.512,
+            "longitude": -13.707
+        },
+        "contact": {
+            "phone": "+224 622 00 00 00",
+            "email": "contact@ignacedeen.gn"
+        },
+        "service": ["Emergency", "Pediatrics", "Surgery", "Radiology"]
     },
     {
-        "category" : "university",
-        "name" : "ignace deen",
-        "city" : "conakry",
-        "neighborhood" : "kaloum",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 9.647795,
-            "longitude" : -13.569664
-        }
+        "category": "hospital",
+        "type": "public",
+        "name": "Donka Hospital",
+        "city": "Conakry",
+        "district": "Dixinn",
+        "founder": "State",
+        "year_established": 1959,
+        "coordinates": {
+            "latitude": 9.531,
+            "longitude": -13.680
+        },
+        "contact": {
+            "phone": "+224 623 11 11 11",
+            "email": "contact@donka.gn"
+        },
+        "service": ["Emergency", "Gynecology", "Dermatology", "Laboratory"]
     },
     {
-        "category" : "hospital",
-        "name" : "ignace deen",
-        "city" : "conakry",
-        "neighborhood" : "kaloum",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 9.599934,
-            "longitude" : -13.647792
-        }
-    },
-    {
-        "category" : "hospital",
-        "name" : "kankan",
-        "city" : "conakry",
-        "neighborhood" : "kaloum",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 10.369135,
-            "longitude" : -9.305245
-        }
-    },
-    {
-        "category" : "hospital",
-        "name" : "ignace deen",
-        "city" : "conakry",
-        "neighborhood" : "kaloum",
-        "founder" : "etat",
-        "year_of_foundation" : "1965",
-        "coordinates" : {
-            "latitude" : 11.318665,
-            "longitude" : -12.285218
-        }
+        "category": "hospital",
+        "type": "public", 
+        "name": "Pasteur Clinic",
+        "city": "Conakry",
+        "district": "Ratoma",
+        "founder": "Individual",
+        "year_established": 2002,
+        "coordinates": {
+            "latitude": 9.571,
+            "longitude": -13.621
+        },
+        "contact": {
+            "phone": "+224 624 22 22 22",
+            "email": "info@clinique-pasteur.gn"
+        },
+        "service": ["General Consultations", "Maternity", "Cardiology"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "Lycée 2 Octobre ",
         "city" : "conakry",
-        "neighborhood" : "kaloum",
+        "district" : "kaloum",
         "founder" : "etat",
-        "year_of_foundation" : "1958",
+        "year_established" : "1958",
         "coordinates" : {
             "latitude" : 9.511091,
             "longitude" : -13.7182829
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "Lycée Donka ",
         "city" : "conakry",
-        "neighborhood" : "Donka",
+        "district" : "Donka",
         "founder" : "etat",
-        "year_of_foundation" : "1960",
+        "year_established" : "1960",
         "coordinates" : {
             "latitude" : 9.5402257,
             "longitude" : -13.6834613
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "École Primaire de Dixinn 1 ",
         "city" : "conakry",
-        "neighborhood" : "Dixinn",
+        "district" : "Dixinn",
         "founder" : "etat",
-        "year_of_foundation" : "1960",
+        "year_established" : "1960",
         "coordinates" : {
             "latitude" : 9.5483851,
             "longitude" : -13.6770372
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "Lycee Ahmed sekou toure  ",
         "city" : "Labe",
-        "neighborhood" : "Labe",
+        "district" : "Labe",
         "founder" : "privées",
-        "year_of_foundation" : "1972",
+        "year_established" : "1972",
         "coordinates" : {
             "latitude" : 9.5806351,
             "longitude" : -13.6199063
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "Lycee Alpha yaya Diallo de kankan ",
         "city" : "kankan",
-        "neighborhood" : "kankan",
+        "district" : "kankan",
         "founder" : "etat",
-        "year_of_foundation" : "1978",
+        "year_established" : "1978",
         "coordinates" : {
             "latitude" : 10.3667419,
             "longitude" : -9.3097624
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "Lycee jean mermoz  ",
         "city" : "conakry",
-        "neighborhood" : "Conakry",
+        "district" : "Conakry",
         "founder" : "etat",
-        "year_of_foundation" : "1980",
+        "year_established" : "1980",
         "coordinates" : {
             "latitude" : 9.6002061,
             "longitude" :-13.6054553
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "École Nationale des Arts et Métiers ",
         "city" : "conakry",
-        "neighborhood" : "kaloum",
+        "district" : "kaloum",
         "founder" : "etat",
-        "year_of_foundation" : "1965",
+        "year_established" : "1965",
         "coordinates" : {
             "latitude" : 9.5252285,
             "longitude" : -13.6879142
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "Centre de Formation Professionnelle de Donka ",
         "city" : "conakry",
-        "neighborhood" : "kaloum",
+        "district" : "kaloum",
         "founder" : "etat",
-        "year_of_foundation" : "1965",
+        "year_established" : "1965",
         "coordinates" : {
             "latitude" : 9.537696,
             "longitude" : -13.6835888
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     },
     {
         "category" : "ecole",
+        "type": "privé",
         "name" : "Lycée Collège de Timbi Madina ",
         "city" : "gaoual",
-        "neighborhood" : "gaoul",
+        "district" : "gaoul",
         "founder" : "etat",
-        "year_of_foundation" : "1965",
+        "year_established" : "1965",
         "coordonee" : {
             "latitude" :11.186822,
             "longitude" : -13.7719597
-        }
+        },
+        "contact": {
+            "phone": "+224 629 84 44 29",
+            "email": "alpha629844429@gmail.com"
+        },
+        "niveau": ["primaire", "secondaire"]
     }
     
     

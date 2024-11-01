@@ -18,7 +18,7 @@
 }
 
 .leaflet-popup-content-wrapper {
-    background: red;
+    background: blue;
     border-radius: 0;
     cursor: pointer;
 }
@@ -133,7 +133,6 @@
 .detail_modal_content {
     background-color: white;
     color: black;
-    height: 50%;
     width: 100%;
     padding: 10px 20px;
     display: flex;
