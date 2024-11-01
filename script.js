@@ -377,21 +377,6 @@ class App {
         this.#map.on ("click", (e) => {
             const {lat, lng} = e.latlng
             console.log (lat, lng)
-            // L.marker([lat,lng])
-            // .addTo(map)
-            // .bindPopup(
-            //     L.popup({
-            //         minWidth:250,
-            //         maxWidth:100,
-            //         autoClose: false,
-            //         closeOnClick:false,
-            //         // className: 
-            //     })
-            // )
-            // .setPopupContent('workout')
-            // .openPopup();
-
-            // this.showMap (lat, lng, 3)
             if (detail_modal.classList.contains ("not")) {
                 confirm_modal.classList.remove ("not")
             } else {
