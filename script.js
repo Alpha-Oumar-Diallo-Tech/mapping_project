@@ -22,6 +22,7 @@ class Infrastructure {
         this.phone = phone
         this.email = email
         this.show_indicator ()
+        this.close_modal ()
     }
     
     show_indicator () {
@@ -125,30 +126,30 @@ class Infrastructure {
         if (detail_modal.classList.contains ("not")) {
             detail_modal.classList.remove ("not")
             nom.textContent = this.name
-            categorie.textContent = this.category
-            type.textContent = this.type
+            categorie.textContent = `Catégorie: ${this.category}` 
+            type.textContent = `Type d'établissement: ${this.type}` 
             addresse.textContent = `Addresse: ${this.city}, ${this.district}`
-            founder.textContent = this.founder
-            year_established.textContent = this.year_established
-            telephone.textContent = this.phone
-            email.textContent = this.email
-            service.textContent = this.service
-            departement.textContent = this.departement
-            niveau.textContent = this.niveau
+            founder.textContent = `Fondateur: ${this.founder}`
+            year_established.textContent = `Année de fondation: ${this.year_established}` 
+            telephone.textContent = `Téléphone: ${this.phone}` 
+            email.textContent = `Mail: ${this.email}` 
+            service.textContent = `Services: ${this.service}` 
+            departement.textContent = `Départements: ${this.departement}` 
+            niveau.textContent = `Niveau: ${this.niveau}` 
             console.log (this.name)
             // this.showMap (lat, lng, 3)
         } else {
             nom.textContent = this.name
-            categorie.textContent = this.category
-            type.textContent = this.type
+            categorie.textContent = `Catégorie: ${this.category}` 
+            type.textContent = `Type d'établissement: ${this.type}` 
             addresse.textContent = `Addresse: ${this.city}, ${this.district}`
-            founder.textContent = this.founder
-            year_established.textContent = this.year_established
-            telephone.textContent = this.phone
-            email.textContent = this.email
-            service.textContent = this.service
-            departement.textContent = this.departement
-            niveau.textContent = this.niveau
+            founder.textContent = `Fondateur: ${this.founder}`
+            year_established.textContent = `Année de fondation: ${this.year_established}` 
+            telephone.textContent = `Téléphone: ${this.phone}` 
+            email.textContent = `Mail: ${this.email}` 
+            service.textContent = `Services: ${this.service}` 
+            departement.textContent = `Départements: ${this.departement}` 
+            niveau.textContent = `Niveau: ${this.niveau}` 
         }
     }
     modal_customise () {
@@ -175,6 +176,11 @@ class Infrastructure {
                 popup.style.opacity  = "0.8";
                 break;
         }
+    }
+    close_modal () {
+        detail_modal_close.addEventListener ("click", () => {
+            detail_modal.classList.add ("not")
+        })
     }
 }
 
@@ -208,9 +214,12 @@ class Book_Case extends Infrastructure {
 
 const confirm_modal = document.querySelector (".modal")
 const detail_modal = document.querySelector (".detail_modal")
+const detail_modal_close = document.querySelector (".detail_modal_close")
 const detail_modal_content = document.querySelector (".detail_modal_content")
 const stop_modal = document.querySelector (".modal_container")
 const no_btn = document.querySelector (".unconfirm_btn")
+
+const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
 class App {
 // app data
@@ -232,6 +241,7 @@ class App {
 
         this.map_click ()
         this.no_click ()
+        
     }
 
 
@@ -245,6 +255,7 @@ class App {
         this.#school = datas.filter (data => data.category === "ecole")
         this.#bookCase = datas.filter (data => data.category === "bibliotèque")
         this.#all_app_data = [this.#hospital, this.#university, this.#school, this.#bookCase]
+        this.show_data ()
     }
 
     hospital_management_function () {
@@ -361,33 +372,24 @@ class App {
             console.log (error)
         }
     }
-    
-    destructure_data (data) {
-        data.forEach(data => {
-            const {name, category, city, district, contact : {phone = "non définis"} = "non précis", coordinates : {latitude, longitude}} = data
-            const popup_content = this.popupContent (name, category)
-            this.show_indicator (latitude, longitude, popup_content, name, category, city, district, phone)
-        })
-        
-    }
 
     map_click () {
         this.#map.on ("click", (e) => {
             const {lat, lng} = e.latlng
             console.log (lat, lng)
-            L.marker([lat,lng])
-            .addTo(map)
-            .bindPopup(
-                L.popup({
-                    minWidth:250,
-                    maxWidth:100,
-                    autoClose: false,
-                    closeOnClick:false,
-                    // className: 
-                })
-            )
-            .setPopupContent('workout')
-            .openPopup();
+            // L.marker([lat,lng])
+            // .addTo(map)
+            // .bindPopup(
+            //     L.popup({
+            //         minWidth:250,
+            //         maxWidth:100,
+            //         autoClose: false,
+            //         closeOnClick:false,
+            //         // className: 
+            //     })
+            // )
+            // .setPopupContent('workout')
+            // .openPopup();
 
             // this.showMap (lat, lng, 3)
             if (detail_modal.classList.contains ("not")) {
@@ -399,12 +401,16 @@ class App {
         }, function () {
             console.log ("erreur")
         })
-
-        ////////////////////////////////
-       
-       
-       //////////////////////////////
     }
+
+    show_data () {
+        console.log (this.#university)
+        console.log (this.#school)
+        console.log (this.#bookCase)
+        console.log (this.#hospital)
+        infrastructure_modal.insertAdjacentHTML ("afterbegin", "")
+    }
+
     no_click () {
         no_btn.addEventListener ("click", function () {
             confirm_modal.classList.add ("not")
@@ -416,7 +422,6 @@ class App {
             e.stopPropagation ()
         })
     }
-
 }
 
 new App ()

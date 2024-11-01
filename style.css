@@ -131,10 +131,13 @@
 }
 
 .detail_modal_content {
+    position: relative;
+    font-family: Cambria;
+    font-size: 18px;
     background-color: white;
     color: black;
     width: 100%;
-    padding: 10px 20px;
+    padding: 15px 30px;
     display: flex;
     justify-content: space-evenly;
     flex-direction: column;
@@ -163,6 +166,17 @@
 .detail_modal_telephone {
     /* animation: sortie 500ms ease-in 1; */
     font-size: 20px;
+}
+
+.detail_modal_close {
+    background-color: white;
+    color: black;
+    font-weight: 700;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
 }
 
 .not {
