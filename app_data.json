@@ -1,6 +1,7 @@
 [
     {
         "category": "hospital",
+        "type": "public",
         "name": "Ignace Deen National Hospital",
         "city": "Conakry",
         "district": "Kaloum",
@@ -18,6 +19,7 @@
     },
     {
         "category": "hospital",
+        "type": "public",
         "name": "Donka Hospital",
         "city": "Conakry",
         "district": "Dixinn",
@@ -35,6 +37,7 @@
     },
     {
         "category": "hospital",
+        "type": "public", 
         "name": "Pasteur Clinic",
         "city": "Conakry",
         "district": "Ratoma",

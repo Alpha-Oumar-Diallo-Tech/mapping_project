@@ -1,13 +1,199 @@
 // "use strict"
 
+// school
+// university
+// book 
+// hospital
 
 class Infrastructure {
-    constructor (categorie, nom, quartier, role, coords) {
-        this.categorie = categorie
-        this.nom = nom
-        this.quartier = quartier
-        this.role = role
-        this.coords = coords
+    #marker
+    #popup
+    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email) {
+        this.map = map
+        this.latitude = latitude
+        this.longitude = longitude
+        this.name = name
+        this.category = category
+        this.type = type
+        this.city = city
+        this.district = district
+        this.founder = founder
+        this.year_established = year_established
+        this.phone = phone
+        this.email = email
+        this.show_indicator ()
+    }
+    
+    show_indicator () {
+        const popup_content = this._popupContent ()
+        this.#marker = L.marker ([this.latitude, this.longitude]).addTo(this.map)
+        this.#marker.bindPopup(popup_content,
+            {
+                autoClose: false,
+                closeOnClick: false
+            }
+        )
+        this.check_marker_loading ()
+        this.#marker.openPopup ();
+    }
+    _popupContent () {
+        const my_popup_content = `
+            <div class = "popup_container">
+                <h1 class = "popup_title">${this.name}</h1>
+                <span class = "popup_categorie">${this.category}</span>
+                <button class = "popup_button">en savoir plus</button>
+            </div>
+        `
+        return my_popup_content
+    }
+    check_marker_loading () {
+        this.#marker.on("popupopen", (e) => {
+            this.#popup = e.popup.getElement ().querySelector (".leaflet-popup-content-wrapper")
+            this._popup_customize ()
+            this._check_marker_click ()
+        })
+    }
+    _popup_customize () {
+        switch (this.category) {
+            case "hospital":
+                this.#popup.style.backgroundColor  = "red";
+                this.#popup.style.color  = "white";
+                this.#popup.style.opacity  = "0.8";
+                break;
+            case "university":
+                this.#popup.style.backgroundColor  = "blue";
+                this.#popup.style.color  = "white";
+                this.#popup.style.opacity  = "0.8";
+                break;
+            case "ecole":
+                this.#popup.style.backgroundColor  = "yellow";
+                this.#popup.style.color  = "black";
+                this.#popup.style.opacity  = "0.8";
+                break;
+            case "bookcase":
+                this.#popup.style.backgroundColor  = "green";
+                this.#popup.style.color  = "white";
+                this.#popup.style.opacity  = "0.8";
+                break;
+            default:
+                this.#popup.style.backgroundColor  = "white";
+                this.#popup.style.color  = "black";
+                this.#popup.style.opacity  = "0.8";
+                break;
+        }
+    }
+    _check_marker_click () {
+        this.#popup.addEventListener ("click", () => {
+            this.show_modal ()
+            this.modal_customise ()
+        })
+    }
+    show_modal () {
+        const nom = document.querySelector (".detail_modal_name")
+        const categorie = document.querySelector (".detail_modal_category")
+        const type = document.querySelector (".detail_modal_type")
+        const addresse = document.querySelector (".detail_modal_addresse")
+        const founder = document.querySelector (".detail_modal_founder")
+        const year_established = document.querySelector (".detail_modal_year_established")
+        const telephone = document.querySelector (".detail_modal_telephone")
+        const email = document.querySelector (".detail_modal_email")
+
+        const departement = document.querySelector (".detail_modal_departement")
+        const service = document.querySelector (".detail_modal_service")
+        const niveau = document.querySelector (".detail_modal_niveau")
+
+        switch (this.category) {
+            case "hospital" || "bibliothèque":
+                departement.classList.add ("not")
+                niveau.classList.add ("not")
+                break;
+            case "university":
+                service.classList.add ("not")
+                niveau.classList.add ("not")
+                break;
+            case "ecole":
+                service.classList.add ("not")
+                niveau.classList.add ("not")
+                break;
+            default:
+                break;
+        }
+
+        if (detail_modal.classList.contains ("not")) {
+            detail_modal.classList.remove ("not")
+            nom.textContent = this.name
+            categorie.textContent = this.category
+            type.textContent = this.type
+            addresse.textContent = `Addresse: ${this.city}, ${this.district}`
+            founder.textContent = this.founder
+            year_established.textContent = this.year_established
+            telephone.textContent = this.phone
+            email.textContent = this.email
+            console.log (this.name)
+            // this.showMap (lat, lng, 3)
+        } else {
+            nom.textContent = this.name
+            categorie.textContent = this.category
+            type.textContent = this.type
+            addresse.textContent = `Addresse: ${this.city}, ${this.district}`
+            founder.textContent = this.founder
+            year_established.textContent = this.year_established
+            telephone.textContent = this.phone
+            email.textContent = this.email
+        }
+    }
+    modal_customise () {
+        switch (this.category) {
+            case "hospital":
+                detail_modal_content.style.backgroundColor = "red"
+                detail_modal_content.style.color = "white"
+                break;
+            case "university":
+                detail_modal_content.style.backgroundColor = "blue"
+                detail_modal_content.style.color = "white"
+                break;
+            case "ecole":
+                detail_modal_content.style.backgroundColor = "yellow"
+                detail_modal_content.style.color = "black"
+                break;
+            case "bookcase":
+                detail_modal_content.style.backgroundColor = "green"
+                detail_modal_content.style.color = "white"
+                break;
+            default:
+                popup.style.backgroundColor  = "white";
+                popup.style.color  = "black";
+                popup.style.opacity  = "0.8";
+                break;
+        }
+    }
+}
+
+class University extends Infrastructure {
+    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement) {
+        super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+        this.departement = departement
+    }
+}
+
+class Hospital extends Infrastructure {
+    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
+        super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+        this.service = service
+    }
+}
+
+class School extends Infrastructure {
+    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau) {
+        super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+        this.niveau = niveau
+    }
+}
+
+class Book_Case extends Infrastructure {
+    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
+        super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+        this.service = service
     }
 }
 
@@ -27,10 +213,14 @@ class App {
 
 // marker
     #marker
-    #marker_event
+    #is_marker_open = false
 
 // popup
     #popup
+    #is_popup_cliked
+
+// indicator
+    #is_indicator_show = false
 
     #map
     #map_event
@@ -44,6 +234,9 @@ class App {
         this.get_all_initial_data ()
         this.map_click ()
         this.no_click ()
+        // this.check_marker_loading ()
+        // this.check_marker_click ()
+        // this.hospital_management_function ()
     }
 // beta version
 
@@ -79,14 +272,26 @@ class App {
                     email
                 }, services
             } = data
-            const popup_content = this.popupContent (name, category)
-            this.show_indicator (latitude, longitude, popup_content)
-            if (this.check_marker_loading ()) {
-                console.log ("je suis un génie")
-                this.popup_customize (category)
-            } else {
-                console.log ("bil gate")
-            }
+            // this.marker_logic_management_function (latitude, longitude, name, category, city, district, founder, year_established, phone, email, services)
+            new Infrastructure (this.#map, latitude, longitude, name, category, city, district, founder, year_established, phone, email)
+            // const popup_content = this.popupContent (name, category)
+            // this.show_indicator (latitude, longitude, popup_content)
+            // if (this.#is_marker_open) {
+            //     this.popup_customize (category)
+            //     // this.show_modal (name, category, city, district, phone)
+            //     // this.modal_customise (category)
+            // }
+            // if (this.#is_popup_cliked) {
+            //     console.log (this.#is_popup_cliked)
+            //     console.log ("fin du test")
+            //     // this.show_modal (name, category, city, district, phone)
+                
+            //     // this.modal_customise (category)
+                
+            // } else {
+            //     console.log ("non")
+            // }
+            
             
 
             
@@ -106,7 +311,13 @@ class App {
         
     }
 
-
+    marker_logic_management_function (latitude, longitude, name, category) {
+        const popup_content = this.popupContent (name, category)
+        this.show_indicator (latitude, longitude, popup_content)
+        if (this.#is_indicator_show) {
+            this.check_marker_loading ()
+        }
+    }
 
 
 
@@ -129,6 +340,7 @@ class App {
         this.showMap (this.guineaLat, this.guineaLon, 7.5)
         // this._get_initial_app_data ("hospital_data.json")
         this._get_initial_app_data ("app_data.json")
+        // this.hospital_management_function ()
     }
     async _get_initial_app_data (json_file) {
         try {
@@ -170,28 +382,40 @@ class App {
                 closeOnClick: false
             }
         )
+        // this.check_marker_loading ()
+        this.inter ()
+        // this.#is_indicator_show = true
         this.#marker.openPopup();
+        
+    }
+    inter () {
+        console.log ("diariou")
+        this.#marker.on("popupopen", (e) => {
+            console.log ("condé")
+            this.#is_indicator_show = true
+            this.#popup = e.popup.getElement ().querySelector (".leaflet-popup-content-wrapper")
+            if (this.#marker) {
+                this.#is_marker_open = true
+                console.log (this.#is_marker_open)
+            }
+        })
     }
     check_marker_loading () {
-        this.#marker.on("popupopen", (e) => {
-            this.#marker_event = e
-            if (this.#popup) {
-                console.log ("sa marche")
-                return true
-            } else {
-                console.log ("sa marche pas")
-                return false
-            }
-            // this.popup_customize (category, popup)
-            // this.check_marker_click (lat, lng, popup, name, category, city, district, phone)
-        })
-        this.#popup = this.#marker_event.popup.getElement().querySelector (".leaflet-popup-content-wrapper")
-        console.log (this.#popup)
-        // return true
+        // console.log ("diariou")
+        // this.#marker.on("popupopen", (e) => {
+        //     console.log ("condé")
+        console.log ("ressu")
+            
+            this.check_marker_click ()
+        // })
     }
-    check_marker_click (lat, lng, popup, name, category, city, district, phone) {
-        popup.addEventListener ("click", () => {
-            this.show_modal (lat, lng, name, category, city, district, phone)
+    check_marker_click (latitude, longitude, name, category, city, district, phone) {
+        this.#popup.addEventListener ("click", () => {
+            this.#is_popup_cliked = true
+            console.log (this.#is_popup_cliked)
+            console.log ("bonjour")
+            // return true
+            this.show_modal (latitude, longitude, name, category, city, district, phone)
             this.modal_customise (category)
         })
     }
@@ -223,6 +447,7 @@ class App {
     }
 
     popup_customize (category) {
+        console.log (this.#popup)
         switch (category) {
             case "hospital":
                 this.#popup.style.backgroundColor  = "red";
@@ -250,6 +475,7 @@ class App {
                 this.#popup.style.opacity  = "0.8";
                 break;
         }
+        console.log (this.#popup)
     }
 
     map_click () {
@@ -297,7 +523,7 @@ class App {
             e.stopPropagation ()
         })
     }
-    show_modal (lat, lng, name, category, city, district, phone) {
+    show_modal (name, category, city, district, phone) {
         const nom = document.querySelector (".detail_modal_name")
         const categorie = document.querySelector (".detail_modal_category")
         const addresse = document.querySelector (".detail_modal_addresse")
