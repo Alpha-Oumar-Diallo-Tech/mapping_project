@@ -14,6 +14,20 @@ const close_form = document.querySelector (".form_modal_close")
 const rest_of_the_form = document.querySelector (".form_input_scroll")
 const submit_form = document.querySelector (".submit_form")
 
+const nom = document.querySelector (".nom")
+const typee = document.querySelector (".type")
+const ville = document.querySelector (".city")
+const quartier = document.querySelector (".district")
+const telephone = document.querySelector (".phone")
+const mail = document.querySelector (".email")
+const fondateur = document.querySelector (".founder")
+const annee_de_fondation = document.querySelector (".year_of_foundation")
+
+const university = document.querySelector (".departement")
+const service_hopital = document.querySelector (".hopital_service")
+const bibliotheque_service = document.querySelector (".bibliotheque_service")
+const ecole_niveau = document.querySelector (".ecole")
+
 const departement_input = document.querySelector (".departement_input")
 const hopital_input = document.querySelector (".hopital_input")
 const bibliotheque_input = document.querySelector (".bibliothèque_input")
@@ -389,10 +403,48 @@ class App {
             } else {
                 detail_modal.classList.add ("not")
             }
+            this.form_management (this.#map, lat, lng)
         }, function () {
             console.log ("erreur")
         })
         
+    }
+
+    form_management (map,latitude, longitude) {
+        submit_form.addEventListener ("submit", function (e) {
+            e.preventDefault ()
+            const name = nom.value
+            const type = typee.value
+            const city = ville.value
+            const district = quartier.value
+            const phone = telephone.value
+            const email = mail.value
+            const founder = fondateur.value
+            const year_established = annee_de_fondation.value
+            const departement = university.value
+            const hospital_service = service_hopital.value
+            const book_case_service = bibliotheque_service.value
+            const niveau = ecole_niveau.value
+
+            switch (infrastructure_type.value) {
+                case "hospital":
+                    new Hospital (map, latitude, longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
+                    break;
+                case "university":
+                    
+                    break;
+                case "ecole":
+                    
+                    break;
+                case "bookcase":
+                    
+                    break;
+                default:
+                    
+                    break;
+            }
+            console.log ("sa prend")
+        })
     }
 
     show_form () {
@@ -400,6 +452,7 @@ class App {
             confirm_modal.classList.add ("not")
             formulaire.classList.remove ("not")
         })
+        
 
         infrastructure_type.addEventListener ("change", function (e) {
             e.preventDefault ()
@@ -437,7 +490,6 @@ class App {
                     break;
             }
         })
-        console.log (latitude, longitude)
     }
 
     show_data () {

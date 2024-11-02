@@ -75,7 +75,7 @@
                 <h2>Infrastructure Public</h2>
                 <span class = "form_modal_close">x</span>
             </div>
-            <form class = "submit_form" action="/submit-category" method="post">
+            <form class = "submit_form" action="" method="post">
                 <!-- Champ de sélection pour la catégorie -->
                 <label for="category">Catégorie :</label>
                 <select class = "infrastructure_type" id="category" name="category" required>
@@ -88,44 +88,47 @@
                 <div class = "form_input_scroll not">
                     <!-- Champ Nom -->
                     <label for="name">Nom :</label>
-                    <input type="text" id="name" name="name" required>
+                    <input class = "nom" type="text" id="name" name="name" required>
+                    <!-- Champ Type -->
+                    <label for="type">Type :</label>
+                    <input class = "type" type="text" id="type" name="type" required>
                     <!-- Champ Ville -->
                     <label for="city">Ville :</label>
-                    <input type="text" id="city" name="city" required>
+                    <input class = "city" type="text" id="city" name="city" required>
                     <!-- Champ Quartier -->
                     <label for="neighborhood">Quartier :</label>
-                    <input type="text" id="neighborhood" name="neighborhood">
+                    <input class = "district" type="text" id="neighborhood" name="neighborhood">
                     <!-- Champ Fondateur -->
                     <label for="founder">Fondateur :</label>
-                    <input type="text" id="founder" name="founder">  
+                    <input class = "founder" type="text" id="founder" name="founder">  
                     <!-- Champ Année de fondation -->
                     <label for="year_of_foundation">Année de fondation :</label>
-                    <input type="date" id="year_of_foundation" name="year_of_foundation" min="1000" max="2024" required>
+                    <input class = "year_of_foundation" type="number" id="year_of_foundation" name="year_of_foundation" min="1000" max="2024" required>
                     <!-- Champ Contact -->
                     <label for="contact">Contact :</label>
-                    <input type="tel" id="contact" name="contact" placeholder="Format : 0123456789" required>
+                    <input class = "phone" type="tel" id="contact" name="contact" placeholder="Format : 0123456789" required>
                     <!-- Champ Email -->
                     <label for="email">Email :</label>
-                    <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required>
+                    <input class = "email" type="email" id="email" name="email" placeholder="exemple@domaine.com" required>
                     <!-- Champ Departement -->
                     <div class = "departement_input">
                         <label for="departement">Departement :</label>
-                        <input type="text" id="departement" name="departement" placeholder="Ingénierie, droit, ..." required>
+                        <input class = "departement" type="text" id="departement" name="departement" placeholder="Ingénierie, droit, ..." >
                     </div>
                     <!-- Champ Service Bibliothèque-->
                     <div class = "bibliothèque_input">
                         <label for="service">Service :</label>
-                        <input type="text" id="service" name="service" placeholder="prêt de livre, vente de livre" required>
+                        <input class = "bibliotheque_service" type="text" id="service" name="service" placeholder="prêt de livre, vente de livre" >
                     </div>
                     <!-- Champ Service Hopital-->
                     <div class = "hopital_input">
                         <label for="service">Service :</label>
-                        <input type="text" id="service" name="service" placeholder="urgence, chirurgie, ..." required>
+                        <input class = "hopital_service" type="text" id="service" name="service" placeholder="urgence, chirurgie, ..." >
                     </div>
                     <!-- Champ Niveau -->
                     <div class = "ecole_input">
                         <label for="niveau">Niveau :</label>
-                        <input type="text" id="niveau" name="niveau" placeholder="maternelle, primaire, secondaire" required>
+                        <input class = "ecole" type="text" id="niveau" name="niveau" placeholder="maternelle, primaire, secondaire" >
                     </div>
                 </div>
                 <!-- Case de collecte de données -->
