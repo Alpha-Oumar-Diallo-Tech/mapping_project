@@ -1,9 +1,27 @@
-// "use strict"
+"use strict"
 
-// school
-// university
-// book 
-// hospital
+const confirm_modal = document.querySelector (".modal")
+const detail_modal = document.querySelector (".detail_modal")
+const detail_modal_close = document.querySelector (".detail_modal_close")
+const detail_modal_content = document.querySelector (".detail_modal_content")
+const stop_modal = document.querySelector (".modal_container")
+const no_btn = document.querySelector (".unconfirm_btn")
+const oui_btn = document.querySelector (".confirm_btn")
+
+const formulaire = document.querySelector (".form_section")
+const stop_form_close_propagation = document.querySelector (".form-container")
+const close_form = document.querySelector (".form_modal_close")
+const rest_of_the_form = document.querySelector (".form_input_scroll")
+const submit_form = document.querySelector (".submit_form")
+
+const departement_input = document.querySelector (".departement_input")
+const hopital_input = document.querySelector (".hopital_input")
+const bibliotheque_input = document.querySelector (".bibliothèque_input")
+const ecole_input = document.querySelector (".ecole_input")
+
+const infrastructure_type = document.querySelector (".infrastructure_type")
+
+const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
 class Infrastructure {
     #marker
@@ -41,8 +59,8 @@ class Infrastructure {
         const my_popup_content = `
             <div class = "popup_container">
                 <h1 class = "popup_title">${this.name}</h1>
-                <span class = "popup_categorie">${this.category}</span>
-                <button class = "popup_button">en savoir plus</button>
+                <!-- <span class = "popup_categorie">${this.category}</span>
+                <button class = "popup_button">en savoir plus</button> -->
             </div>
         `
         return my_popup_content
@@ -212,14 +230,6 @@ class Book_Case extends Infrastructure {
     }
 }
 
-const confirm_modal = document.querySelector (".modal")
-const detail_modal = document.querySelector (".detail_modal")
-const detail_modal_close = document.querySelector (".detail_modal_close")
-const detail_modal_content = document.querySelector (".detail_modal_content")
-const stop_modal = document.querySelector (".modal_container")
-const no_btn = document.querySelector (".unconfirm_btn")
-
-const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
 class App {
 // app data
@@ -241,7 +251,7 @@ class App {
 
         this.map_click ()
         this.no_click ()
-        
+        this.show_form ()
     }
 
 
@@ -347,8 +357,6 @@ class App {
         })
     }
 
-// je reproduis trois autre fonction semblable à hospital_management_function pour les trois autres types d'établissement aussi
-
     showMap (lat, long, zoom) {
         const guinea = [lat, long]
         this.#map = L.map('map').setView(guinea, zoom);
@@ -376,16 +384,60 @@ class App {
     map_click () {
         this.#map.on ("click", (e) => {
             const {lat, lng} = e.latlng
-            console.log (lat, lng)
             if (detail_modal.classList.contains ("not")) {
                 confirm_modal.classList.remove ("not")
             } else {
                 detail_modal.classList.add ("not")
             }
-            
         }, function () {
             console.log ("erreur")
         })
+        
+    }
+
+    show_form () {
+        oui_btn.addEventListener ("click", function () {
+            confirm_modal.classList.add ("not")
+            formulaire.classList.remove ("not")
+        })
+
+        infrastructure_type.addEventListener ("change", function (e) {
+            e.preventDefault ()
+            switch (infrastructure_type.value) {
+                case "hospital":
+                    hopital_input.classList.remove ("not")
+                    departement_input.classList.add ("not")
+                    bibliotheque_input.classList.add ("not")
+                    ecole_input.classList.add ("not")
+                    rest_of_the_form.classList.remove ("not")
+                    break;
+                case "university":
+                    departement_input.classList.remove ("not")
+                    hopital_input.classList.add ("not")
+                    bibliotheque_input.classList.add ("not")
+                    ecole_input.classList.add ("not")
+                    rest_of_the_form.classList.remove ("not")
+                    break;
+                case "ecole":
+                    ecole_input.classList.remove ("not")
+                    departement_input.classList.add ("not")
+                    bibliotheque_input.classList.add ("not")
+                    hopital_input.classList.add ("not")
+                    rest_of_the_form.classList.remove ("not")
+                    break;
+                case "bookcase":
+                    bibliotheque_input.classList.remove ("not")
+                    departement_input.classList.add ("not")
+                    hopital_input.classList.add ("not")
+                    ecole_input.classList.add ("not")
+                    rest_of_the_form.classList.remove ("not")
+                    break;
+                default:
+                    
+                    break;
+            }
+        })
+        console.log (latitude, longitude)
     }
 
     show_data () {
@@ -404,6 +456,19 @@ class App {
             confirm_modal.classList.add ("not")
         })
         stop_modal.addEventListener ("click", function (e) {
+            e.stopPropagation ()
+        })
+        close_form.addEventListener ("click", function () {
+            formulaire.classList.add ("not")
+            rest_of_the_form.classList.add ("not")
+            infrastructure_type.value = ""
+        })
+        formulaire.addEventListener ("click", function () {
+            formulaire.classList.add ("not")
+            rest_of_the_form.classList.add ("not")
+            infrastructure_type.value = ""
+        })
+        stop_form_close_propagation.addEventListener ("click", function (e) {
             e.stopPropagation ()
         })
     }

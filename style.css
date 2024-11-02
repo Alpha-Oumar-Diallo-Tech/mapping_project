@@ -185,3 +185,221 @@
 .hidden{
     opacity: 0;
 }
+
+
+/* Stylisation du formulaire*/
+
+/* body {
+    font-family: Arial, sans-serif;
+    background-color: #f7f7f7;
+    margin: 0;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    min-height: 100vh;
+    padding: 20px;
+  } */
+
+  /* Conteneur du formulaire */
+
+.form_section {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(1px);
+    animation: sortie 500ms ease-in 1;
+}
+
+.form_input_scroll {
+    height: 350px;
+    overflow-y: scroll;
+}
+
+.form-container {
+    position: relative;
+    background-color: #ffffff;
+    padding: 20px 30px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    width: 100%;
+    max-width: 400px;
+    margin-right: 20px;
+}
+
+  /* Style du titre */
+  .form-container h2 {
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+
+.form_modal_close {
+    background-color: black;
+    color: white;
+    font-weight: 700;
+    padding: 10px;
+    cursor: pointer;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+  /* Style des étiquettes */
+  label {
+    font-weight: bold;
+    color: #555;
+    display: block;
+    margin-bottom: 5px;
+  }
+
+  /* Style des champs de saisie */
+  input[type="text"],
+  input[type="number"],
+  input[type="email"],
+  input[type="tel"],
+  select {
+    width: 90%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    font-size: 16px;
+  }
+
+  /* Focus des champs */
+  input[type="text"]:focus,
+  input[type="number"]:focus,
+  input[type="email"]:focus,
+  input[type="tel"]:focus,
+  select:focus {
+    border-color: #007bff;
+    outline: none;
+  }
+
+  /* Style pour la case de collecte de données */
+  .checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+  }
+
+  .checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+  }
+
+  /* Bouton de soumission */
+  button[type="submit"] {
+    width: 100%;
+    background-color: #007bff;
+    color: #ffffff;
+    padding: 10px;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-top: 10px;
+  }
+
+  /* Changement de couleur au survol */
+  button[type="submit"]:hover {
+    background-color: #0056b3;
+  }
+
+  /* Responsivité */
+  @media (max-width: 768px) {
+    body {
+      justify-content: flex-start;
+      padding: 10px;
+    }
+
+    .form-container {
+      width: 100%;
+      margin: 0;
+    }
+  }
+
+  /* champ de legende */
+
+  /* Style du conteneur principal */
+.legend_section {
+    position: fixed;
+    top: 0;
+    right: 0;
+}
+
+.legend {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 200px;
+    font-family: Arial, sans-serif;
+    background-color: rgba(255, 255, 255, 0.8);
+  }
+  
+  /* Style des éléments individuels */
+  .legend-item {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+  }
+  
+  .legend-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Style pour les couleurs */
+  .color {
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      margin-right: 10px;
+    }
+    
+    .red {
+      background-color: red;
+    }
+    
+    .blue {
+      background-color: blue;
+    }
+    .vert {
+      background-color: green;
+    }
+    .yellow {
+      background-color: yellow;
+    }
+    
+    /* Style pour les étiquettes */
+    .label {
+      font-size: 16px;
+      color: #333;
+    }
+    
+  
+  .red {
+    background-color: red;
+  }
+  
+  .blue {
+    background-color: blue;
+  }
+  
+  /* Style pour les étiquettes */
+  .label {
+    font-size: 16px;
+    color: #333;
+  }
+  /* Style pour le titre de la légende */
+  .legend-title {
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 8px;
+      color: #333;
+      font-family: Arial, sans-serif;
+    }

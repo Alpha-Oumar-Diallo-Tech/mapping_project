@@ -25,26 +25,7 @@
 </head>
 <body>
     <div id = "map"></div>
-    <!-- formulaire -->
-    <!-- <div class="hidden">
-        <form action="" >
-            <div class="form__row">
-                <label class="form__label">Cadence</label>
-                <input
-                  class="form__input form__input--cadence"
-                  placeholder="step/min"
-                />
-              </div>
-              <div class="form__row form">
-                <label class="form__label">Elev Gain</label>
-                <input
-                  class="form__input form__input--elevation"
-                  placeholder="meters"
-                />
-              </div>
-              <button class="form__btn">OK</button>
-        </form>
-    </div> -->
+
     <!-- modale de confirmation -->
     <section>
         <div class = "modal not">
@@ -84,6 +65,99 @@
                 <p class = "detail_modal_departement"></p>
                 <p class = "detail_modal_service"></p>
                 <p class = "detail_modal_niveau"></p>
+            </div>
+        </div>
+    </section>
+    <!-- Formulaire -->
+    <section class = "form_section not">
+        <div class="form-container">
+            <div>
+                <h2>Infrastructure Public</h2>
+                <span class = "form_modal_close">x</span>
+            </div>
+            <form class = "submit_form" action="/submit-category" method="post">
+                <!-- Champ de sélection pour la catégorie -->
+                <label for="category">Catégorie :</label>
+                <select class = "infrastructure_type" id="category" name="category" required>
+                    <option value="">--Choisissez une catégorie--</option>
+                    <option value="hospital">Hôpital</option>
+                    <option value="university">Université</option>
+                    <option value="ecole">École</option>
+                    <option value="bookcase">Bibliothèque</option>
+                </select>
+                <div class = "form_input_scroll not">
+                    <!-- Champ Nom -->
+                    <label for="name">Nom :</label>
+                    <input type="text" id="name" name="name" required>
+                    <!-- Champ Ville -->
+                    <label for="city">Ville :</label>
+                    <input type="text" id="city" name="city" required>
+                    <!-- Champ Quartier -->
+                    <label for="neighborhood">Quartier :</label>
+                    <input type="text" id="neighborhood" name="neighborhood">
+                    <!-- Champ Fondateur -->
+                    <label for="founder">Fondateur :</label>
+                    <input type="text" id="founder" name="founder">  
+                    <!-- Champ Année de fondation -->
+                    <label for="year_of_foundation">Année de fondation :</label>
+                    <input type="date" id="year_of_foundation" name="year_of_foundation" min="1000" max="2024" required>
+                    <!-- Champ Contact -->
+                    <label for="contact">Contact :</label>
+                    <input type="tel" id="contact" name="contact" placeholder="Format : 0123456789" required>
+                    <!-- Champ Email -->
+                    <label for="email">Email :</label>
+                    <input type="email" id="email" name="email" placeholder="exemple@domaine.com" required>
+                    <!-- Champ Departement -->
+                    <div class = "departement_input">
+                        <label for="departement">Departement :</label>
+                        <input type="text" id="departement" name="departement" placeholder="Ingénierie, droit, ..." required>
+                    </div>
+                    <!-- Champ Service Bibliothèque-->
+                    <div class = "bibliothèque_input">
+                        <label for="service">Service :</label>
+                        <input type="text" id="service" name="service" placeholder="prêt de livre, vente de livre" required>
+                    </div>
+                    <!-- Champ Service Hopital-->
+                    <div class = "hopital_input">
+                        <label for="service">Service :</label>
+                        <input type="text" id="service" name="service" placeholder="urgence, chirurgie, ..." required>
+                    </div>
+                    <!-- Champ Niveau -->
+                    <div class = "ecole_input">
+                        <label for="niveau">Niveau :</label>
+                        <input type="text" id="niveau" name="niveau" placeholder="maternelle, primaire, secondaire" required>
+                    </div>
+                </div>
+                <!-- Case de collecte de données -->
+                <div class="checkbox-container">
+                    <input type="checkbox" id="data_collect" name="data_collect" required>
+                    <label for="data_collect">J'accepte la collecte de données</label>
+                </div>
+                <!-- Bouton de soumission -->
+                <button type="submit">Soumettre</button>
+            </form>
+        </div>
+    </section>
+
+<!-- champ de couleur -->
+    <section class = "legend_section">
+        <h2 class="legend-title">Légende</h2>
+        <div class="legend">
+            <div class="legend-item">
+                <span class="color red"></span>
+                <span class="label">Hôpital</span>
+            </div>
+            <div class="legend-item">
+                <span class="color vert"></span>
+                <span class="label">Bibliothèque</span>
+            </div>
+            <div class="legend-item">
+                <span class="color blue"></span>
+                <span class="label">Université</span>
+            </div>
+            <div class="legend-item">
+                <span class="color yellow"></span>
+                <span class="label">École</span>
             </div>
         </div>
     </section>
