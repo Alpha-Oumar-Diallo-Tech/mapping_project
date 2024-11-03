@@ -1,5 +1,7 @@
 "use strict"
 
+
+
 const confirm_modal = document.querySelector (".modal")
 const detail_modal = document.querySelector (".detail_modal")
 const detail_modal_close = document.querySelector (".detail_modal_close")
@@ -22,6 +24,7 @@ const telephone = document.querySelector (".phone")
 const mail = document.querySelector (".email")
 const fondateur = document.querySelector (".founder")
 const annee_de_fondation = document.querySelector (".year_of_foundation")
+const checkbox = document.querySelector (".checkbox")
 
 const university = document.querySelector (".departement")
 const service_hopital = document.querySelector (".hopital_service")
@@ -73,8 +76,6 @@ class Infrastructure {
         const my_popup_content = `
             <div class = "popup_container">
                 <h1 class = "popup_title">${this.name}</h1>
-                <!-- <span class = "popup_categorie">${this.category}</span>
-                <button class = "popup_button">en savoir plus</button> -->
             </div>
         `
         return my_popup_content
@@ -247,14 +248,18 @@ class Book_Case extends Infrastructure {
 
 class App {
 // app data
-    #university = new Array ()
-    #school = new Array ()
-    #hospital = new Array ()
-    #bookCase = new Array ()
+    #base_university = new Array ()
+    #base_school = new Array ()
+    #base_hospital = new Array ()
+    #base_bookCase = new Array ()
     #all_app_data = new Array ()
 
 // map
     #map
+
+// coordoné du click
+    #latitude
+    #longitude
 
     constructor () {
         this.guineaLat = 10.973549898080215
@@ -274,16 +279,16 @@ class App {
 
 
     data_separation (datas) {
-        this.#hospital = datas.filter (data => data.category === "hospital")
-        this.#university = datas.filter (data => data.category === "university")
-        this.#school = datas.filter (data => data.category === "ecole")
-        this.#bookCase = datas.filter (data => data.category === "bibliotèque")
-        this.#all_app_data = [this.#hospital, this.#university, this.#school, this.#bookCase]
+        this.#base_hospital = datas.filter (data => data.category === "hospital")
+        this.#base_university = datas.filter (data => data.category === "university")
+        this.#base_school = datas.filter (data => data.category === "ecole")
+        this.#base_bookCase = datas.filter (data => data.category === "bibliotèque")
+        this.#all_app_data = [this.#base_hospital, this.#base_university, this.#base_school, this.#base_bookCase]
         this.show_data ()
     }
 
     hospital_management_function () {
-        this.#hospital.forEach (data => {
+        this.#base_hospital.forEach (data => {
             const {
                 name, 
                 category,
@@ -305,7 +310,7 @@ class App {
         })
     }
     University_management_function () {
-        this.#university.forEach (data => {
+        this.#base_university.forEach (data => {
             const {
                 name, 
                 category,
@@ -327,7 +332,7 @@ class App {
         })
     }
     school_management_function () {
-        this.#school.forEach (data => {
+        this.#base_school.forEach (data => {
             const {
                 name, 
                 category,
@@ -349,7 +354,7 @@ class App {
         })
     }
     bookcase_management_function () {
-        this.#bookCase.forEach (data => {
+        this.#base_bookCase.forEach (data => {
             const {
                 name, 
                 category,
@@ -398,20 +403,23 @@ class App {
     map_click () {
         this.#map.on ("click", (e) => {
             const {lat, lng} = e.latlng
+            this.#latitude = lat
+            this.#longitude = lng
+            console.log (lat, lng)
             if (detail_modal.classList.contains ("not")) {
                 confirm_modal.classList.remove ("not")
             } else {
                 detail_modal.classList.add ("not")
             }
-            this.form_management (this.#map, lat, lng)
+            this.form_management (this.#map)
         }, function () {
             console.log ("erreur")
         })
         
     }
 
-    form_management (map,latitude, longitude) {
-        submit_form.addEventListener ("submit", function (e) {
+    form_management (map) {
+        submit_form.addEventListener ("submit", (e) => {
             e.preventDefault ()
             const name = nom.value
             const type = typee.value
@@ -428,23 +436,47 @@ class App {
 
             switch (infrastructure_type.value) {
                 case "hospital":
-                    new Hospital (map, latitude, longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
+                    new Hospital (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
                     break;
                 case "university":
-                    
+                    new University (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, departement)
                     break;
                 case "ecole":
-                    
+                    new School (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, niveau)
                     break;
                 case "bookcase":
-                    
+                    new Book_Case (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, book_case_service)
                     break;
                 default:
                     
                     break;
             }
             console.log ("sa prend")
+            this.close_form ()
         })
+    }
+
+    hide_form () {
+        nom.value = ""
+        typee.value = ""
+        ville.value = ""
+        quartier.value = ""
+        telephone.value = ""
+        mail.value = ""
+        fondateur.value = ""
+        annee_de_fondation.value = ""
+        university.value = ""
+        service_hopital.value = ""
+        bibliotheque_service.value = ""
+        ecole_niveau.value = ""
+        checkbox.checked = false
+    }
+
+    close_form () {
+        this.hide_form ()
+        infrastructure_type.value = ""
+        rest_of_the_form.classList.add ("not")
+        formulaire.classList.add ("not")
     }
 
     show_form () {
@@ -452,12 +484,11 @@ class App {
             confirm_modal.classList.add ("not")
             formulaire.classList.remove ("not")
         })
-        
-
-        infrastructure_type.addEventListener ("change", function (e) {
+        infrastructure_type.addEventListener ("change", (e) => {
             e.preventDefault ()
             switch (infrastructure_type.value) {
                 case "hospital":
+                    this.hide_form ()
                     hopital_input.classList.remove ("not")
                     departement_input.classList.add ("not")
                     bibliotheque_input.classList.add ("not")
@@ -465,6 +496,7 @@ class App {
                     rest_of_the_form.classList.remove ("not")
                     break;
                 case "university":
+                    this.hide_form ()
                     departement_input.classList.remove ("not")
                     hopital_input.classList.add ("not")
                     bibliotheque_input.classList.add ("not")
@@ -472,6 +504,7 @@ class App {
                     rest_of_the_form.classList.remove ("not")
                     break;
                 case "ecole":
+                    this.hide_form ()
                     ecole_input.classList.remove ("not")
                     departement_input.classList.add ("not")
                     bibliotheque_input.classList.add ("not")
@@ -479,6 +512,7 @@ class App {
                     rest_of_the_form.classList.remove ("not")
                     break;
                 case "bookcase":
+                    this.hide_form ()
                     bibliotheque_input.classList.remove ("not")
                     departement_input.classList.add ("not")
                     hopital_input.classList.add ("not")
@@ -493,10 +527,10 @@ class App {
     }
 
     show_data () {
-        console.log (this.#university)
-        console.log (this.#school)
-        console.log (this.#bookCase)
-        console.log (this.#hospital)
+        console.log (this.#base_university)
+        console.log (this.#base_school)
+        console.log (this.#base_bookCase)
+        console.log (this.#base_hospital)
         infrastructure_modal.insertAdjacentHTML ("afterbegin", "")
     }
 
@@ -510,16 +544,8 @@ class App {
         stop_modal.addEventListener ("click", function (e) {
             e.stopPropagation ()
         })
-        close_form.addEventListener ("click", function () {
-            formulaire.classList.add ("not")
-            rest_of_the_form.classList.add ("not")
-            infrastructure_type.value = ""
-        })
-        formulaire.addEventListener ("click", function () {
-            formulaire.classList.add ("not")
-            rest_of_the_form.classList.add ("not")
-            infrastructure_type.value = ""
-        })
+        close_form.addEventListener ("click", this.close_form.bind (this))
+        formulaire.addEventListener ("click", this.close_form.bind (this))
         stop_form_close_propagation.addEventListener ("click", function (e) {
             e.stopPropagation ()
         })
