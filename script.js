@@ -1,21 +1,25 @@
 "use strict"
 
 
-
+// selection des éléments du modal de confirmation 
 const confirm_modal = document.querySelector (".modal")
-const detail_modal = document.querySelector (".detail_modal")
-const detail_modal_close = document.querySelector (".detail_modal_close")
-const detail_modal_content = document.querySelector (".detail_modal_content")
 const stop_modal = document.querySelector (".modal_container")
 const no_btn = document.querySelector (".unconfirm_btn")
 const oui_btn = document.querySelector (".confirm_btn")
 
+// selection des éléments du modal des détails sur les différents établissements
+const detail_modal = document.querySelector (".detail_modal")
+const detail_modal_close = document.querySelector (".detail_modal_close")
+const detail_modal_content = document.querySelector (".detail_modal_content")
+
+// selections des éléments du formulaire
 const formulaire = document.querySelector (".form_section")
 const stop_form_close_propagation = document.querySelector (".form-container")
 const close_form = document.querySelector (".form_modal_close")
 const rest_of_the_form = document.querySelector (".form_input_scroll")
 const submit_form = document.querySelector (".submit_form")
 
+// séléction des champs de saisi du formulaire
 const nom = document.querySelector (".nom")
 const typee = document.querySelector (".type")
 const ville = document.querySelector (".city")
@@ -26,20 +30,25 @@ const fondateur = document.querySelector (".founder")
 const annee_de_fondation = document.querySelector (".year_of_foundation")
 const checkbox = document.querySelector (".checkbox")
 
+// séléction des containeurs qui contiennent le label ainsi que le champs de saisi du formulaire qui varient en fonction de la catégorie de l'infrastructure
 const university = document.querySelector (".departement")
 const service_hopital = document.querySelector (".hopital_service")
 const bibliotheque_service = document.querySelector (".bibliotheque_service")
 const ecole_niveau = document.querySelector (".ecole")
 
+// sélection des champs de saisie du formulaire qui varient en fonction de la catégorie de l'infrastructure
 const departement_input = document.querySelector (".departement_input")
 const hopital_input = document.querySelector (".hopital_input")
 const bibliotheque_input = document.querySelector (".bibliothèque_input")
 const ecole_input = document.querySelector (".ecole_input")
 
+// sélection du champ du formulaire qui gère le choix de la catégorie
 const infrastructure_type = document.querySelector (".infrastructure_type")
 
+// sélection du modal qui affiche la liste des infrastructures
 const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
+// la classe principale qui contient les propriétés communes au quatres types d'infrastructures, ainsi que la logique de gestion des infrastructures
 class Infrastructure {
     #marker
     #popup
@@ -60,6 +69,7 @@ class Infrastructure {
         this.close_modal ()
     }
     
+    // la méthode qui permet d'afficher le marqueur
     show_indicator () {
         const popup_content = this._popupContent ()
         this.#marker = L.marker ([this.latitude, this.longitude]).addTo(this.map)
@@ -72,6 +82,8 @@ class Infrastructure {
         this.check_marker_loading ()
         this.#marker.openPopup ();
     }
+
+    // la méthode qui contient le contenue du popup
     _popupContent () {
         const my_popup_content = `
             <div class = "popup_container">
@@ -80,6 +92,8 @@ class Infrastructure {
         `
         return my_popup_content
     }
+
+    // la méthode qui vérifie que le popup est bien ouvert
     check_marker_loading () {
         this.#marker.on("popupopen", (e) => {
             this.#popup = e.popup.getElement ().querySelector (".leaflet-popup-content-wrapper")
@@ -87,6 +101,8 @@ class Infrastructure {
             this._check_marker_click ()
         })
     }
+
+    // la méthode qui permet de personnaliser le popup en fonction de la catégorie de l'infrastructure
     _popup_customize () {
         switch (this.category) {
             case "hospital":
@@ -116,12 +132,16 @@ class Infrastructure {
                 break;
         }
     }
+
+    // la méthode qui écoute le clic sur le popup
     _check_marker_click () {
         this.#popup.addEventListener ("click", () => {
             this.show_modal ()
             this.modal_customise ()
         })
     }
+
+    // la méthode qui affiche le modal des détails
     show_modal () {
         const nom = document.querySelector (".detail_modal_name")
         const categorie = document.querySelector (".detail_modal_category")
@@ -185,6 +205,8 @@ class Infrastructure {
             niveau.textContent = `Niveau: ${this.niveau}` 
         }
     }
+
+    // la méthode qui personnalise le modal des détails en fonction de la catégorie de l'infrastructure
     modal_customise () {
         switch (this.category) {
             case "hospital":
@@ -210,6 +232,8 @@ class Infrastructure {
                 break;
         }
     }
+
+    // la méthode qui ferme le modal
     close_modal () {
         detail_modal_close.addEventListener ("click", () => {
             detail_modal.classList.add ("not")
@@ -217,6 +241,7 @@ class Infrastructure {
     }
 }
 
+// la classe de l'université qui hérite de la classe infrastructure
 class University extends Infrastructure {
     constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement) {
         super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
@@ -224,6 +249,7 @@ class University extends Infrastructure {
     }
 }
 
+// la classe de l'hopital qui hérite de la classe infrastructure
 class Hospital extends Infrastructure {
     constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
         super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
@@ -231,6 +257,7 @@ class Hospital extends Infrastructure {
     }
 }
 
+// la classe de l'école qui hérite de la classe infrastructure
 class School extends Infrastructure {
     constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau) {
         super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
@@ -238,6 +265,7 @@ class School extends Infrastructure {
     }
 }
 
+// la classe de la bibliothèque qui hérite de la classe infrastructure
 class Book_Case extends Infrastructure {
     constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
         super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
@@ -246,18 +274,19 @@ class Book_Case extends Infrastructure {
 }
 
 
+// la classe principale de l'application qui regorge toute la logique de son fonctionnement
 class App {
-// app data
+// les données de base de l'application
     #base_university = new Array ()
     #base_school = new Array ()
     #base_hospital = new Array ()
     #base_bookCase = new Array ()
     #all_app_data = new Array ()
 
-// map
+// la variable qui contient la carte
     #map
 
-// coordoné du click
+// les variables qui contiennent les coordonnées du clic de l'utilisateur
     #latitude
     #longitude
 
@@ -273,11 +302,7 @@ class App {
         this.show_form ()
     }
 
-
-
-
-
-
+// la méthode qui sépare les données en fonction de la catégorie afin de ranger chacun dans le tableau correspondant
     data_separation (datas) {
         this.#base_hospital = datas.filter (data => data.category === "hospital")
         this.#base_university = datas.filter (data => data.category === "university")
@@ -287,6 +312,7 @@ class App {
         this.show_data ()
     }
 
+// la méthode qui s'occupe de la gestion de l'hopital (il personnalise la destructuration des données de l'hopital)
     hospital_management_function () {
         this.#base_hospital.forEach (data => {
             const {
@@ -309,6 +335,8 @@ class App {
             new Hospital (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
         })
     }
+
+// la méthode qui s'occupe de la gestion de l'université (il personnalise la destructuration des données de l'université)
     University_management_function () {
         this.#base_university.forEach (data => {
             const {
@@ -331,6 +359,8 @@ class App {
             new University (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
         })
     }
+
+// la méthode qui s'occupe de la gestion de l'école (il personnalise la destructuration des données de l'école)
     school_management_function () {
         this.#base_school.forEach (data => {
             const {
@@ -353,6 +383,8 @@ class App {
             new School (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau)
         })
     }
+
+// la méthode qui s'occupe de la gestion de la bibliothèque (il personnalise la destructuration des données de la bibliothèque)
     bookcase_management_function () {
         this.#base_bookCase.forEach (data => {
             const {
@@ -376,6 +408,7 @@ class App {
         })
     }
 
+// la méthode qui affiche la carte
     showMap (lat, long, zoom) {
         const guinea = [lat, long]
         this.#map = L.map('map').setView(guinea, zoom);
@@ -385,6 +418,7 @@ class App {
         }).addTo(this.#map);
     }
 
+// la méthode qui récupère les données de base de l'application
     async _get_initial_app_data (json_file) {
         try {
             const json_data = await fetch (json_file)
@@ -400,6 +434,7 @@ class App {
         }
     }
 
+// la méthode qui écoute le clic sur la carte
     map_click () {
         this.#map.on ("click", (e) => {
             const {lat, lng} = e.latlng
@@ -418,6 +453,7 @@ class App {
         
     }
 
+// la méthode qui s'occupe de la gestion du formulaire
     form_management (map) {
         submit_form.addEventListener ("submit", (e) => {
             e.preventDefault ()
@@ -456,6 +492,7 @@ class App {
         })
     }
 
+// la méthode qui remet à 0 les champs du formulaire
     hide_form () {
         nom.value = ""
         typee.value = ""
@@ -472,6 +509,7 @@ class App {
         checkbox.checked = false
     }
 
+// la méthode qui ferme le modal
     close_form () {
         this.hide_form ()
         infrastructure_type.value = ""
@@ -479,6 +517,7 @@ class App {
         formulaire.classList.add ("not")
     }
 
+// la méthode qui affiche le formulaire
     show_form () {
         oui_btn.addEventListener ("click", function () {
             confirm_modal.classList.add ("not")
@@ -526,6 +565,7 @@ class App {
         })
     }
 
+// la méthode qui affiche la liste des infrastructure
     show_data () {
         console.log (this.#base_university)
         console.log (this.#base_school)
@@ -534,6 +574,7 @@ class App {
         infrastructure_modal.insertAdjacentHTML ("afterbegin", "")
     }
 
+// la méthode qui ferme les modales au clic
     no_click () {
         no_btn.addEventListener ("click", function () {
             confirm_modal.classList.add ("not")
