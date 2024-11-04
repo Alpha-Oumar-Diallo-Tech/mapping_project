@@ -703,7 +703,7 @@ class App {
 
     download_app_data (university, hospital, school, bookcase) {
         this.#all_app_data = [this.#base_hospital, this.#base_university, this.#base_school, this.#base_bookCase, university, hospital, school, bookcase]
-        const data_download = JSON.stringify (this.#all_app_data)
+        const data_download = JSON.stringify (this.#all_app_data, null, 2)
         const data_object = new Blob ([data_download], {type: "application/json"})
         const url = URL.createObjectURL (data_object)
 
