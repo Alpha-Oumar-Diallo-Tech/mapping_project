@@ -239,6 +239,22 @@ class Infrastructure {
             detail_modal.classList.add ("not")
         })
     }
+
+    simple_property () {
+        return {
+            latitude: this.latitude,
+            longitude: this.longitude,
+            name: this.name,
+            category: this.category,
+            type: this.type,
+            city: this.city,
+            district: this.district,
+            founder: this.founder,
+            year_established: this.year_established,
+            phone: this.phone,
+            email: this.email
+        }
+    }
 }
 
 // la classe de l'université qui hérite de la classe infrastructure
@@ -246,6 +262,11 @@ class University extends Infrastructure {
     constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement) {
         super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.departement = departement
+    }
+    university_simple_property () {
+        const university_all_property = this.simple_property ()
+        university_all_property.departement = this.departement
+        return university_all_property
     }
 }
 
@@ -255,6 +276,11 @@ class Hospital extends Infrastructure {
         super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.service = service
     }
+    hospital_simple_property () {
+        const hospital_all_property = this.simple_property ()
+        hospital_all_property.service = this.service
+        return hospital_all_property
+    }
 }
 
 // la classe de l'école qui hérite de la classe infrastructure
@@ -263,6 +289,11 @@ class School extends Infrastructure {
         super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.niveau = niveau
     }
+    school_simple_property () {
+        const school_all_property = this.simple_property ()
+        school_all_property.niveau = this.niveau
+        return school_all_property
+    }
 }
 
 // la classe de la bibliothèque qui hérite de la classe infrastructure
@@ -270,6 +301,11 @@ class Book_Case extends Infrastructure {
     constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
         super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.service = service
+    }
+    book_case_simple_property () {
+        const book_case_all_property = this.simple_property ()
+        book_case_all_property.departement = this.service
+        return book_case_all_property
     }
 }
 
@@ -282,6 +318,12 @@ class App {
     #base_hospital = new Array ()
     #base_bookCase = new Array ()
     #all_app_data = new Array ()
+
+// les données ajoutés par l'utilisateurs
+    #user_university = new Array ()
+    #user_hospital = new Array ()
+    #user_school = new Array ()
+    #user_bookCase = new Array ()
 
 // la variable qui contient la carte
     #map
@@ -309,8 +351,6 @@ class App {
         this.#base_school = datas.filter (data => data.category === "ecole")
         this.#base_bookCase = datas.filter (data => data.category === "bibliotèque")
         this.#all_app_data = [this.#base_hospital, this.#base_university, this.#base_school, this.#base_bookCase]
-        // this.store_data_in_local_storage ()
-        this.retrive_data_in_local_storage ()
         this.show_data ()
     }
 
@@ -480,23 +520,29 @@ class App {
             switch (infrastructure_type.value) {
                 case "hospital":
                     hospital = new Hospital (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
-                    this.#base_hospital.push (hospital)
-                    this.store_data_in_local_storage ()
-                    console.log (hospital)
+                    this.#user_hospital.push (hospital.hospital_simple_property ())
+                    // console.log (this.#user_hospital)
                     break;
                 case "university":
-                    new University (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, departement)
+                    universite = new University (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, departement)
+                    this.#user_university.push (universite.simple_property ())
+                    // console.log (this.#user_university)
                     break;
                 case "ecole":
-                    new School (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, niveau)
+                    school = new School (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, niveau)
+                    this.#user_school.push (school.school_simple_property ())
+                    // console.log (this.#user_school)
                     break;
                 case "bookcase":
-                    new Book_Case (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, book_case_service)
+                    bookcase = new Book_Case (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, book_case_service)
+                    this.#user_bookCase.push (bookcase.book_case_simple_property ())
+                    // console.log (this.#user_bookCase)
                     break;
                 default:
                     
                     break;
             }
+            this.store_data_in_local_storage ()
             console.log ("sa prend")
             this.close_form ()
         })
@@ -603,12 +649,26 @@ class App {
     }
 
     store_data_in_local_storage () {
-        localStorage.setItem ("infrastructure", JSON.stringify (this.#all_app_data))
+        localStorage.setItem ("university", JSON.stringify (this.#user_university))
+        localStorage.setItem ("hospital", JSON.stringify (this.#user_hospital))
+        localStorage.setItem ("school", JSON.stringify (this.#user_school))
+        localStorage.setItem ("bookcase", JSON.stringify (this.#user_bookCase))
     }
 
-    retrive_data_in_local_storage () {
-        const all_app_data = JSON.parse (localStorage.getItem ("infrastructure"))
-        console.log (all_app_data)
+    retrive_data_in_local_storage (map) {
+        const university = JSON.parse (localStorage.getItem ("university"))
+        const hospital = JSON.parse (localStorage.getItem ("hospital"))
+        const school = JSON.parse (localStorage.getItem ("school"))
+        const bookcase = JSON.parse (localStorage.getItem ("bookcase"))
+        
+        university.forEach (one_university => {
+            new University (map, one_university)
+        })
+        
+        console.log (university)
+        console.log (hospital)
+        console.log (school)
+        console.log (bookcase)
     }
 }
 
