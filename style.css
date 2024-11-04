@@ -403,3 +403,9 @@
       color: #333;
       font-family: Arial, sans-serif;
     }
+
+#download {
+  position: fixed;
+  top: 0;
+  left: 0;
+}

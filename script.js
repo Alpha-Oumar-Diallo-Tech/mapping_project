@@ -48,6 +48,7 @@ const infrastructure_type = document.querySelector (".infrastructure_type")
 // sélection du modal qui affiche la liste des infrastructures
 const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
+const down_btn = document.getElementById ("download")
 // la classe principale qui contient les propriétés communes au quatres types d'infrastructures, ainsi que la logique de gestion des infrastructures
 class Infrastructure {
     #marker
@@ -343,7 +344,7 @@ class App {
         this.map_click ()
         this.no_click ()
         this.show_form ()
-        this.retrive_data_in_local_storage (this.#map)
+        
     }
 
 // la méthode qui sépare les données en fonction de la catégorie afin de ranger chacun dans le tableau correspondant
@@ -352,8 +353,9 @@ class App {
         this.#base_university = datas.filter (data => data.category === "university")
         this.#base_school = datas.filter (data => data.category === "ecole")
         this.#base_bookCase = datas.filter (data => data.category === "bibliotèque")
-        this.#all_app_data = [this.#base_hospital, this.#base_university, this.#base_school, this.#base_bookCase]
+        this.retrive_data_in_local_storage (this.#map)
         this.show_data ()
+        
     }
 
 // la méthode qui s'occupe de la gestion de l'hopital (il personnalise la destructuration des données de l'hopital)
@@ -693,12 +695,26 @@ class App {
                 new Book_Case (map,  one_bookcase.latitude, one_bookcase.longitude, one_bookcase.name, one_bookcase.category, one_bookcase.type, one_bookcase.city, one_bookcase.district, one_bookcase.founder, one_bookcase.year_established, one_bookcase.phone, one_bookcase.email, one_bookcase.service)
             })
         }
+        this.download_app_data (university, hospital, school, bookcase)
+        down_btn.addEventListener ("click", this.download_app_data.bind (this))
+
         
-        
-        // console.log (university)
-        // console.log (hospital)
-        // console.log (school)
-        // console.log (bookcase)
+    }
+
+    download_app_data (university, hospital, school, bookcase) {
+        this.#all_app_data = [this.#base_hospital, this.#base_university, this.#base_school, this.#base_bookCase, university, hospital, school, bookcase]
+        const data_download = JSON.stringify (this.#all_app_data)
+        const data_object = new Blob ([data_download], {type: "application/json"})
+        const url = URL.createObjectURL (data_object)
+
+        const a = document.createElement ("a")
+        a.href = url
+        a.download = "infrastructure.json"
+        a.click ()
+
+        URL.revokeObjectURL (url)
+        console.log (this.#all_app_data)
+
     }
 }
 
