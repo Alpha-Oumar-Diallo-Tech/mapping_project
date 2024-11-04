@@ -523,28 +523,32 @@ class App {
                 case "hospital":
                     hospital = new Hospital (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
                     this.#user_hospital.push (hospital.hospital_simple_property ())
+                    localStorage.setItem ("hospital", JSON.stringify (this.#user_hospital))
                     // console.log (this.#user_hospital)
                     break;
                 case "university":
                     universite = new University (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, departement)
                     this.#user_university.push (universite.simple_property ())
+                    localStorage.setItem ("university", JSON.stringify (this.#user_university))
                     // console.log (this.#user_university)
                     break;
                 case "ecole":
                     school = new School (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, niveau)
                     this.#user_school.push (school.school_simple_property ())
+                    localStorage.setItem ("school", JSON.stringify (this.#user_school))
                     // console.log (this.#user_school)
                     break;
                 case "bookcase":
                     bookcase = new Book_Case (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, book_case_service)
                     this.#user_bookCase.push (bookcase.book_case_simple_property ())
+                    localStorage.setItem ("bookcase", JSON.stringify (this.#user_bookCase))
                     // console.log (this.#user_bookCase)
                     break;
                 default:
                     
                     break;
             }
-            this.store_data_in_local_storage ()
+            // this.store_data_in_local_storage ()
             console.log ("sa prend")
             this.close_form ()
         })
@@ -658,23 +662,38 @@ class App {
     }
 
     retrive_data_in_local_storage (map) {
-        // const university = JSON.parse (localStorage.getItem ("university"))
+        const university = JSON.parse (localStorage.getItem ("university"))
         const hospital = JSON.parse (localStorage.getItem ("hospital"))
-        // const school = JSON.parse (localStorage.getItem ("school"))
-        // const bookcase = JSON.parse (localStorage.getItem ("bookcase"))
+        const school = JSON.parse (localStorage.getItem ("school"))
+        const bookcase = JSON.parse (localStorage.getItem ("bookcase"))
+        if (university) {
+            this.#user_university = university
+            university.forEach (one_university => {
+                new University (map,  one_university.latitude, one_university.longitude, one_university.name, one_university.category, one_university.type, one_university.city, one_university.district, one_university.founder, one_university.year_established, one_university.phone, one_university.email, one_university.departement)
+            })
+        }
         
-        // university.forEach (one_university => {
-        //     new University (map, one_university)
-        // })
-        hospital.forEach (one_hospital => {
-            new Hospital (map, one_hospital.latitude, one_hospital.longitude, one_hospital.name, one_hospital.category, one_hospital.type, one_hospital.city, one_hospital.district, one_hospital.founder, one_hospital.year_established, one_hospital.phone, one_hospital.email, one_hospital.service)
-        })
-        // school.forEach (one_school => {
-        //     new school (map, one_school)
-        // })
-        // bookcase.forEach (one_bookcase => {
-        //     new Book_Case (map, one_bookcase)
-        // })
+        if (hospital) {
+            this.#user_hospital = hospital
+            hospital.forEach (one_hospital => {
+                new Hospital (map, one_hospital.latitude, one_hospital.longitude, one_hospital.name, one_hospital.category, one_hospital.type, one_hospital.city, one_hospital.district, one_hospital.founder, one_hospital.year_established, one_hospital.phone, one_hospital.email, one_hospital.service)
+            })
+        }
+        
+        if (school) {
+            this.#user_school = school
+            school.forEach (one_school => {
+                new School (map, one_school.latitude, one_school.longitude, one_school.name, one_school.category, one_school.type, one_school.city, one_school.district, one_school.founder, one_school.year_established, one_school.phone, one_school.email, one_school.niveau)
+            })
+        }
+        
+        if (bookcase) {
+            this.#user_bookCase = bookcase
+            bookcase.forEach (one_bookcase => {
+                new Book_Case (map,  one_bookcase.latitude, one_bookcase.longitude, one_bookcase.name, one_bookcase.category, one_bookcase.type, one_bookcase.city, one_bookcase.district, one_bookcase.founder, one_bookcase.year_established, one_bookcase.phone, one_bookcase.email, one_bookcase.service)
+            })
+        }
+        
         
         // console.log (university)
         // console.log (hospital)
