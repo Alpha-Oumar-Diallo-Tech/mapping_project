@@ -309,6 +309,8 @@ class App {
         this.#base_school = datas.filter (data => data.category === "ecole")
         this.#base_bookCase = datas.filter (data => data.category === "bibliotèque")
         this.#all_app_data = [this.#base_hospital, this.#base_university, this.#base_school, this.#base_bookCase]
+        // this.store_data_in_local_storage ()
+        this.retrive_data_in_local_storage ()
         this.show_data ()
     }
 
@@ -470,9 +472,17 @@ class App {
             const book_case_service = bibliotheque_service.value
             const niveau = ecole_niveau.value
 
+            let hospital
+            let universite
+            let school
+            let bookcase
+
             switch (infrastructure_type.value) {
                 case "hospital":
-                    new Hospital (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
+                    hospital = new Hospital (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
+                    this.#base_hospital.push (hospital)
+                    this.store_data_in_local_storage ()
+                    console.log (hospital)
                     break;
                 case "university":
                     new University (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, departement)
@@ -590,6 +600,15 @@ class App {
         stop_form_close_propagation.addEventListener ("click", function (e) {
             e.stopPropagation ()
         })
+    }
+
+    store_data_in_local_storage () {
+        localStorage.setItem ("infrastructure", JSON.stringify (this.#all_app_data))
+    }
+
+    retrive_data_in_local_storage () {
+        const all_app_data = JSON.parse (localStorage.getItem ("infrastructure"))
+        console.log (all_app_data)
     }
 }
 
