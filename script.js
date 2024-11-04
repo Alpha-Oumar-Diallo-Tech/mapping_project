@@ -241,7 +241,7 @@ class Infrastructure {
     }
 
     simple_property () {
-        return {
+        const all_property = {
             latitude: this.latitude,
             longitude: this.longitude,
             name: this.name,
@@ -254,6 +254,7 @@ class Infrastructure {
             phone: this.phone,
             email: this.email
         }
+        return all_property
     }
 }
 
@@ -342,6 +343,7 @@ class App {
         this.map_click ()
         this.no_click ()
         this.show_form ()
+        this.retrive_data_in_local_storage (this.#map)
     }
 
 // la méthode qui sépare les données en fonction de la catégorie afin de ranger chacun dans le tableau correspondant
@@ -656,19 +658,28 @@ class App {
     }
 
     retrive_data_in_local_storage (map) {
-        const university = JSON.parse (localStorage.getItem ("university"))
+        // const university = JSON.parse (localStorage.getItem ("university"))
         const hospital = JSON.parse (localStorage.getItem ("hospital"))
-        const school = JSON.parse (localStorage.getItem ("school"))
-        const bookcase = JSON.parse (localStorage.getItem ("bookcase"))
+        // const school = JSON.parse (localStorage.getItem ("school"))
+        // const bookcase = JSON.parse (localStorage.getItem ("bookcase"))
         
-        university.forEach (one_university => {
-            new University (map, one_university)
+        // university.forEach (one_university => {
+        //     new University (map, one_university)
+        // })
+        hospital.forEach (one_hospital => {
+            new Hospital (map, one_hospital.latitude, one_hospital.longitude, one_hospital.name, one_hospital.category, one_hospital.type, one_hospital.city, one_hospital.district, one_hospital.founder, one_hospital.year_established, one_hospital.phone, one_hospital.email, one_hospital.service)
         })
+        // school.forEach (one_school => {
+        //     new school (map, one_school)
+        // })
+        // bookcase.forEach (one_bookcase => {
+        //     new Book_Case (map, one_bookcase)
+        // })
         
-        console.log (university)
-        console.log (hospital)
-        console.log (school)
-        console.log (bookcase)
+        // console.log (university)
+        // console.log (hospital)
+        // console.log (school)
+        // console.log (bookcase)
     }
 }
 

@@ -205,7 +205,7 @@
         "district" : "gaoul",
         "founder" : "etat",
         "year_established" : "1965",
-        "coordonee" : {
+        "coordinates" : {
             "latitude" :11.186822,
             "longitude" : -13.7719597
         },
