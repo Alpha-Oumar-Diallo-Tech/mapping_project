@@ -182,24 +182,6 @@
     {
         "category" : "ecole",
         "type": "privé",
-        "name" : "Centre de Formation Professionnelle de Donka ",
-        "city" : "conakry",
-        "district" : "kaloum",
-        "founder" : "etat",
-        "year_established" : "1965",
-        "coordinates" : {
-            "latitude" : 9.537696,
-            "longitude" : -13.6835888
-        },
-        "contact": {
-            "phone": "+224 629 84 44 29",
-            "email": "alpha629844429@gmail.com"
-        },
-        "niveau": ["primaire", "secondaire"]
-    },
-    {
-        "category" : "ecole",
-        "type": "privé",
         "name" : "Lycée Collège de Timbi Madina ",
         "city" : "gaoual",
         "district" : "gaoul",

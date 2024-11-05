@@ -50,16 +50,8 @@ const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
 const down_btn = document.getElementById ("download")
 
-const Marker_customised = L.Icon.extend ({
-    Options: {
-        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-        iconSize: [25, 41],
-        shadowSize: [41, 41],
-        iconAnchor: [12, 41],
-        shadowAnchor: [12, 41],
-        popupAnchor: [1, -34]
-    }
-})
+const infrastructure_list_interface_btn = document.querySelector ("")
+const infrastructure_list_interface = document.querySelector ("")
 
 // la classe principale qui contient les propriétés communes au quatres types d'infrastructures, ainsi que la logique de gestion des infrastructures
 class Infrastructure {
@@ -85,9 +77,10 @@ class Infrastructure {
     
     // la méthode qui permet d'afficher le marqueur
     show_indicator () {
-        this.customise_marker ()
+        // this.customise_marker () , {icon: this.#marker_icon}
         const popup_content = this._popupContent ()
-        this.#marker = L.marker ([this.latitude, this.longitude], {icon: this.#marker_icon}).addTo(this.map)
+        // console.log (this.#marker_icon)
+        this.#marker = L.marker ([this.latitude, this.longitude]).addTo(this.map)
         this.#marker.bindPopup(popup_content,
             {
                 autoClose: false,
@@ -273,10 +266,20 @@ class Infrastructure {
     }
 
     customise_marker () {
-        const hospital_icon = new Marker_customised ({iconUrl: "hospital_icon.svg"})
-        const university_icon = new Marker_customised ({iconUrl: "universty_icon.svg"})
-        const school_icon = new Marker_customised ({iconUrl: "school_icon.svg"})
-        const bookcase_icon = new Marker_customised ({iconUrl: "bookcase_icon.svg"})
+        const Marker_customised = L.Icon.extend ({
+            Options: {
+                shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+                iconSize: [0, 0],
+                shadowSize: [0, 0],
+                iconAnchor: [0, 0],
+                popupAnchor: [0, 0],
+                iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"
+            }
+        })
+        const hospital_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
+        const university_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
+        const school_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
+        const bookcase_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
         switch (this.category) {
             case "hospital":
                 this.#marker_icon = hospital_icon
@@ -291,7 +294,7 @@ class Infrastructure {
                 this.#marker_icon = bookcase_icon
                 break;
             default:
-                
+                console.log ("erreur marqueur icon")
                 break;
         }
     }
@@ -392,8 +395,7 @@ class App {
         this.#base_school = datas.filter (data => data.category === "ecole")
         this.#base_bookCase = datas.filter (data => data.category === "bibliotèque")
         this.retrive_data_in_local_storage (this.#map)
-        this.show_data ()
-        
+        this.show_list_of_establishments ()
     }
 
 // la méthode qui s'occupe de la gestion de l'hopital (il personnalise la destructuration des données de l'hopital)
@@ -563,26 +565,23 @@ class App {
                 case "hospital":
                     hospital = new Hospital (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
                     this.#user_hospital.push (hospital.hospital_simple_property ())
-                    localStorage.setItem ("hospital", JSON.stringify (this.#user_hospital))
-                    // console.log (this.#user_hospital)
+                    this.store_data_in_local_storage ("hospital", this.#user_hospital)
                     break;
                 case "university":
                     universite = new University (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, departement)
                     this.#user_university.push (universite.simple_property ())
-                    localStorage.setItem ("university", JSON.stringify (this.#user_university))
-                    // console.log (this.#user_university)
+                    this.store_data_in_local_storage ("university", this.#user_university)
                     break;
                 case "ecole":
                     school = new School (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, niveau)
                     this.#user_school.push (school.school_simple_property ())
-                    localStorage.setItem ("school", JSON.stringify (this.#user_school))
-                    // console.log (this.#user_school)
+                    this.store_data_in_local_storage ("school", this.#user_school)
                     break;
                 case "bookcase":
                     bookcase = new Book_Case (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, book_case_service)
                     this.#user_bookCase.push (bookcase.book_case_simple_property ())
                     localStorage.setItem ("bookcase", JSON.stringify (this.#user_bookCase))
-                    // console.log (this.#user_bookCase)
+                    this.store_data_in_local_storage ("bookcase", this.#user_bookCase)
                     break;
                 default:
                     
@@ -668,12 +667,15 @@ class App {
     }
 
 // la méthode qui affiche la liste des infrastructure
-    show_data () {
+    show_list_of_establishments () {
         console.log (this.#base_university)
         console.log (this.#base_school)
         console.log (this.#base_bookCase)
         console.log (this.#base_hospital)
-        infrastructure_modal.insertAdjacentHTML ("afterbegin", "")
+        infrastructure_list_interface_btn.addEventListener ("click", function () {
+            infrastructure_list_interface.classList.remove ("not")
+        }) 
+        // infrastructure_modal.insertAdjacentHTML ("afterbegin", "")
     }
 
 // la méthode qui ferme les modales au clic
@@ -694,11 +696,8 @@ class App {
         })
     }
 
-    store_data_in_local_storage () {
-        localStorage.setItem ("university", JSON.stringify (this.#user_university))
-        localStorage.setItem ("hospital", JSON.stringify (this.#user_hospital))
-        localStorage.setItem ("school", JSON.stringify (this.#user_school))
-        localStorage.setItem ("bookcase", JSON.stringify (this.#user_bookCase))
+    store_data_in_local_storage (identifiant, valeur) {
+        localStorage.setItem (identifiant, JSON.stringify (valeur))
     }
 
     retrive_data_in_local_storage (map) {
@@ -733,8 +732,8 @@ class App {
                 new Book_Case (map,  one_bookcase.latitude, one_bookcase.longitude, one_bookcase.name, one_bookcase.category, one_bookcase.type, one_bookcase.city, one_bookcase.district, one_bookcase.founder, one_bookcase.year_established, one_bookcase.phone, one_bookcase.email, one_bookcase.service)
             })
         }
-        this.download_app_data (university, hospital, school, bookcase)
-        down_btn.addEventListener ("click", this.download_app_data.bind (this))
+        // this.download_app_data (university, hospital, school, bookcase)
+        down_btn.addEventListener ("click", this.download_app_data.bind (this, university, hospital, school, bookcase))
 
         
     }
