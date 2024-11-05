@@ -50,8 +50,19 @@ const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
 const down_btn = document.getElementById ("download")
 
-const infrastructure_list_interface_btn = document.querySelector ("")
-const infrastructure_list_interface = document.querySelector ("")
+const infrastructure_list_interface_btn = document.querySelector (".")
+const infrastructure_list_interface = document.querySelector (".")
+const university_list_btn = document.querySelector (".")
+const hospital_list_btn = document.querySelector (".")
+const school_list_btn = document.querySelector (".")
+const bookcase_list_btn = document.querySelector (".")
+
+const all_infrastructure_container = document.querySelector (".")
+
+const university_container = document.querySelector (".")
+const hospital_container = document.querySelector (".")
+const school_container = document.querySelector (".")
+const bookcase_container = document.querySelector (".")
 
 // la classe principale qui contient les propriétés communes au quatres types d'infrastructures, ainsi que la logique de gestion des infrastructures
 class Infrastructure {
@@ -674,8 +685,76 @@ class App {
         console.log (this.#base_hospital)
         infrastructure_list_interface_btn.addEventListener ("click", function () {
             infrastructure_list_interface.classList.remove ("not")
+            this.university_display ()
+        })
+        this.type_of_infrastructure_to_display ()
+    }
+
+    university_display () {
+        this.#base_university.forEach (university => {
+            const content = infrastructure_content_in_list (university.name)
+            university_container.insertAdjacentHTML ("afterbegin", content)
+        })
+        this.#user_university.forEach (university => {
+            const content = infrastructure_content_in_list (university.name)
+            university_container.insertAdjacentHTML ("afterbegin", content)
+        })
+    }
+
+    hospital_display () {
+        this.#base_hospital.forEach (hospital => {
+            const content = infrastructure_content_in_list (hospital.name)
+            hospital_container.insertAdjacentHTML ("afterbegin", content)
+        })
+        this.#user_hospital.forEach (hospital => {
+            const content = infrastructure_content_in_list (hospital.name)
+            hospital_container.insertAdjacentHTML ("afterbegin", content)
+        })
+    }
+
+    school_display () {
+        this.#base_school.forEach (school => {
+            const content = infrastructure_content_in_list (school.name)
+            school_container.insertAdjacentHTML ("afterbegin", content)
+        })
+        this.#user_school.forEach (school => {
+            const content = infrastructure_content_in_list (school.name)
+            school_container.insertAdjacentHTML ("afterbegin", content)
+        })
+    }
+
+    bookcase_display () {
+        this.#base_bookCase.forEach (bookcase => {
+            const content = infrastructure_content_in_list (bookcase.name)
+            bookcase_container.insertAdjacentHTML ("afterbegin", content)
+        })
+        this.#base_bookCase.forEach (bookcase => {
+            const content = infrastructure_content_in_list (bookcase.name)
+            bookcase_container.insertAdjacentHTML ("afterbegin", content)
+        })
+    }
+
+    type_of_infrastructure_to_display () {
+        university_list_btn.addEventListener ("click", function () {
+            this.university_display ()
         }) 
-        // infrastructure_modal.insertAdjacentHTML ("afterbegin", "")
+        hospital_list_btn.addEventListener ("click", function () {
+            this.hospital_display ()
+        })
+        school_list_btn.addEventListener ("click", function () {
+            this.school_display ()
+        })
+        bookcase_list_btn.addEventListener ("click", function () {
+            this.bookcase_display ()
+        })
+    }
+
+    infrastructure_content_in_list (name) {
+        const content = `
+        <div>
+            ${name}
+        </div>`
+        return content
     }
 
 // la méthode qui ferme les modales au clic
