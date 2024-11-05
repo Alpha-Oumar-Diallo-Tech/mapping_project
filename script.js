@@ -49,10 +49,23 @@ const infrastructure_type = document.querySelector (".infrastructure_type")
 const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
 const down_btn = document.getElementById ("download")
+
+const Marker_customised = L.Icon.extend ({
+    Options: {
+        shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
+        iconSize: [25, 41],
+        shadowSize: [41, 41],
+        iconAnchor: [12, 41],
+        shadowAnchor: [12, 41],
+        popupAnchor: [1, -34]
+    }
+})
+
 // la classe principale qui contient les propriétés communes au quatres types d'infrastructures, ainsi que la logique de gestion des infrastructures
 class Infrastructure {
     #marker
     #popup
+    #marker_icon
     constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email) {
         this.map = map
         this.latitude = latitude
@@ -72,8 +85,9 @@ class Infrastructure {
     
     // la méthode qui permet d'afficher le marqueur
     show_indicator () {
+        this.customise_marker ()
         const popup_content = this._popupContent ()
-        this.#marker = L.marker ([this.latitude, this.longitude]).addTo(this.map)
+        this.#marker = L.marker ([this.latitude, this.longitude], {icon: this.#marker_icon}).addTo(this.map)
         this.#marker.bindPopup(popup_content,
             {
                 autoClose: false,
@@ -256,6 +270,30 @@ class Infrastructure {
             email: this.email
         }
         return all_property
+    }
+
+    customise_marker () {
+        const hospital_icon = new Marker_customised ({iconUrl: "hospital_icon.svg"})
+        const university_icon = new Marker_customised ({iconUrl: "universty_icon.svg"})
+        const school_icon = new Marker_customised ({iconUrl: "school_icon.svg"})
+        const bookcase_icon = new Marker_customised ({iconUrl: "bookcase_icon.svg"})
+        switch (this.category) {
+            case "hospital":
+                this.#marker_icon = hospital_icon
+                break;
+            case "university":
+                this.#marker_icon = university_icon
+                break;
+            case "ecole":
+                this.#marker_icon = school_icon
+                break;
+            case "bookcase":
+                this.#marker_icon = bookcase_icon
+                break;
+            default:
+                
+                break;
+        }
     }
 }
 
