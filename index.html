@@ -144,24 +144,46 @@
 
 <!-- champ de couleur -->
     <section class = "legend_section">
-        <h2 class="legend-title">Légende</h2>
-        <div class="legend">
-            <div class="legend-item">
-                <span class="color red"></span>
-                <span class="label">Hôpital</span>
+        <div>
+            <h2 class="legend-title">Légende</h2>
+            <div class="legend">
+                <img class = "logo" src = "logo.webp" alt = "logo">
+                <div class = "legend_content">
+                    <div class="legend-item">
+                        <span class="color red"></span>
+                        <span class="label">Hôpital</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color vert"></span>
+                        <span class="label">Bibliothèque</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color blue"></span>
+                        <span class="label">Université</span>
+                    </div>
+                    <div class="legend-item">
+                        <span class="color yellow"></span>
+                        <span class="label">École</span>
+                    </div>
+                </div>
             </div>
-            <div class="legend-item">
-                <span class="color vert"></span>
-                <span class="label">Bibliothèque</span>
-            </div>
-            <div class="legend-item">
-                <span class="color blue"></span>
-                <span class="label">Université</span>
-            </div>
-            <div class="legend-item">
-                <span class="color yellow"></span>
-                <span class="label">École</span>
-            </div>
+        </div>
+        <button class = "Infrastructure_list_btn">afficher toutes les Infrastructures</button>
+    </section>
+
+<!-- modal de la liste des infrastructures -->
+    <section class = "infrastructure not">
+        <div class = "infrastructure_header">
+            <button class = "university_btn infrastructure_btn">Universités</button>
+            <button class = "hospital_btn infrastructure_btn">Hopitaux</button>
+            <button class = "school_btn infrastructure_btn">Ecoles</button>
+            <button class = "bookcase_btn infrastructure_btn">Bibliothèque</button>
+        </div>
+        <div class = "infrastructure_body">
+            <div class = "university_list"></div>
+            <div class = "hospital_list"></div>
+            <div class = "school_list"></div>
+            <div class = "bookcase_list"></div>
         </div>
     </section>
 

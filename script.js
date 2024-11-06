@@ -50,19 +50,19 @@ const infrastructure_modal = document.querySelector (".infrastructure_modal")
 
 const down_btn = document.getElementById ("download")
 
-const infrastructure_list_interface_btn = document.querySelector (".")
-const infrastructure_list_interface = document.querySelector (".")
-const university_list_btn = document.querySelector (".")
-const hospital_list_btn = document.querySelector (".")
-const school_list_btn = document.querySelector (".")
-const bookcase_list_btn = document.querySelector (".")
+const infrastructure_list_interface_btn = document.querySelector (".Infrastructure_list_btn")
+const infrastructure_list_interface = document.querySelector (".infrastructure")
+const university_list_btn = document.querySelector (".university_btn")
+const hospital_list_btn = document.querySelector (".hospital_btn")
+const school_list_btn = document.querySelector (".school_btn")
+const bookcase_list_btn = document.querySelector (".bookcase_btn")
 
-const all_infrastructure_container = document.querySelector (".")
+// const all_infrastructure_container = document.querySelector (".")
 
-const university_container = document.querySelector (".")
-const hospital_container = document.querySelector (".")
-const school_container = document.querySelector (".")
-const bookcase_container = document.querySelector (".")
+const university_container = document.querySelector (".university_list")
+const hospital_container = document.querySelector (".hospital_list")
+const school_container = document.querySelector (".school_list")
+const bookcase_container = document.querySelector (".bookcase_list")
 
 // la classe principale qui contient les propriétés communes au quatres types d'infrastructures, ainsi que la logique de gestion des infrastructures
 class Infrastructure {
@@ -88,8 +88,18 @@ class Infrastructure {
     
     // la méthode qui permet d'afficher le marqueur
     show_indicator () {
-        // this.customise_marker () , {icon: this.#marker_icon}
+        // this.customise_marker () 
+        // const greenIcon = L.icon({
+        //     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+        //     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+        //     iconSize:     [38, 95], // size of the icon
+        //     shadowSize:   [50, 64], // size of the shadow
+        //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+        //     shadowAnchor: [4, 62],  // the same for the shadow
+        //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        // });
         const popup_content = this._popupContent ()
+        // const me = this.customise_marker () , {icon: greenIcon}
         // console.log (this.#marker_icon)
         this.#marker = L.marker ([this.latitude, this.longitude]).addTo(this.map)
         this.#marker.bindPopup(popup_content,
@@ -277,37 +287,48 @@ class Infrastructure {
     }
 
     customise_marker () {
-        const Marker_customised = L.Icon.extend ({
+        const Marker_customised = L.Icon ({
             Options: {
+                iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
                 shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-                iconSize: [0, 0],
+                iconSize: [100, 200],
                 shadowSize: [0, 0],
                 iconAnchor: [0, 0],
-                popupAnchor: [0, 0],
-                iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"
+                popupAnchor: [100, 100]
             }
         })
-        const hospital_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
-        const university_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
-        const school_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
-        const bookcase_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
-        switch (this.category) {
-            case "hospital":
-                this.#marker_icon = hospital_icon
-                break;
-            case "university":
-                this.#marker_icon = university_icon
-                break;
-            case "ecole":
-                this.#marker_icon = school_icon
-                break;
-            case "bookcase":
-                this.#marker_icon = bookcase_icon
-                break;
-            default:
-                console.log ("erreur marqueur icon")
-                break;
-        }
+        const greenIcon = L.icon({
+            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
+            iconSize:     [38, 95], // size of the icon
+            shadowSize:   [50, 64], // size of the shadow
+            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
+            shadowAnchor: [4, 62],  // the same for the shadow
+            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        });
+        // this.#marker_icon = greenIcon
+        // const hospital_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
+        // const university_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
+        // const school_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
+        // const bookcase_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
+        // switch (this.category) {
+        //     case "hospital":
+        //         this.#marker_icon = hospital_icon
+        //         break;
+        //     case "university":
+        //         this.#marker_icon = university_icon
+        //         break;
+        //     case "ecole":
+        //         this.#marker_icon = school_icon
+        //         break;
+        //     case "bookcase":
+        //         this.#marker_icon = bookcase_icon
+        //         break;
+        //     default:
+        //         console.log ("erreur marqueur icon")
+        //         break;
+        // }
+        return greenIcon
     }
 }
 
@@ -683,7 +704,7 @@ class App {
         console.log (this.#base_school)
         console.log (this.#base_bookCase)
         console.log (this.#base_hospital)
-        infrastructure_list_interface_btn.addEventListener ("click", function () {
+        infrastructure_list_interface_btn.addEventListener ("click", () => {
             infrastructure_list_interface.classList.remove ("not")
             this.university_display ()
         })
@@ -692,67 +713,72 @@ class App {
 
     university_display () {
         this.#base_university.forEach (university => {
-            const content = infrastructure_content_in_list (university.name)
+            const content = this.infrastructure_content_in_list (university.name)
             university_container.insertAdjacentHTML ("afterbegin", content)
         })
         this.#user_university.forEach (university => {
-            const content = infrastructure_content_in_list (university.name)
+            const content = this.infrastructure_content_in_list (university.name)
             university_container.insertAdjacentHTML ("afterbegin", content)
         })
     }
 
     hospital_display () {
         this.#base_hospital.forEach (hospital => {
-            const content = infrastructure_content_in_list (hospital.name)
+            const content = this.infrastructure_content_in_list (hospital.name)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
         this.#user_hospital.forEach (hospital => {
-            const content = infrastructure_content_in_list (hospital.name)
+            const content = this.infrastructure_content_in_list (hospital.name)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
     }
 
     school_display () {
         this.#base_school.forEach (school => {
-            const content = infrastructure_content_in_list (school.name)
+            const content = this.infrastructure_content_in_list (school.name)
             school_container.insertAdjacentHTML ("afterbegin", content)
         })
         this.#user_school.forEach (school => {
-            const content = infrastructure_content_in_list (school.name)
+            const content = this.infrastructure_content_in_list (school.name)
             school_container.insertAdjacentHTML ("afterbegin", content)
         })
     }
 
     bookcase_display () {
         this.#base_bookCase.forEach (bookcase => {
-            const content = infrastructure_content_in_list (bookcase.name)
+            const content = this.infrastructure_content_in_list (bookcase.name)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
         })
         this.#base_bookCase.forEach (bookcase => {
-            const content = infrastructure_content_in_list (bookcase.name)
+            const content = this.infrastructure_content_in_list (bookcase.name)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
         })
     }
 
     type_of_infrastructure_to_display () {
-        university_list_btn.addEventListener ("click", function () {
+        university_list_btn.addEventListener ("click", () => {
             this.university_display ()
         }) 
-        hospital_list_btn.addEventListener ("click", function () {
+        hospital_list_btn.addEventListener ("click", () => {
             this.hospital_display ()
         })
-        school_list_btn.addEventListener ("click", function () {
+        school_list_btn.addEventListener ("click", () => {
             this.school_display ()
         })
-        bookcase_list_btn.addEventListener ("click", function () {
+        bookcase_list_btn.addEventListener ("click", () => {
             this.bookcase_display ()
         })
     }
 
     infrastructure_content_in_list (name) {
         const content = `
-        <div>
+        <div class = "infrastructure_container">
             ${name}
+            <div>
+                <button class = "infrastructure_btn">En savoir plus</button>
+                <button class = "infrastructure_btn">Modifier</button>
+                <button class = "infrastructure_btn">Supprimer</button>
+            </div>
         </div>`
         return content
     }
