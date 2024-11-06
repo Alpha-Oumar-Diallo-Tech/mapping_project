@@ -723,7 +723,8 @@ class App {
         })
         this.type_of_infrastructure_to_display ()
         this.close_infrastructure_modal ()
-        this.see_marker_on_map ()
+        // console.log (this.#latitude, this.#longitude)
+        // this.see_marker_on_map (this.#latitude, this.#longitude)
     }
 
     university_display () {
@@ -749,8 +750,6 @@ class App {
         this.school_hidden ()
         this.bookcase_hidden ()
         this.#base_hospital.forEach (hospital => {
-            this.#current_hospital = this.current_hospital ( hospital.name, hospital.category, hospital.district)
-            console.log (this.#current_hospital)
             const content = this.infrastructure_content_in_list (hospital.name)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
@@ -758,6 +757,9 @@ class App {
             const content = this.infrastructure_content_in_list (hospital.name)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
+        console.log (this.#current_hospital)
+        this.see_marker_on_map ()
+
     }
 
     hospital_hidden () {
@@ -838,21 +840,32 @@ class App {
         return content
     }
 
-    see_marker_on_map () {
-        console.log ("youssouf")
-            console.log ("siradjo")
-            this.move_to_marker ()
-    }
+    // see_marker_on_map () {
+    //     hospital_container.addEventListener ("click", (e) => {
+    //         const el = e.target.querySelector (".marker_on_map_btn") 
+    //         // this.move_to_marker.call (this, name, category, district)
+    //         this.#map.setView([this.#latitude, this.#longitude], 3, {
+    //             animate: true,
+    //             pan: {
+    //             duration: 1,
+    //             },
+    //         });
+    //     })
+    // }
 
-    move_to_marker () {
-        this.#map.setView([this.#latitude, this.#longitude], 3, {
-            animate: true,
-            pan: {
-            duration: 1,
-            },
-        });
-        this.current_hospital.click();
-    }
+    // move_to_marker (name) {
+    //     const marker_on_map_btn = document.querySelector (".marker_on_map_btn") 
+    //     console.log (marker_on_map_btn)
+    //     console.log (this.#current_hospital)
+
+    //     this.#map.setView([latitude, longitude], 3, {
+    //         animate: true,
+    //         pan: {
+    //         duration: 1,
+    //         },
+    //     });
+    //     this.current_hospital.click();
+    // }
 
 // la méthode qui ferme les modales au clic
     no_click () {
@@ -930,12 +943,8 @@ class App {
 
     }
 
-    current_hospital (name, category, district) {
-        const current_hospital = this.#base_hospital.find (
-            hospital => hospital.name === name  
-            && hospital.category === category 
-            && hospital.district === district
-        )
+    current_hospital (name) {
+        const current_hospital = this.#base_hospital.find ( hospital => hospital.name === name)
         return current_hospital
     }
 }
