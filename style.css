@@ -509,7 +509,7 @@ body {
 .infrastructure_container_btn {
   padding: 2px 4px;
   cursor: pointer;
-  border: none;
+  border: 1px white solid;
 }
 
 .close {
