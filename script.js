@@ -752,6 +752,7 @@ class App {
             const content = this.infrastructure_content_in_list (university.name, university.id)
             university_container.insertAdjacentHTML ("afterbegin", content)
         })
+        this.see_marker_on_map (university_container, this.#base_university, this.#user_university)
     }
 
     university_hidden () {
@@ -771,13 +772,13 @@ class App {
             const content = this.infrastructure_content_in_list (hospital.name, hospital.id)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
-        this.see_marker_on_map ()
+        this.see_marker_on_map (hospital_container, this.#base_hospital, this.#user_hospital)
     }
 
-    see_marker_on_map () {
-        hospital_container.addEventListener ("click", (e) => {
+    see_marker_on_map (container, base_infrastructures, user_infrastructure) {
+        container.addEventListener ("click", (e) => {
             const id = e.target.getAttribute ("data-id")
-            this.current_hospital (id)
+            this.current_infrastructure (id, base_infrastructures, user_infrastructure)
         })
     }
 
@@ -797,6 +798,7 @@ class App {
             const content = this.infrastructure_content_in_list (school.name, school.id)
             school_container.insertAdjacentHTML ("afterbegin", content)
         })
+        this.see_marker_on_map (school_container, this.#base_school, this.#user_school)
     }
 
     school_hidden () {
@@ -815,6 +817,7 @@ class App {
             const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
         })
+        this.see_marker_on_map (bookcase_container, this.#base_bookCase, this.#user_bookCase)
     }
 
     bookcase_hidden () {
@@ -939,16 +942,16 @@ class App {
 
     }
 
-    current_hospital (id) {
-        const current_base_hospital = this.#base_hospital.find ( hospital => hospital.id === id)
-        const current_user_hospital = this.#user_hospital.find ( hospital => hospital.id === id)
-        console.log (current_base_hospital)
-        console.log (current_user_hospital)
-        if (current_base_hospital) {
-            this.centerMap (current_base_hospital.coordinates.latitude, current_base_hospital.coordinates.longitude)
+    current_infrastructure (id, base_infrastructures, user_infrastructure) {
+        const current_base_infrastructure = base_infrastructures.find ( hospital => hospital.id === id)
+        const current_user_infrastructure = user_infrastructure.find ( hospital => hospital.id === id)
+        console.log (current_base_infrastructure)
+        console.log (current_user_infrastructure)
+        if (current_base_infrastructure) {
+            this.centerMap (current_base_infrastructure.coordinates.latitude, current_base_infrastructure.coordinates.longitude)
         }
-        if (current_user_hospital) {
-            this.centerMap (current_user_hospital.latitude, current_user_hospital.longitude)
+        if (current_user_infrastructure) {
+            this.centerMap (current_user_infrastructure.latitude, current_user_infrastructure.longitude)
         }
     }
     centerMap(lat, lng) {
