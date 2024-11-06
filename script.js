@@ -957,7 +957,7 @@ class App {
     centerMap(lat, lng) {
         this.#map.flyTo([lat, lng], 18, {
             animate: true,
-            duration: 1,
+            duration: 2,
         }); 
     }
 }
