@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+body {
+  font-family: "Roboto", sans-serif;
+}
+
 #map {
     width: 100vw;
     height: 100vh;
@@ -133,7 +137,7 @@
 
 .detail_modal_content {
     position: relative;
-    font-family: Cambria;
+    font-family: "Roboto", sans-serif;
     font-size: 18px;
     background-color: white;
     color: black;
