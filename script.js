@@ -723,6 +723,7 @@ class App {
         })
         this.type_of_infrastructure_to_display ()
         this.close_infrastructure_modal ()
+        this.see_marker_on_map ()
     }
 
     university_display () {
@@ -748,8 +749,8 @@ class App {
         this.school_hidden ()
         this.bookcase_hidden ()
         this.#base_hospital.forEach (hospital => {
-            this.#current_hospital = this.current_hospital (hospital.name, hospital.category, hospital.district)
-            console.log (this.current_hospital)
+            this.#current_hospital = this.current_hospital ( hospital.name, hospital.category, hospital.district)
+            console.log (this.#current_hospital)
             const content = this.infrastructure_content_in_list (hospital.name)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
@@ -838,21 +839,19 @@ class App {
     }
 
     see_marker_on_map () {
-        const current_hospital = this.current_hospital (n)
-        const marker_on_map_btn = document.querySelector (".marker_on_map_btn")
-        marker_on_map_btn.addEventListener ("click", () => {
+        console.log ("youssouf")
+            console.log ("siradjo")
             this.move_to_marker ()
-        })
     }
 
-    move_to_marker (infrastructure) {
-        this.#map.setView(workout.coords, 3, {
+    move_to_marker () {
+        this.#map.setView([this.#latitude, this.#longitude], 3, {
             animate: true,
             pan: {
             duration: 1,
             },
         });
-        infrastructure.click();
+        this.current_hospital.click();
     }
 
 // la méthode qui ferme les modales au clic
