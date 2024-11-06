@@ -955,11 +955,9 @@ class App {
         }
     }
     centerMap(lat, lng) {
-        this.#map.setView([lat, lng], 20, {
+        this.#map.flyTo([lat, lng], 20, {
             animate: true,
-            pan: {
             duration: 1,
-            },
         }); 
     }
 }
