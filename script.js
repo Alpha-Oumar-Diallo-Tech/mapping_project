@@ -10,7 +10,6 @@ const oui_btn = document.querySelector (".confirm_btn")
 // selection des éléments du modal des détails sur les différents établissements
 const detail_modal = document.querySelector (".detail_modal")
 const detail_modal_close = document.querySelector (".detail_modal_close")
-const detail_modal_content = document.querySelector (".detail_modal_content")
 
 // selections des éléments du formulaire
 const formulaire = document.querySelector (".form_section")
@@ -56,6 +55,8 @@ const university_list_btn = document.querySelector (".university_btn")
 const hospital_list_btn = document.querySelector (".hospital_btn")
 const school_list_btn = document.querySelector (".school_btn")
 const bookcase_list_btn = document.querySelector (".bookcase_btn")
+
+const infrastructure_modal_close = document.querySelector (".infrastructure_modal_close")
 
 // const all_infrastructure_container = document.querySelector (".")
 
@@ -239,20 +240,20 @@ class Infrastructure {
     modal_customise () {
         switch (this.category) {
             case "hospital":
-                detail_modal_content.style.backgroundColor = "red"
-                detail_modal_content.style.color = "white"
+                detail_modal.style.backgroundColor = "red"
+                detail_modal.style.color = "white"
                 break;
             case "university":
-                detail_modal_content.style.backgroundColor = "blue"
-                detail_modal_content.style.color = "white"
+                detail_modal.style.backgroundColor = "blue"
+                detail_modal.style.color = "white"
                 break;
             case "ecole":
-                detail_modal_content.style.backgroundColor = "yellow"
-                detail_modal_content.style.color = "black"
+                detail_modal.style.backgroundColor = "yellow"
+                detail_modal.style.color = "black"
                 break;
             case "bookcase":
-                detail_modal_content.style.backgroundColor = "green"
-                detail_modal_content.style.color = "white"
+                detail_modal.style.backgroundColor = "green"
+                detail_modal.style.color = "white"
                 break;
             default:
                 popup.style.backgroundColor  = "white";
@@ -399,6 +400,9 @@ class App {
     #user_hospital = new Array ()
     #user_school = new Array ()
     #user_bookCase = new Array ()
+
+// actuelle
+    #current_hospital
 
 // la variable qui contient la carte
     #map
@@ -705,13 +709,26 @@ class App {
         console.log (this.#base_bookCase)
         console.log (this.#base_hospital)
         infrastructure_list_interface_btn.addEventListener ("click", () => {
-            infrastructure_list_interface.classList.remove ("not")
-            this.university_display ()
+            if (!infrastructure_list_interface_btn.classList.contains ("close")) {
+                infrastructure_list_interface_btn.classList.add ("close")
+                infrastructure_list_interface_btn.textContent = "Masquer toutes les infrastructures"
+                infrastructure_list_interface.classList.remove ("not")
+                this.university_display ()
+            } else {
+                infrastructure_list_interface.classList.add ("not")
+                infrastructure_list_interface_btn.classList.remove ("close")
+                infrastructure_list_interface_btn.textContent = "Afficher toutes les infrastructures"
+                this.university_hidden ()
+            }
         })
         this.type_of_infrastructure_to_display ()
+        this.close_infrastructure_modal ()
     }
 
     university_display () {
+        this.hospital_hidden ()
+        this.school_hidden ()
+        this.bookcase_hidden ()
         this.#base_university.forEach (university => {
             const content = this.infrastructure_content_in_list (university.name)
             university_container.insertAdjacentHTML ("afterbegin", content)
@@ -722,8 +739,17 @@ class App {
         })
     }
 
+    university_hidden () {
+        university_container.innerHTML = ""
+    }
+
     hospital_display () {
+        this.university_hidden ()
+        this.school_hidden ()
+        this.bookcase_hidden ()
         this.#base_hospital.forEach (hospital => {
+            this.#current_hospital = this.current_hospital (hospital.name, hospital.category, hospital.district)
+            console.log (this.current_hospital)
             const content = this.infrastructure_content_in_list (hospital.name)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
@@ -733,7 +759,14 @@ class App {
         })
     }
 
+    hospital_hidden () {
+        hospital_container.innerHTML = ""
+    }
+
     school_display () {
+        this.hospital_hidden ()
+        this.university_hidden ()
+        this.bookcase_hidden ()
         this.#base_school.forEach (school => {
             const content = this.infrastructure_content_in_list (school.name)
             school_container.insertAdjacentHTML ("afterbegin", content)
@@ -744,7 +777,14 @@ class App {
         })
     }
 
+    school_hidden () {
+        school_container.innerHTML = ""
+    }
+
     bookcase_display () {
+        this.hospital_hidden ()
+        this.school_hidden ()
+        this.university_hidden ()
         this.#base_bookCase.forEach (bookcase => {
             const content = this.infrastructure_content_in_list (bookcase.name)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
@@ -752,6 +792,19 @@ class App {
         this.#base_bookCase.forEach (bookcase => {
             const content = this.infrastructure_content_in_list (bookcase.name)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
+        })
+    }
+
+    bookcase_hidden () {
+        bookcase_container.innerHTML = ""
+    }
+
+    close_infrastructure_modal () {
+        infrastructure_modal_close.addEventListener ("click", () => {
+            infrastructure_list_interface.classList.add ("not")
+            infrastructure_list_interface_btn.classList.remove ("close")
+            infrastructure_list_interface_btn.textContent = "Afficher toutes les infrastructures"
+            this.university_hidden ()
         })
     }
 
@@ -775,12 +828,31 @@ class App {
         <div class = "infrastructure_container">
             ${name}
             <div>
-                <button class = "infrastructure_btn">En savoir plus</button>
+                <!-- <button class = "infrastructure_btn">En savoir plus</button> -->
                 <button class = "infrastructure_btn">Modifier</button>
                 <button class = "infrastructure_btn">Supprimer</button>
+                <button class = "infrastructure_btn marker_on_map_btn">voir sur la carte</button>
             </div>
         </div>`
         return content
+    }
+
+    see_marker_on_map () {
+        const current_hospital = this.current_hospital (n)
+        const marker_on_map_btn = document.querySelector (".marker_on_map_btn")
+        marker_on_map_btn.addEventListener ("click", () => {
+            this.move_to_marker ()
+        })
+    }
+
+    move_to_marker (infrastructure) {
+        this.#map.setView(workout.coords, 3, {
+            animate: true,
+            pan: {
+            duration: 1,
+            },
+        });
+        infrastructure.click();
     }
 
 // la méthode qui ferme les modales au clic
@@ -857,6 +929,15 @@ class App {
         URL.revokeObjectURL (url)
         console.log (this.#all_app_data)
 
+    }
+
+    current_hospital (name, category, district) {
+        const current_hospital = this.#base_hospital.find (
+            hospital => hospital.name === name  
+            && hospital.category === category 
+            && hospital.district === district
+        )
+        return current_hospital
     }
 }
 

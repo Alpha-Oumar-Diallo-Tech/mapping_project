@@ -115,14 +115,21 @@ body {
 
 .detail_modal {
     position: fixed;
-    top: 0;
+    bottom: 0;
     right: 0;
     width: 30%;
-    height: 100%;
-    display: flex;
-    /* justify-content: flex-end; */
-    align-items: end;
     z-index: 2;
+    font-family: "Roboto", sans-serif;
+    font-size: 18px;
+    background-color: white;
+    color: black;
+    padding: 15px 30px;
+    display: flex;
+    justify-content: space-evenly;
+    flex-direction: column;
+    gap: 5px;
+    opacity: 0.8;
+    transition: all 500ms ease-in;
     animation: sortie 500ms ease-in 1;
 }
 
@@ -133,22 +140,6 @@ body {
         width: 100%;
         height: 30%;
     }
-}
-
-.detail_modal_content {
-    position: relative;
-    font-family: "Roboto", sans-serif;
-    font-size: 18px;
-    background-color: white;
-    color: black;
-    width: 100%;
-    padding: 15px 30px;
-    display: flex;
-    justify-content: space-evenly;
-    flex-direction: column;
-    gap: 5px;
-    opacity: 0.8;
-    transition: all 500ms ease-in;
 }
 
 .detail_modal_name {
@@ -214,6 +205,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
+    z-index: 1;
     background-color: rgba(0, 0, 0, 0.5);
     backdrop-filter: blur(1px);
     animation: sortie 500ms ease-in 1;
@@ -230,7 +222,7 @@ body {
     padding: 20px 30px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
     width: 100%;
-    max-width: 300px;
+    max-width: 350px;
     margin-right: 20px;
 }
 
@@ -454,9 +446,10 @@ body {
 }
 
 .infrastructure_header {
+  position: relative;
   display: flex;
   justify-content: space-evenly;
-  padding: 20px 0px;
+  padding: 30px 0px;
   border-bottom: 1px black solid;
 }
 
@@ -477,6 +470,18 @@ body {
   gap: 10px;
 }
 
+.infrastructure_modal_close {
+  background-color: black;
+  color: white;
+  font-weight: 700;
+  padding: 5px;
+  cursor: pointer;
+  position: absolute;
+  top: 0;
+  right: 0;
+  z-index: 2;
+}
+
 .university_list, 
 .hospital_list, 
 .school_list, 
@@ -494,4 +499,8 @@ body {
   background-color: green;
   color: white;
   opacity: 0.8;
+}
+
+.close {
+  background-color: red;
 }
