@@ -717,10 +717,6 @@ class App {
 
 // la méthode qui affiche la liste des infrastructure
     show_list_of_establishments () {
-        console.log (this.#base_university)
-        console.log (this.#base_school)
-        console.log (this.#base_bookCase)
-        console.log (this.#base_hospital)
         infrastructure_list_interface_btn.addEventListener ("click", () => {
             if (!infrastructure_list_interface_btn.classList.contains ("close")) {
                 infrastructure_list_interface_btn.classList.add ("close")
@@ -736,8 +732,6 @@ class App {
         })
         this.type_of_infrastructure_to_display ()
         this.close_infrastructure_modal ()
-        // console.log (this.#latitude, this.#longitude)
-        // this.see_marker_on_map (this.#latitude, this.#longitude)
     }
 
     university_display () {
@@ -747,10 +741,12 @@ class App {
         this.#base_university.forEach (university => {
             const content = this.infrastructure_content_in_list (university.name, university.id)
             university_container.insertAdjacentHTML ("afterbegin", content)
+            document.querySelector (".infrastructure_container").style.backgroundColor = "blue"
         })
         this.#user_university.forEach (university => {
             const content = this.infrastructure_content_in_list (university.name, university.id)
             university_container.insertAdjacentHTML ("afterbegin", content)
+            document.querySelector (".infrastructure_container").style.backgroundColor = "blue"
         })
         this.see_marker_on_map (university_container, this.#base_university, this.#user_university)
     }
@@ -765,12 +761,13 @@ class App {
         this.bookcase_hidden ()
         this.#base_hospital.forEach (hospital => {
             const content = this.infrastructure_content_in_list (hospital.name, hospital.id)
-            console.log (content)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
+            document.querySelector (".infrastructure_container").style.backgroundColor = "red"
         })
         this.#user_hospital.forEach (hospital => {
             const content = this.infrastructure_content_in_list (hospital.name, hospital.id)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
+            document.querySelector (".infrastructure_container").style.backgroundColor = "red"
         })
         this.see_marker_on_map (hospital_container, this.#base_hospital, this.#user_hospital)
     }
@@ -793,10 +790,14 @@ class App {
         this.#base_school.forEach (school => {
             const content = this.infrastructure_content_in_list (school.name, school.id)
             school_container.insertAdjacentHTML ("afterbegin", content)
+            document.querySelector (".infrastructure_container").style.backgroundColor = "yellow"
+            document.querySelector (".infrastructure_container").style.color = "black"
         })
         this.#user_school.forEach (school => {
             const content = this.infrastructure_content_in_list (school.name, school.id)
             school_container.insertAdjacentHTML ("afterbegin", content)
+            document.querySelector (".infrastructure_container").style.backgroundColor = "yellow"
+            document.querySelector (".infrastructure_container").style.color = "black"
         })
         this.see_marker_on_map (school_container, this.#base_school, this.#user_school)
     }
@@ -812,10 +813,12 @@ class App {
         this.#base_bookCase.forEach (bookcase => {
             const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
+            document.querySelector (".infrastructure_container").style.backgroundColor = "green"
         })
         this.#user_bookCase.forEach (bookcase => {
             const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
+            document.querySelector (".infrastructure_container").style.backgroundColor = "green"
         })
         this.see_marker_on_map (bookcase_container, this.#base_bookCase, this.#user_bookCase)
     }
@@ -855,12 +858,12 @@ class App {
     infrastructure_content_in_list (name, id) {
         const content = `
         <div class = "infrastructure_container">
-            ${name}
+            <h1 class = "infrastructure_container_title">${name}</h1>
             <div>
-                <!-- <button class = "infrastructure_btn">En savoir plus</button> -->
-                <button class = "infrastructure_btn">Modifier</button>
-                <button class = "infrastructure_btn">Supprimer</button>
-                <button data-id="${id}" class = "infrastructure_btn marker_on_map_btn">voir sur la carte</button>
+                <!-- <button class = "infrastructure_container_btn">En savoir plus</button> -->
+                <button class = "infrastructure_container_btn">Modifier</button>
+                <button class = "infrastructure_container_btn red">Supprimer</button>
+                <button data-id="${id}" class = "infrastructure_container_btn marker_on_map_btn green">voir sur la carte</button>
             </div>
         </div>`
         return content
@@ -948,13 +951,13 @@ class App {
         console.log (current_base_infrastructure)
         console.log (current_user_infrastructure)
         if (current_base_infrastructure) {
-            this.centerMap (current_base_infrastructure.coordinates.latitude, current_base_infrastructure.coordinates.longitude)
+            this.center_marker_on_map (current_base_infrastructure.coordinates.latitude, current_base_infrastructure.coordinates.longitude)
         }
         if (current_user_infrastructure) {
-            this.centerMap (current_user_infrastructure.latitude, current_user_infrastructure.longitude)
+            this.center_marker_on_map (current_user_infrastructure.latitude, current_user_infrastructure.longitude)
         }
     }
-    centerMap(lat, lng) {
+    center_marker_on_map(lat, lng) {
         this.#map.flyTo([lat, lng], 18, {
             animate: true,
             duration: 2,
