@@ -1,5 +1,6 @@
 [
     {
+        "id": "id-1730911923729-8187",
         "category": "hospital",
         "type": "public",
         "name": "Ignace Deen National Hospital",
@@ -18,6 +19,7 @@
         "service": ["Emergency", "Pediatrics", "Surgery", "Radiology"]
     },
     {
+        "id": "id-1730911923729-4395",
         "category": "hospital",
         "type": "public",
         "name": "Donka Hospital",
@@ -36,6 +38,7 @@
         "service": ["Emergency", "Gynecology", "Dermatology", "Laboratory"]
     },
     {
+        "id": "id-1730911923729-1607",
         "category": "hospital",
         "type": "public", 
         "name": "Pasteur Clinic",
@@ -54,6 +57,7 @@
         "service": ["General Consultations", "Maternity", "Cardiology"]
     },
     {
+        "id": "id-1730911923729-7150",
         "category" : "ecole",
         "type": "privé",
         "name" : "Lycée 2 Octobre ",
@@ -72,6 +76,7 @@
         "niveau": ["primaire", "secondaire"]
     },
     {
+        "id": "id-1730911923729-9411",
         "category" : "ecole",
         "type": "privé",
         "name" : "Lycée Donka ",
@@ -90,6 +95,7 @@
         "niveau": ["primaire", "secondaire"]
     },
     {
+        "id": "id-1730911923729-2254",
         "category" : "ecole",
         "type": "privé",
         "name" : "École Primaire de Dixinn 1 ",
@@ -108,6 +114,7 @@
         "niveau": ["primaire", "secondaire"]
     },
     {
+        "id": "id-1730911923729-3540",
         "category" : "ecole",
         "type": "privé",
         "name" : "Lycee Ahmed sekou toure  ",
@@ -126,6 +133,7 @@
         "niveau": ["primaire", "secondaire"]
     },
     {
+        "id": "id-1730911923729-963",
         "category" : "ecole",
         "type": "privé",
         "name" : "Lycee Alpha yaya Diallo de kankan ",
@@ -144,6 +152,7 @@
         "niveau": ["primaire", "secondaire"]
     },
     {
+        "id": "id-1730911923729-7611",
         "category" : "ecole",
         "type": "privé",
         "name" : "Lycee jean mermoz  ",
@@ -153,7 +162,7 @@
         "year_established" : "1980",
         "coordinates" : {
             "latitude" : 9.6002061,
-            "longitude" :-13.6054553
+            "longitude" : -13.6054553
         },
         "contact": {
             "phone": "+224 629 84 44 29",
@@ -162,6 +171,7 @@
         "niveau": ["primaire", "secondaire"]
     },
     {
+        "id": "id-1730911923729-1050",
         "category" : "ecole",
         "type": "privé",
         "name" : "École Nationale des Arts et Métiers ",
@@ -180,6 +190,7 @@
         "niveau": ["primaire", "secondaire"]
     },
     {
+        "id": "id-1730911923729-7869",
         "category" : "ecole",
         "type": "privé",
         "name" : "Lycée Collège de Timbi Madina ",
@@ -188,7 +199,7 @@
         "founder" : "etat",
         "year_established" : "1965",
         "coordinates" : {
-            "latitude" :11.186822,
+            "latitude" : 11.186822,
             "longitude" : -13.7719597
         },
         "contact": {

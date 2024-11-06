@@ -71,6 +71,7 @@ class Infrastructure {
     #popup
     #marker_icon
     constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email) {
+        this.id = this.generate_Id ()
         this.map = map
         this.latitude = latitude
         this.longitude = longitude
@@ -190,17 +191,17 @@ class Infrastructure {
             case "hospital" || "bibliothèque":
                 departement.classList.add ("not")
                 niveau.classList.add ("not")
-                service.textContent = this.service.join (", ")
+                service.textContent = this.service
                 break;
             case "university":
                 service.classList.add ("not")
                 niveau.classList.add ("not")
-                departement.textContent = this.departement.join (", ")
+                departement.textContent = this.departement
                 break;
             case "ecole":
                 service.classList.add ("not")
                 departement.classList.add ("not")
-                niveau.textContent = this.niveau.join (", ")
+                niveau.textContent = this.niveau
                 break;
             default:
                 break;
@@ -272,6 +273,7 @@ class Infrastructure {
 
     simple_property () {
         const all_property = {
+            id: this.id,
             latitude: this.latitude,
             longitude: this.longitude,
             name: this.name,
@@ -331,12 +333,15 @@ class Infrastructure {
         // }
         return greenIcon
     }
+    generate_Id () {
+        return 'id-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
+    }
 }
 
 // la classe de l'université qui hérite de la classe infrastructure
 class University extends Infrastructure {
-    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement) {
-        super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+    constructor (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement) {
+        super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.departement = departement
     }
     university_simple_property () {
@@ -348,8 +353,8 @@ class University extends Infrastructure {
 
 // la classe de l'hopital qui hérite de la classe infrastructure
 class Hospital extends Infrastructure {
-    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
-        super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+    constructor (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
+        super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.service = service
     }
     hospital_simple_property () {
@@ -361,8 +366,8 @@ class Hospital extends Infrastructure {
 
 // la classe de l'école qui hérite de la classe infrastructure
 class School extends Infrastructure {
-    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau) {
-        super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+    constructor (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau) {
+        super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.niveau = niveau
     }
     school_simple_property () {
@@ -374,13 +379,13 @@ class School extends Infrastructure {
 
 // la classe de la bibliothèque qui hérite de la classe infrastructure
 class Book_Case extends Infrastructure {
-    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
-        super (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+    constructor (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
+        super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.service = service
     }
     book_case_simple_property () {
         const book_case_all_property = this.simple_property ()
-        book_case_all_property.departement = this.service
+        book_case_all_property.service = this.service
         return book_case_all_property
     }
 }
@@ -438,6 +443,7 @@ class App {
     hospital_management_function () {
         this.#base_hospital.forEach (data => {
             const {
+                id,
                 name, 
                 category,
                 type, 
@@ -454,6 +460,7 @@ class App {
                     email
                 }, service
             } = data
+            console.log (id)
             new Hospital (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
         })
     }
@@ -462,6 +469,7 @@ class App {
     University_management_function () {
         this.#base_university.forEach (data => {
             const {
+                id,
                 name, 
                 category,
                 type, 
@@ -476,9 +484,10 @@ class App {
                 contact: {
                     phone, 
                     email
-                }, service
+                }, departement
             } = data
-            new University (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
+            console.log (id)
+            new University (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement)
         })
     }
 
@@ -486,6 +495,7 @@ class App {
     school_management_function () {
         this.#base_school.forEach (data => {
             const {
+                id,
                 name, 
                 category,
                 type, 
@@ -502,6 +512,7 @@ class App {
                     email
                 }, niveau
             } = data
+            console.log (niveau)
             new School (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau)
         })
     }
@@ -510,6 +521,7 @@ class App {
     bookcase_management_function () {
         this.#base_bookCase.forEach (data => {
             const {
+                id,
                 name, 
                 category,
                 type, 
@@ -526,6 +538,7 @@ class App {
                     email
                 }, service
             } = data
+            console.log (id)
             new Book_Case (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
         })
     }
@@ -732,11 +745,11 @@ class App {
         this.school_hidden ()
         this.bookcase_hidden ()
         this.#base_university.forEach (university => {
-            const content = this.infrastructure_content_in_list (university.name)
+            const content = this.infrastructure_content_in_list (university.name, university.id)
             university_container.insertAdjacentHTML ("afterbegin", content)
         })
         this.#user_university.forEach (university => {
-            const content = this.infrastructure_content_in_list (university.name)
+            const content = this.infrastructure_content_in_list (university.name, university.id)
             university_container.insertAdjacentHTML ("afterbegin", content)
         })
     }
@@ -750,16 +763,22 @@ class App {
         this.school_hidden ()
         this.bookcase_hidden ()
         this.#base_hospital.forEach (hospital => {
-            const content = this.infrastructure_content_in_list (hospital.name)
+            const content = this.infrastructure_content_in_list (hospital.name, hospital.id)
+            console.log (content)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
         this.#user_hospital.forEach (hospital => {
-            const content = this.infrastructure_content_in_list (hospital.name)
+            const content = this.infrastructure_content_in_list (hospital.name, hospital.id)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
         })
-        console.log (this.#current_hospital)
         this.see_marker_on_map ()
+    }
 
+    see_marker_on_map () {
+        hospital_container.addEventListener ("click", (e) => {
+            const id = e.target.getAttribute ("data-id")
+            this.current_hospital (id)
+        })
     }
 
     hospital_hidden () {
@@ -771,11 +790,11 @@ class App {
         this.university_hidden ()
         this.bookcase_hidden ()
         this.#base_school.forEach (school => {
-            const content = this.infrastructure_content_in_list (school.name)
+            const content = this.infrastructure_content_in_list (school.name, school.id)
             school_container.insertAdjacentHTML ("afterbegin", content)
         })
         this.#user_school.forEach (school => {
-            const content = this.infrastructure_content_in_list (school.name)
+            const content = this.infrastructure_content_in_list (school.name, school.id)
             school_container.insertAdjacentHTML ("afterbegin", content)
         })
     }
@@ -789,11 +808,11 @@ class App {
         this.school_hidden ()
         this.university_hidden ()
         this.#base_bookCase.forEach (bookcase => {
-            const content = this.infrastructure_content_in_list (bookcase.name)
+            const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
         })
-        this.#base_bookCase.forEach (bookcase => {
-            const content = this.infrastructure_content_in_list (bookcase.name)
+        this.#user_bookCase.forEach (bookcase => {
+            const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
         })
     }
@@ -813,20 +832,24 @@ class App {
 
     type_of_infrastructure_to_display () {
         university_list_btn.addEventListener ("click", () => {
+            this.university_hidden ()
             this.university_display ()
         }) 
         hospital_list_btn.addEventListener ("click", () => {
+            this.hospital_hidden ()
             this.hospital_display ()
         })
         school_list_btn.addEventListener ("click", () => {
+            this.school_hidden ()
             this.school_display ()
         })
         bookcase_list_btn.addEventListener ("click", () => {
+            this.bookcase_hidden ()
             this.bookcase_display ()
         })
     }
 
-    infrastructure_content_in_list (name) {
+    infrastructure_content_in_list (name, id) {
         const content = `
         <div class = "infrastructure_container">
             ${name}
@@ -834,38 +857,11 @@ class App {
                 <!-- <button class = "infrastructure_btn">En savoir plus</button> -->
                 <button class = "infrastructure_btn">Modifier</button>
                 <button class = "infrastructure_btn">Supprimer</button>
-                <button class = "infrastructure_btn marker_on_map_btn">voir sur la carte</button>
+                <button data-id="${id}" class = "infrastructure_btn marker_on_map_btn">voir sur la carte</button>
             </div>
         </div>`
         return content
     }
-
-    // see_marker_on_map () {
-    //     hospital_container.addEventListener ("click", (e) => {
-    //         const el = e.target.querySelector (".marker_on_map_btn") 
-    //         // this.move_to_marker.call (this, name, category, district)
-    //         this.#map.setView([this.#latitude, this.#longitude], 3, {
-    //             animate: true,
-    //             pan: {
-    //             duration: 1,
-    //             },
-    //         });
-    //     })
-    // }
-
-    // move_to_marker (name) {
-    //     const marker_on_map_btn = document.querySelector (".marker_on_map_btn") 
-    //     console.log (marker_on_map_btn)
-    //     console.log (this.#current_hospital)
-
-    //     this.#map.setView([latitude, longitude], 3, {
-    //         animate: true,
-    //         pan: {
-    //         duration: 1,
-    //         },
-    //     });
-    //     this.current_hospital.click();
-    // }
 
 // la méthode qui ferme les modales au clic
     no_click () {
@@ -943,9 +939,25 @@ class App {
 
     }
 
-    current_hospital (name) {
-        const current_hospital = this.#base_hospital.find ( hospital => hospital.name === name)
-        return current_hospital
+    current_hospital (id) {
+        const current_base_hospital = this.#base_hospital.find ( hospital => hospital.id === id)
+        const current_user_hospital = this.#user_hospital.find ( hospital => hospital.id === id)
+        console.log (current_base_hospital)
+        console.log (current_user_hospital)
+        if (current_base_hospital) {
+            this.centerMap (current_base_hospital.coordinates.latitude, current_base_hospital.coordinates.longitude)
+        }
+        if (current_user_hospital) {
+            this.centerMap (current_user_hospital.latitude, current_user_hospital.longitude)
+        }
+    }
+    centerMap(lat, lng) {
+        this.#map.setView([lat, lng], 20, {
+            animate: true,
+            pan: {
+            duration: 1,
+            },
+        }); 
     }
 }
 
