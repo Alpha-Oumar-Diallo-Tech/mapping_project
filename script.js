@@ -857,6 +857,10 @@ class App {
         this.hospital_hidden ()
         this.school_hidden ()
         this.bookcase_hidden ()
+        university_list_btn.classList.add ("infras_btn_active")
+        hospital_list_btn.classList.remove ("infras_btn_active")
+        school_list_btn.classList.remove ("infras_btn_active")
+        bookcase_list_btn.classList.remove ("infras_btn_active")
         this.#base_university.forEach (university => {
             const content = this.infrastructure_content_in_list (university.name, university.id)
             university_container.insertAdjacentHTML ("afterbegin", content)
@@ -878,6 +882,10 @@ class App {
         this.university_hidden ()
         this.school_hidden ()
         this.bookcase_hidden ()
+        university_list_btn.classList.remove ("infras_btn_active")
+        hospital_list_btn.classList.add ("infras_btn_active")
+        school_list_btn.classList.remove ("infras_btn_active")
+        bookcase_list_btn.classList.remove ("infras_btn_active")
         this.#base_hospital.forEach (hospital => {
             const content = this.infrastructure_content_in_list (hospital.name, hospital.id)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
@@ -906,6 +914,10 @@ class App {
         this.hospital_hidden ()
         this.university_hidden ()
         this.bookcase_hidden ()
+        university_list_btn.classList.remove ("infras_btn_active")
+        hospital_list_btn.classList.remove ("infras_btn_active")
+        school_list_btn.classList.add ("infras_btn_active")
+        bookcase_list_btn.classList.remove ("infras_btn_active")
         this.#base_school.forEach (school => {
             const content = this.infrastructure_content_in_list (school.name, school.id)
             school_container.insertAdjacentHTML ("afterbegin", content)
@@ -929,6 +941,10 @@ class App {
         this.hospital_hidden ()
         this.school_hidden ()
         this.university_hidden ()
+        university_list_btn.classList.remove ("infras_btn_active")
+        hospital_list_btn.classList.remove ("infras_btn_active")
+        school_list_btn.classList.remove ("infras_btn_active")
+        bookcase_list_btn.classList.add ("infras_btn_active")
         this.#base_bookCase.forEach (bookcase => {
             const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
@@ -1067,8 +1083,6 @@ class App {
     current_infrastructure (id, base_infrastructures, user_infrastructure) {
         const current_base_infrastructure = base_infrastructures.find ( hospital => hospital.id === id)
         const current_user_infrastructure = user_infrastructure.find ( hospital => hospital.id === id)
-        console.log (current_base_infrastructure)
-        console.log (current_user_infrastructure)
         if (current_base_infrastructure) {
             this.center_marker_on_map (current_base_infrastructure.coordinates.latitude, current_base_infrastructure.coordinates.longitude)
         }

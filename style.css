@@ -542,6 +542,9 @@ body {
   cursor: pointer;
   font-size: 15px;
   font-weight: 700;
+}
+
+.infras_btn_active {
   position: relative;
   bottom: 10px;
 }
