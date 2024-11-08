@@ -27,51 +27,50 @@ Pour utiliser la plateforme, rien de plus simple, il vous suffit juste d'avoir a
 Une fois sur la plateforme, laisser la magie oppérer
 
 ## GUIDE D'UTILISATION DE L'APPLICATION WEB
-Acceder à la plateforme à travers le lien
-Au chargement de la plateforme, vous avez accès au infrastructures de base
-Selectionner un emplacement sur la carte, entrez les informations demandés pour ajouter une infrastructure à ce niveau
-Cliquer sur le popup du marqueur d'un établissement pour afficher tous les détails sur l'établissement
-Cliquer sur le bouttons "Afficher toutes les infrastructures" pour afficher la liste des infrastructures en fonction de leur catégorie.
-Cliquer le bouton "Voir sur la carte" associé à chaque établissement pour voir l'emplacement de l'infrastructure sur la carte.
-Dans cette même interface, cliquer sur le bouton "Télécharger la liste des infrastructures" pour télécharger la liste de toutes les infrastructures
-Cliquer sur le bouton "masquer toutes les infrastructures" pour fermer cette interface
+- Acceder à la plateforme à travers le lien
+- Au chargement de la plateforme, vous avez accès au infrastructures de base
+- Selectionner un emplacement sur la carte, entrez les informations demandés pour ajouter une infrastructure à ce niveau
+- Cliquer sur le popup du marqueur d'un établissement pour afficher tous les détails sur l'établissement
+- Cliquer sur le bouttons "Afficher toutes les infrastructures" pour afficher la liste des infrastructures en fonction de leur catégorie.
+- Cliquer le bouton "Voir sur la carte" associé à chaque établissement pour voir l'emplacement de l'infrastructure sur la carte.
+- Dans cette même interface, cliquer sur le bouton "Télécharger la liste des infrastructures" pour télécharger la liste de toutes les infrastructures
+- Cliquer sur le bouton "masquer toutes les infrastructures" pour fermer cette interface
 
 ## CHOIX TECHNIQUE EFFECTUES
-LANGAGE DE PROGRAMMATION:
-    HTML: pour la structure
-    CSS: pour le style
-    JAVASCRIPT: pour la logique
-BIBLIOTHEQUE:
-    LEAFLET: pour la carte
-PARADIGME DE PROGRAMMATION:
-    PROGRAMMATION ORIENTE OBJET: pour maintenir une structure organisé, évolutive, maintenable et flexible
-HEBERGEMENT:
-    VERCEL
+- LANGAGE DE PROGRAMMATION:
+    - HTML: pour la structure
+    - CSS: pour le style
+    - JAVASCRIPT: pour la logique
+- BIBLIOTHEQUE:
+    - LEAFLET: pour la carte
+- PARADIGME DE PROGRAMMATION:
+    - PROGRAMMATION ORIENTE OBJET: pour maintenir une structure organisé, évolutive, maintenable et flexible
+- HEBERGEMENT:
+    - VERCEL
 
 ## DESCRIPTION DES FONCTIONNALITES IMPLEMENETEES
-AFFICHAGE DE LA CARTE: l'utilisation de la bibliothèque leaflet pour afficher la carte
-AFFICHAGE DES MARQUEURS SUR LA CARTE: 
-    POUR LES INFRASTRUCTURES DE BASE: 
-        mise en place d'une méthode qui exploites les coordonnées récupéree dans le fichier JSON pour afficher le marqueur
-    POUR LES INFRASTRUCTURES AJOUTEES PAR L'UTILISATEUR:
-        mise en place d'une méthode qui écoute l'évènement du clic sur la carte afin d'extraire les coordonées ainsi que d'autre informations avant d'appeler la méthode qui exploite ces données là pour afficher le marqueur
-PERSONALISATION DU POPUP: 
-    mise en place d'une méthode qui exploite la catégorie de l'établissemnt pour lui donner une couleur en fonction de cela
-AFFICHAGE DES DETAILS SUPPLEMENTAIRE:
-    mise en place d'une méthode qui écoute l'évènement du clic sur le popup afin d'aficher le modal qui va afficher les détails supplémentaire relatif à l'établissement
-PERSONNALISATION DU MODAL DES DETAILS:
-    mise en place d'une méthode qui exploite la catégorie de l'établissement pour lui donner une couleur en fonction de cela
-AJOUT D'UN NOUVELLE ETABLISSEMENT:
-    mise en place d'une méthode qui écoute l'évènement du clic sur la carte, une autre méthode qui vérifie que le clic n'est pas accidentelle avant d'affficher le formulaire. Mise en place d'une méthode qui vérifie les données qui sont censé être alphabétique (et qui affiche un message d'erreur au cas contraire, puis empèche la validation du formulaire), une autre méthode qui vérifie les données qui sont censé être numérique (et qui affiche un message d'erreur au cas contraire, puis empèche la validation du formulaire), et une autre méthode qui vérifie les données récupérer et transformer en tableau qui est un tableau censé contenir des caractère alphabétique (et qui affiche un message d'erreur au cas contraire, puis empèche la validation du formulaire). Une autre méthode qui valide le formulaire et qui crée une instance de l'établissement en fonction de la catégorie pour afficher l'infrastructure sur la carte
-AFFICHAGE DE LA LISTE DES ETABLISSEMENTS:
-    mise en place d'une méthode qui écoute le clic sur le bouton "Afficher toutes les infrastructures" et qui affiche une interface de la liste des établissemnts en fonction de la catégorie.
-AFFICHAGE DE L'INFRASTRUCTURE SUR LA CARTE AU CLIC SUR LE BOUTON "Voir sur la carte":
-    mise en place d'une méthode qui écoute le clic sur le bouton "Voir sur la carte" et qui recherche cet établissement dans le tableau des établissements, puis récupère ce objet afin d'extraire ces coordonées et l'afficher sur la carte
+- AFFICHAGE DE LA CARTE: l'utilisation de la bibliothèque leaflet pour afficher la carte
+- AFFICHAGE DES MARQUEURS SUR LA CARTE: 
+    - POUR LES INFRASTRUCTURES DE BASE: 
+        - mise en place d'une méthode qui exploites les coordonnées récupéree dans le fichier JSON pour afficher le marqueur
+    - POUR LES INFRASTRUCTURES AJOUTEES PAR L'UTILISATEUR:
+        - mise en place d'une méthode qui écoute l'évènement du clic sur la carte afin d'extraire les coordonées ainsi que d'autre informations avant d'appeler la méthode qui exploite ces données là pour afficher le marqueur
+- PERSONALISATION DU POPUP: 
+    - mise en place d'une méthode qui exploite la catégorie de l'établissemnt pour lui donner une couleur en fonction de cela
+- AFFICHAGE DES DETAILS SUPPLEMENTAIRE:
+    - mise en place d'une méthode qui écoute l'évènement du clic sur le popup afin d'aficher le modal qui va afficher les détails supplémentaire relatif à l'établissement
+- PERSONNALISATION DU MODAL DES DETAILS:
+    - mise en place d'une méthode qui exploite la catégorie de l'établissement pour lui donner une couleur en fonction de cela
+- AJOUT D'UN NOUVELLE ETABLISSEMENT:
+    - mise en place d'une méthode qui écoute l'évènement du clic sur la carte, une autre méthode qui vérifie que le clic n'est pas accidentelle avant d'affficher le formulaire. Mise en place d'une méthode qui vérifie les données qui sont censé être alphabétique (et qui affiche un message d'erreur au cas contraire, puis empèche la validation du formulaire), une autre méthode qui vérifie les données qui sont censé être numérique (et qui affiche un message d'erreur au cas contraire, puis empèche la validation du formulaire), et une autre méthode qui vérifie les données récupérer et transformer en tableau qui est un tableau censé contenir des caractère alphabétique (et qui affiche un message d'erreur au cas contraire, puis empèche la validation du formulaire). Une autre méthode qui valide le formulaire et qui crée une instance de l'établissement en fonction de la catégorie pour afficher l'infrastructure sur la carte
+- AFFICHAGE DE LA LISTE DES ETABLISSEMENTS:
+    - mise en place d'une méthode qui écoute le clic sur le bouton "Afficher toutes les infrastructures" et qui affiche une interface de la liste des établissemnts en fonction de la catégorie.
+- AFFICHAGE DE L'INFRASTRUCTURE SUR LA CARTE AU CLIC SUR LE BOUTON "Voir sur la carte":
+    - mise en place d'une méthode qui écoute le clic sur le bouton "Voir sur la carte" et qui recherche cet établissement dans le tableau des établissements, puis récupère ce objet afin d'extraire ces coordonées et l'afficher sur la carte
 
 
-## Problèmes rencontrés et solutions apportées. 
-<!-- Problèmes de compatibilité navigateur
-Bugs et erreurs de script -->
+## PROBLEMES RENCONTRES ET SOLUTIONS APPORTEES
+
 
 
 
