@@ -438,9 +438,12 @@ body {
     }
 
 #download {
-  position: fixed;
-  top: 0;
-  left: 0;
+  margin: 20px;
+  padding: 10px;
+  background-color: blue;
+  border: none;
+  color: white;
+  cursor: pointer;
 }
 
 /*  */

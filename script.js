@@ -993,8 +993,8 @@ class App {
             <h1 class = "infrastructure_container_title">${name}</h1>
             <div>
                 <!-- <button class = "infrastructure_container_btn">En savoir plus</button> -->
-                <button class = "infrastructure_container_btn">Modifier</button>
-                <button class = "infrastructure_container_btn red">Supprimer</button>
+                <!--<button class = "infrastructure_container_btn">Modifier</button>-->
+                <!--<button class = "infrastructure_container_btn red">Supprimer</button>-->
                 <button data-id="${id}" class = "infrastructure_container_btn marker_on_map_btn green">voir sur la carte</button>
             </div>
         </div>`
