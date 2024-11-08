@@ -29,6 +29,26 @@ const fondateur = document.querySelector (".founder")
 const annee_de_fondation = document.querySelector (".year_of_foundation")
 const checkbox = document.querySelector (".checkbox")
 
+// sélection des champs d'erreurs
+const globale_error = document.querySelector (".globale_error")
+
+const error_field_unique = document.querySelector (".error_field_unique")
+
+const bookcase_error = document.querySelector (".bookcase_error")
+const hospital_error = document.querySelector (".hospital_error")
+const school_error = document.querySelector (".school_error")
+const university_error = document.querySelector (".university_error")
+
+const contact_error = document.querySelector (".contact_error")
+
+const foundation_year_error = document.querySelector (".foundation_year_error")
+
+const name_error = document.querySelector (".name_error")
+const type_error = document.querySelector (".type_error")
+const city_error = document.querySelector (".city_error")
+const district_error = document.querySelector (".district_error")
+const founder_error = document.querySelector (".founder_error")
+
 // séléction des containeurs qui contiennent le label ainsi que le champs de saisi du formulaire qui varient en fonction de la catégorie de l'infrastructure
 const university = document.querySelector (".departement")
 const service_hopital = document.querySelector (".hopital_service")
@@ -588,6 +608,67 @@ class App {
         
     }
 
+    check_fields_in_letters (field, element) {
+        if (!isNaN (Number (field.trim ()))) {
+            element.textContent = "champs non valide"
+            globale_error.classList.remove ("not")
+            console.log ("non valide")
+            return false
+        } else {
+            element.textContent = ""
+            console.log ("valide")
+            return true
+        }
+    }
+
+    check_number_field (field, element) {
+        if (isNaN(Number(field.trim())) || field.trim ().length > 9) {
+            element.textContent = "Ce champ doit contenir 9 chiffres"
+            globale_error.classList.remove ("not")
+            console.log("Champ non valide")
+            return false
+        } else {
+            element.textContent = ""
+            return true
+        }
+    }
+
+    check_table_field (field, element) {
+        const array = field.trim ().split (",")
+        const isCorrect = array.every (word => isNaN(Number(word.trim())))
+        if (!isCorrect) {
+            element.textContent = "entrez non valide"
+            globale_error.classList.remove ("not")
+            return false
+        } else {
+            element.textContent = ""
+            return true;
+        }
+    }
+
+    check_foundation_year_field (field, element) {
+        if (isNaN(Number(field.trim())) || field < 1960 || field > 2025) {
+            element.textContent = "entrez une année valide"
+            globale_error.classList.remove ("not")
+            console.log("anee non")
+            return false
+        } else {
+            element.textContent = ""
+            return true
+        }
+    }
+
+    empty_error_field () {
+        name_error.textContent = ""
+        city_error.textContent = ""
+        district_error.textContent = ""
+        founder_error.textContent = ""
+        type_error.textContent = ""
+        contact_error.textContent = ""
+        foundation_year_error.textContent = ""
+        globale_error.classList.add ("not")
+    }
+
 // la méthode qui s'occupe de la gestion du formulaire
     form_management (map) {
         submit_form.addEventListener ("submit", (e) => {
@@ -604,6 +685,37 @@ class App {
             const hospital_service = service_hopital.value
             const book_case_service = bibliotheque_service.value
             const niveau = ecole_niveau.value
+
+            let isFormValid = true;
+
+            
+
+            isFormValid = isFormValid && this.check_fields_in_letters(name, name_error);
+            isFormValid = isFormValid && this.check_fields_in_letters(type, type_error);
+            isFormValid = isFormValid && this.check_fields_in_letters(city, city_error);
+            isFormValid = isFormValid && this.check_fields_in_letters(district, district_error);
+            isFormValid = isFormValid && this.check_fields_in_letters(founder, founder_error);
+            isFormValid = isFormValid && this.check_number_field(phone, contact_error);
+            isFormValid = isFormValid && this.check_foundation_year_field(year_established, foundation_year_error);
+
+            
+            if (infrastructure_type.value === "hospital") {
+                isFormValid = isFormValid && this.check_table_field (hospital_service, hospital_error)
+            }
+            if (infrastructure_type.value === "university") {
+                isFormValid = isFormValid && this.check_table_field (departement, university_error)
+            }
+            if (infrastructure_type.value === "ecole") {
+                console.log (ecole_input.value)
+                isFormValid = isFormValid && this.check_table_field (niveau, school_error)
+            }
+            if (infrastructure_type.value === "bookcase") {
+                isFormValid = isFormValid && this.check_table_field (book_case_service, bookcase_error)
+            }
+
+            if (!isFormValid) {
+                return
+            }
 
             let hospital
             let universite
@@ -661,6 +773,7 @@ class App {
 
 // la méthode qui ferme le modal
     close_form () {
+        this.empty_error_field ()
         this.hide_form ()
         infrastructure_type.value = ""
         rest_of_the_form.classList.add ("not")
@@ -672,6 +785,12 @@ class App {
         oui_btn.addEventListener ("click", function () {
             confirm_modal.classList.add ("not")
             formulaire.classList.remove ("not")
+            if (!infrastructure_list_interface.classList.contains ("not")) {
+                infrastructure_list_interface.classList.add ("not")
+                infrastructure_list_interface_btn.classList.remove ("close")
+                infrastructure_list_interface_btn.textContent = "Afficher toutes les infrastructures"
+                this.university_hidden ()
+            }
         })
         infrastructure_type.addEventListener ("change", (e) => {
             e.preventDefault ()

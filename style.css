@@ -216,6 +216,16 @@ body {
     overflow-y: scroll;
 }
 
+.form_input_scroll_elements {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.error_field {
+  color: red;
+}
+
 .form-container {
     position: relative;
     background-color: #ffffff;
@@ -262,7 +272,7 @@ body {
     padding: 5px;
     border: 1px solid #ddd;
     border-radius: 5px;
-    margin-bottom: 15px;
+    margin-bottom: 5px;
     font-size: 16px;
   }
 
