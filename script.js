@@ -208,53 +208,50 @@ class Infrastructure {
         const niveau = document.querySelector (".detail_modal_niveau")
 
         switch (this.category) {
-            case "hospital" || "bibliothèque":
+            case "bibliothèque":
                 departement.classList.add ("not")
                 niveau.classList.add ("not")
+                service.classList.remove ("not")
+                service.textContent = this.service
+                break;
+            case "hospital":
+                departement.classList.add ("not")
+                niveau.classList.add ("not")
+                service.classList.remove ("not")
                 service.textContent = this.service
                 break;
             case "university":
                 service.classList.add ("not")
                 niveau.classList.add ("not")
+                departement.classList.remove ("not")
                 departement.textContent = this.departement
                 break;
             case "ecole":
                 service.classList.add ("not")
                 departement.classList.add ("not")
+                niveau.classList.remove ("not")
                 niveau.textContent = this.niveau
                 break;
             default:
                 break;
         }
 
-        if (detail_modal.classList.contains ("not")) {
-            detail_modal.classList.remove ("not")
-            nom.textContent = this.name
-            categorie.textContent = `Catégorie: ${this.category}` 
-            type.textContent = `Type d'établissement: ${this.type}` 
-            addresse.textContent = `Addresse: ${this.city}, ${this.district}`
-            founder.textContent = `Fondateur: ${this.founder}`
-            year_established.textContent = `Année de fondation: ${this.year_established}` 
-            telephone.textContent = `Téléphone: ${this.phone}` 
-            email.textContent = `Mail: ${this.email}` 
-            service.textContent = `Services: ${this.service}` 
-            departement.textContent = `Départements: ${this.departement}` 
-            niveau.textContent = `Niveau: ${this.niveau}` 
-            console.log (this.name)
-            // this.showMap (lat, lng, 3)
-        } else {
-            nom.textContent = this.name
-            categorie.textContent = `Catégorie: ${this.category}` 
-            type.textContent = `Type d'établissement: ${this.type}` 
-            addresse.textContent = `Addresse: ${this.city}, ${this.district}`
-            founder.textContent = `Fondateur: ${this.founder}`
-            year_established.textContent = `Année de fondation: ${this.year_established}` 
-            telephone.textContent = `Téléphone: ${this.phone}` 
-            email.textContent = `Mail: ${this.email}` 
-            service.textContent = `Services: ${this.service}` 
-            departement.textContent = `Départements: ${this.departement}` 
-            niveau.textContent = `Niveau: ${this.niveau}` 
+        if (detail_modal.classList.contains("not")) {
+            detail_modal.classList.remove("not");
         }
+    
+        nom.textContent = this.name;
+        categorie.textContent = `Catégorie: ${this.category}`; 
+        type.textContent = `Type d'établissement: ${this.type}`; 
+        addresse.textContent = `Addresse: ${this.city}, ${this.district}`;
+        founder.textContent = `Fondateur: ${this.founder}`;
+        year_established.textContent = `Année de fondation: ${this.year_established}`; 
+        telephone.textContent = `Téléphone: ${this.phone}`; 
+        email.textContent = `Mail: ${this.email}`; 
+        service.textContent = `Services: ${this.service || "Non spécifié"}`; 
+        departement.textContent = `Départements: ${this.departement || "Non spécifié"}`; 
+        niveau.textContent = `Niveau: ${this.niveau || "Non spécifié"}`;  
+        
     }
 
     // la méthode qui personnalise le modal des détails en fonction de la catégorie de l'infrastructure
@@ -292,7 +289,7 @@ class Infrastructure {
     }
 
     simple_property () {
-        const all_property = {
+        return {
             id: this.id,
             latitude: this.latitude,
             longitude: this.longitude,
@@ -306,7 +303,6 @@ class Infrastructure {
             phone: this.phone,
             email: this.email
         }
-        return all_property
     }
 
     customise_marker () {
@@ -364,8 +360,8 @@ class University extends Infrastructure {
         super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.departement = departement
     }
-    university_simple_property () {
-        const university_all_property = this.simple_property ()
+    simple_property () {
+        const university_all_property = super.simple_property ()
         university_all_property.departement = this.departement
         return university_all_property
     }
@@ -377,9 +373,10 @@ class Hospital extends Infrastructure {
         super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.service = service
     }
-    hospital_simple_property () {
-        const hospital_all_property = this.simple_property ()
+    simple_property () {
+        const hospital_all_property = super.simple_property ()
         hospital_all_property.service = this.service
+        console.log (hospital_all_property)
         return hospital_all_property
     }
 }
@@ -390,8 +387,8 @@ class School extends Infrastructure {
         super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.niveau = niveau
     }
-    school_simple_property () {
-        const school_all_property = this.simple_property ()
+    simple_property () {
+        const school_all_property = super.simple_property ()
         school_all_property.niveau = this.niveau
         return school_all_property
     }
@@ -403,8 +400,8 @@ class Book_Case extends Infrastructure {
         super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.service = service
     }
-    book_case_simple_property () {
-        const book_case_all_property = this.simple_property ()
+    simple_property () {
+        const book_case_all_property = super.simple_property ()
         book_case_all_property.service = this.service
         return book_case_all_property
     }
@@ -478,9 +475,10 @@ class App {
                 contact: {
                     phone, 
                     email
-                }, service
+                },
+                service
             } = data
-            console.log (id)
+            console.log (service)
             new Hospital (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
         })
     }
@@ -634,8 +632,7 @@ class App {
     }
 
     check_table_field (field, element) {
-        const array = field.trim ().split (",")
-        const isCorrect = array.every (word => isNaN(Number(word.trim())))
+        const isCorrect = field.every (word => isNaN(Number(word.trim())))
         if (!isCorrect) {
             element.textContent = "entrez non valide"
             globale_error.classList.remove ("not")
@@ -681,10 +678,10 @@ class App {
             const email = mail.value
             const founder = fondateur.value
             const year_established = annee_de_fondation.value
-            const departement = university.value
-            const hospital_service = service_hopital.value
-            const book_case_service = bibliotheque_service.value
-            const niveau = ecole_niveau.value
+            const departement = university.value.trim ().split (",")
+            const hospital_service = service_hopital.value.trim ().split (",")
+            const book_case_service = bibliotheque_service.value.trim ().split (",")
+            const niveau = ecole_niveau.value.trim ().split (",")
 
             let isFormValid = true;
 
@@ -725,7 +722,7 @@ class App {
             switch (infrastructure_type.value) {
                 case "hospital":
                     hospital = new Hospital (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
-                    this.#user_hospital.push (hospital.hospital_simple_property ())
+                    this.#user_hospital.push (hospital.simple_property ())
                     this.store_data_in_local_storage ("hospital", this.#user_hospital)
                     break;
                 case "university":
@@ -735,12 +732,12 @@ class App {
                     break;
                 case "ecole":
                     school = new School (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, niveau)
-                    this.#user_school.push (school.school_simple_property ())
+                    this.#user_school.push (school.simple_property ())
                     this.store_data_in_local_storage ("school", this.#user_school)
                     break;
                 case "bookcase":
                     bookcase = new Book_Case (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, book_case_service)
-                    this.#user_bookCase.push (bookcase.book_case_simple_property ())
+                    this.#user_bookCase.push (bookcase.simple_property ())
                     localStorage.setItem ("bookcase", JSON.stringify (this.#user_bookCase))
                     this.store_data_in_local_storage ("bookcase", this.#user_bookCase)
                     break;
