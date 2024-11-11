@@ -1,6 +1,6 @@
 [
     {
-      "category": "University",
+      "category": "university",
           "name": "Universite Lansana Conte de Sonfonia-Conakry",
           "city": "Conakry",
           "district": "Ratoma",
@@ -17,7 +17,7 @@
     
     },
     {
-      "category": "University",
+      "category": "university",
       "name": "Univerte Gamal Abdel Naser",
       "city": "Conakry",
       "district": "Dixinn",
@@ -34,7 +34,7 @@
     },
     
     {
-      "category": "University",
+      "category": "university",
       "name": "Universite Julius-Nyerere de Kankan",
       "city": "Kankan",
       "district": "Kankan",
@@ -52,7 +52,7 @@
   
     {
   
-      "category": "Institut",
+      "category": "university",
       "name": "Institut Superieur Des Mines Et Geologie De Boke",
       "city": "Boke",
       "district": "Boke",
@@ -69,7 +69,7 @@
   },
   
     {
-      "category": "Institut",
+      "category": "university",
       "name": "Institut Superieur de Technologie de Mamou",
       "city": "Mamou",
       "district": "Mamou",
@@ -86,7 +86,7 @@
     }, 
   
     {
-      "category": "Universite",
+      "category": "university",
       "name": "Universite de labe",
       "city": "Labe",
       "district": "Labe",
@@ -104,7 +104,7 @@
   
   
     {
-      "category": "Universite",
+      "category": "university",
       "name": "Universite de Kindia",
       "city": "kindia",
       "district": "Kindia",
@@ -121,7 +121,7 @@
     },
   
     {
-      "category": "Institut",
+      "category": "university",
       "name": "Institut Superieur des Science de L'Education de Guinee",
       "city": "Conakry",
       "district": "Conakry",
@@ -138,7 +138,7 @@
     }, 
   
     {
-      "category": "Universite",
+      "category": "university",
       "name": "Universite de N'Zerekore",
       "city": "N'Zerekore",
       "district": "N'Zerekore",
@@ -156,7 +156,7 @@
     }, 
   
     {
-      "category": "Universite",
+      "category": "university",
       "name": "Universite de N'Zerekore",
       "city": "N'Zerekore",
       "district": "N'Zerekore",
@@ -174,7 +174,7 @@
   
   
   {
-    "category": "Universite",
+    "category": "university",
     "name": "Universite de Mercure International",
     "city": "Conakry",
     "district": "Kipe",
@@ -191,7 +191,7 @@
   },
   
   {
-    "category": "Universite",
+    "category": "university",
     "name": "Universite Mahatma Gandhi",
     "city": "Conakry",
     "district": "Kipe",
@@ -208,7 +208,7 @@
   },
   
   {
-    "category": "Universite",
+    "category": "university",
     "name": "Université Nongo Conakry",
     "city": "Conakry",
     "district": "Nongo",
@@ -225,7 +225,7 @@
   },
   
   {
-    "category": "Universite",
+    "category": "university",
     "name": "Université Kofi Annan",
     "city": "Conakry",
     "district": "Nongo",

@@ -114,20 +114,11 @@ class Infrastructure {
     
     // la méthode qui permet d'afficher le marqueur
     show_indicator () {
-        // this.customise_marker () 
-        // const greenIcon = L.icon({
-        //     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-        //     shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-        //     iconSize:     [38, 95], // size of the icon
-        //     shadowSize:   [50, 64], // size of the shadow
-        //     iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-        //     shadowAnchor: [4, 62],  // the same for the shadow
-        //     popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
-        // });
+        this.customise_marker ()
         const popup_content = this._popupContent ()
-        // const me = this.customise_marker () , {icon: greenIcon}
+        this.customise_marker ()
         // console.log (this.#marker_icon)
-        this.#marker = L.marker ([this.latitude, this.longitude]).addTo(this.map)
+        this.#marker = L.marker ([this.latitude, this.longitude], {icon: this.#marker_icon}).addTo(this.map)
         this.#marker.bindPopup(popup_content,
             {
                 autoClose: false,
@@ -277,9 +268,7 @@ class Infrastructure {
                 detail_modal.style.color = "white"
                 break;
             default:
-                popup.style.backgroundColor  = "white";
-                popup.style.color  = "black";
-                popup.style.opacity  = "0.8";
+                
                 break;
         }
     }
@@ -309,48 +298,47 @@ class Infrastructure {
     }
 
     customise_marker () {
-        const Marker_customised = L.Icon ({
-            Options: {
-                iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png",
-                shadowUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png",
-                iconSize: [100, 200],
-                shadowSize: [0, 0],
-                iconAnchor: [0, 0],
-                popupAnchor: [100, 100]
-            }
-        })
-        const greenIcon = L.icon({
-            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-shadow.png',
-            iconSize:     [38, 95], // size of the icon
-            shadowSize:   [50, 64], // size of the shadow
-            iconAnchor:   [22, 94], // point of the icon which will correspond to marker's location
-            shadowAnchor: [4, 62],  // the same for the shadow
-            popupAnchor:  [-3, -76] // point from which the popup should open relative to the iconAnchor
+        const hospital_icon = L.icon({
+            iconUrl: "rouge.png",
+            iconSize: [38, 38],
+            iconAnchor: [19, 38],
+            popupAnchor: [0, -30]
         });
-        // this.#marker_icon = greenIcon
-        // const hospital_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
-        // const university_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
-        // const school_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
-        // const bookcase_icon = new Marker_customised ({iconUrl: "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png"})
-        // switch (this.category) {
-        //     case "hospital":
-        //         this.#marker_icon = hospital_icon
-        //         break;
-        //     case "university":
-        //         this.#marker_icon = university_icon
-        //         break;
-        //     case "ecole":
-        //         this.#marker_icon = school_icon
-        //         break;
-        //     case "bookcase":
-        //         this.#marker_icon = bookcase_icon
-        //         break;
-        //     default:
-        //         console.log ("erreur marqueur icon")
-        //         break;
-        // }
-        return greenIcon
+        const university_icon = L.icon({
+            iconUrl: "bleu.png",
+            iconSize: [38, 38],
+            iconAnchor: [19, 38],
+            popupAnchor: [0, -30]
+        });
+        const school_icon = L.icon({
+            iconUrl: "jaune.png",
+            iconSize: [38, 38],
+            iconAnchor: [19, 38],
+            popupAnchor: [0, -30]
+        });
+        const bookcase_icon = L.icon({
+            iconUrl: "vert.png",
+            iconSize: [38, 38],
+            iconAnchor: [19, 38],
+            popupAnchor: [0, -30]
+        });
+        switch (this.category) {
+            case "hospital":
+                this.#marker_icon = hospital_icon
+                break;
+            case "university":
+                this.#marker_icon = university_icon
+                break;
+            case "ecole":
+                this.#marker_icon = school_icon
+                break;
+            case "bookcase":
+                this.#marker_icon = bookcase_icon
+                break;
+            default:
+                console.log ("erreur marqueur icon")
+                break;
+        }
     }
     generate_Id () {
         return 'id-' + Date.now() + '-' + Math.floor(Math.random() * 10000);
@@ -1139,7 +1127,7 @@ class App {
                 const user_json_data = JSON.parse (event.target.result)
                 // this.data_separation (user_json_data)
                 const user_json_file_hopitals = user_json_data.filter (user_json_data => user_json_data.category === "hospital")
-                const user_json_file_university = user_json_data.filter (user_json_data => user_json_data.category === "University")
+                const user_json_file_university = user_json_data.filter (user_json_data => user_json_data.category === "university")
                 const user_json_file_school = user_json_data.filter (user_json_data => user_json_data.category === "ecole")
                 const user_json_file_bookcase = user_json_data.filter (user_json_data => user_json_data.category === "bibliotèque")
                 console.log (user_json_file_university)
@@ -1236,6 +1224,7 @@ class App {
                     this.#user_school.push (file_bookcase.hospital_simple_property ())
                     this.store_data_in_local_storage ("school", this.#user_school)
                 })
+                this.university_display ()
             } catch (error) {
                 console.log (error)
             }
