@@ -243,7 +243,7 @@ body {
     margin-bottom: 20px;
   }
 
-.form_modal_close {
+.form_modal_close_span {
     background-color: black;
     color: white;
     font-weight: 700;
@@ -476,7 +476,7 @@ body {
 
 .infrastructure_body {
   margin-top: 20px;
-  height: 70vh;
+  height: 60vh;
   overflow-y: auto;
   display: flex;
   flex-direction: column;
@@ -580,4 +580,9 @@ body {
   cursor: pointer;
   font-size: 15px;
   font-weight: 700;
+}
+
+.import_export {
+  display: flex;
+  flex-direction: column;
 }

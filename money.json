@@ -1,0 +1,243 @@
+[
+    {
+      "category": "University",
+          "name": "Universite Lansana Conte de Sonfonia-Conakry",
+          "city": "Conakry",
+          "district": "Ratoma",
+          "founder": "State",
+          "year_established": 2005,
+          "coordinates": {
+              "latitude": 9.5604059,
+              "longitude": -13.847121
+            },      
+          "contact": {
+             "phone":"+224 628 03 45 08",
+             "email":"contact@uglcs.org"
+          }  
+    
+    },
+    {
+      "category": "University",
+      "name": "Univerte Gamal Abdel Naser",
+      "city": "Conakry",
+      "district": "Dixinn",
+      "founder": "State",
+      "year_established": 2005,
+      "coordinates": {
+          "latitude": 9.5456245, 
+          "longitude": -13.6764047
+      },
+      "contact": {
+          "phone": "+224 625 07 71 73",
+          "email": " info@uganc.edu.gn"
+      }
+    },
+    
+    {
+      "category": "University",
+      "name": "Universite Julius-Nyerere de Kankan",
+      "city": "Kankan",
+      "district": "Kankan",
+      "founder": "State",
+      "year_established": 1968,
+      "coordinates": {
+          "latitude": 10.3750899, 
+          "longitude": -9.3117746
+      },
+      "contact": {
+          "phone": "+224 620 453",
+          "email": "contact@ujnk.edu.gn"
+      }
+    },
+  
+    {
+  
+      "category": "Institut",
+      "name": "Institut Superieur Des Mines Et Geologie De Boke",
+      "city": "Boke",
+      "district": "Boke",
+      "founder": "State",
+      "year_established": 1990,
+      "coordinates": {
+          "latitude": 10.9763509, 
+          "longitude": -14.2747799
+      },
+      "contact": {
+          "phone": "+224 624 69 08 60",
+          "email": "contact@ismgb.com"
+    }
+  },
+  
+    {
+      "category": "Institut",
+      "name": "Institut Superieur de Technologie de Mamou",
+      "city": "Mamou",
+      "district": "Mamou",
+      "founder": "State",
+      "year_established": 2004,
+      "coordinates": {
+          "latitude": 10.3786235, 
+          "longitude": -12.1080068
+      },
+      "contact": {
+          "phone": "+224 611 53 64 22",
+          "email": "info@istmamou.org"
+    }
+    }, 
+  
+    {
+      "category": "Universite",
+      "name": "Universite de labe",
+      "city": "Labe",
+      "district": "Labe",
+      "founder": "State",
+      "year_established": 2001,
+      "coordinates": {
+          "latitude": 11.3232094, 
+          "longitude": -12.293997
+      },
+      "contact": {
+          "phone": "+224 629 00 58 07",
+          "email": "contact@univ-labe.edu.gn"
+    }
+    }, 
+  
+  
+    {
+      "category": "Universite",
+      "name": "Universite de Kindia",
+      "city": "kindia",
+      "district": "Kindia",
+      "founder": "State",
+      "year_established": 2001,
+      "coordinates": {
+          "latitude": 11.3232094, 
+          "longitude": -12.293997
+      },
+      "contact": {
+          "phone": "+224 621 77 74 36",
+          "email": " rectorat@univ-kindia.com"
+    }
+    },
+  
+    {
+      "category": "Institut",
+      "name": "Institut Superieur des Science de L'Education de Guinee",
+      "city": "Conakry",
+      "district": "Conakry",
+      "founder": "State",
+      "year_established": 1979,
+      "coordinates": {
+          "latitude": 9.6443178, 
+          "longitude": -13.6078874
+      },
+      "contact": {
+          "phone": "+224 628 00 22 18",
+          "email": "  isseginfos@gmail.com"
+    }
+    }, 
+  
+    {
+      "category": "Universite",
+      "name": "Universite de N'Zerekore",
+      "city": "N'Zerekore",
+      "district": "N'Zerekore",
+      "founder": "State",
+      "year_established": 2001,
+      "coordinates": {
+          "latitude": 7.7325995, 
+          "longitude": -8.8374962
+      },
+      "contact": {
+          "phone": "+224 621 05 88 88",
+          "email": "info@univ-nzerekore.org"
+        }
+  
+    }, 
+  
+    {
+      "category": "Universite",
+      "name": "Universite de N'Zerekore",
+      "city": "N'Zerekore",
+      "district": "N'Zerekore",
+      "founder": "State",
+      "year_established": 2001,
+      "coordinates": {
+          "latitude": 7.7325995, 
+          "longitude": -8.8374962
+      },
+      "contact": {
+          "phone": "+224 621 05 88 88",
+          "email": "info@univ-nzerekore.org"
+    }
+  },
+  
+  
+  {
+    "category": "Universite",
+    "name": "Universite de Mercure International",
+    "city": "Conakry",
+    "district": "Kipe",
+    "founder": "Privee",
+    "year_established":1998,
+    "coordinates": {
+        "latitude": 9.601139, 
+        "longitude": -13.6452116
+    },
+    "contact": {
+        "phone": "+224 624 73 74 75",
+        "email": "Contact@uni-gn.com"
+  }
+  },
+  
+  {
+    "category": "Universite",
+    "name": "Universite Mahatma Gandhi",
+    "city": "Conakry",
+    "district": "Kipe",
+    "founder": "Privee",
+    "year_established":2007,
+    "coordinates": {
+        "latitude": 9.6389474, 
+        "longitude": 13.6142343
+    },
+    "contact": {
+        "phone": "+224 620 000 000",
+        "email": "Contact@unigandhiguinee.com"
+  }
+  },
+  
+  {
+    "category": "Universite",
+    "name": "Université Nongo Conakry",
+    "city": "Conakry",
+    "district": "Nongo",
+    "founder": "Privee",
+    "year_established":2007,
+    "coordinates": {
+        "latitude": 9.6157527, 
+        "longitude": -13.6339041
+    },
+    "contact": {
+        "phone": "+224 622 21 35 70",
+        "email": "foundation@unc-edu.org"
+  }
+  },
+  
+  {
+    "category": "Universite",
+    "name": "Université Kofi Annan",
+    "city": "Conakry",
+    "district": "Nongo",
+    "founder": "Privee",
+    "year_established":1999,
+    "coordinates": {
+        "latitude": 9.6112358, 
+        "longitude": -13.6473242
+    },
+    "contact": {
+        "phone": "+224 666 72 44 06",
+        "email": "contact@ukaguinee.org"
+  }
+  }
+  ]

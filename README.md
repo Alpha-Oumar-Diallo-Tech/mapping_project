@@ -70,6 +70,11 @@ Une fois sur la plateforme, laisser la magie oppérer
 
 
 ## PROBLEMES RENCONTRES ET SOLUTIONS APPORTEES
+- PROBLEMES RENCONTRES: 
+    - PERSONNALISATION DU MARQUEUR:
+        la bibliothèque leaflet awesome marker n'était pas fonctionnel
+    - SOLUTIONS APPORTEES:
+        vu que l'objectif de la personnalisation était de créer une différence entre les différentes infrastructures à vue d'oeil sur la carte, nous avons personnalisé le popup de tel sorte qu'il soit facilement identifiable avec l'aide de la légende que nous avons implémenté.
 
 
 

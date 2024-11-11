@@ -46,12 +46,6 @@
             </div>
         </div>
     </section>
-    <!-- modal des etablissement -->
-    <section>
-        <div class = "infrastructure_modal">
-
-        </div>
-    </section>
     <!-- modal des détails -->
     <section>
         <div class = "detail_modal not">
@@ -74,7 +68,7 @@
         <div class="form-container">
             <div>
                 <h2>Infrastructure Public</h2>
-                <span class = "form_modal_close">x</span>
+                <span class = "form_modal_close_span">x</span>
             </div>
             <form class = "submit_form" action="" method="post">
                 <!-- Champ de sélection pour la catégorie -->
@@ -94,43 +88,43 @@
                         <div>
                             <label for="name">Nom :</label>
                             <input class = "nom" type="text" id="name" name="name" required>
-                            <span class = "error_field name_error"></span>
+                            <span class = "error_field name_error not">champs non valide</span>
                         </div>
                         <!-- Champ Type -->
                         <div>
                             <label for="type">Type :</label>
                             <input class = "type" type="text" id="type" name="type" placeholder = "privé/public" required>
-                            <span class = "error_field type_error"></span>
+                            <span class = "error_field type_error not">champs non valide</span>
                         </div>
                         <!-- Champ Ville -->
                         <div>
                             <label for="city">Ville :</label>
                             <input class = "city" type="text" id="city" name="city" required>
-                            <span class = "error_field city_error"></span>
+                            <span class = "error_field city_error not">champs non valide</span>
                         </div>
                         <!-- Champ Quartier -->
                         <div>
                             <label for="neighborhood">Quartier :</label>
                             <input class = "district" type="text" id="neighborhood" name="neighborhood">
-                            <span class = "error_field district_error"></span>
+                            <span class = "error_field district_error not">champs non valide</span>
                         </div>
                         <!-- Champ Fondateur -->
                         <div>
                             <label for="founder">Fondateur :</label>
                             <input class = "founder" type="text" id="founder" name="founder"> 
-                            <span class = "error_field founder_error"></span>
+                            <span class = "error_field founder_error not">champs non valide</span>
                         </div>
                         <!-- Champ Année de fondation -->
                         <div>
                             <label for="year_of_foundation">Année de fondation :</label>
                             <input class = "year_of_foundation" type="number" id="year_of_foundation" name="year_of_foundation" min="1000" max="2024" required>
-                            <span class = "error_field foundation_year_error"></span>
+                            <span class = "error_field foundation_year_error not">entrez une année valide</span>
                         </div>
                         <!-- Champ Contact -->
                         <div>
                             <label for="contact">Contact :</label>
                             <input class = "phone" type="tel" id="contact" name="contact" placeholder="Format : 629844429" required>
-                            <span class = "error_field contact_error"></span>
+                            <span class = "error_field contact_error not">Ce champ doit contenir 9 chiffres</span>
                         </div>
                         <!-- Champ Email -->
                         <div>
@@ -141,25 +135,25 @@
                         <div class = "departement_input">
                             <label for="departement">Departement :</label>
                             <input class = "departement" type="text" id="departement" name="departement" placeholder="Ingénierie, droit, ..." >
-                            <span class = "error_field error_field_unique university_error"></span>
+                            <span class = "error_field error_field_unique university_error not">entrée non valide</span>
                         </div>
                         <!-- Champ Service Bibliothèque-->
                         <div class = "bibliothèque_input">
                             <label for="service">Service :</label>
                             <input class = "bibliotheque_service" type="text" id="service" name="service" placeholder="prêt de livre, vente de livre" >
-                            <span class = "error_field error_field_unique bookcase_error"></span>
+                            <span class = "error_field error_field_unique bookcase_error not">entrée non valide</span>
                         </div>
                         <!-- Champ Service Hopital-->
                         <div class = "hopital_input">
                             <label for="service">Service :</label>
                             <input class = "hopital_service" type="text" id="service" name="service" placeholder="urgence, chirurgie, ..." >
-                            <span class = "error_field error_field_unique hospital_error"></span>
+                            <span class = "error_field error_field_unique hospital_error not">entrée non valide</span>
                         </div>
                         <!-- Champ Niveau -->
                         <div class = "ecole_input">
                             <label for="niveau">Niveau :</label>
                             <input class = "ecole" type="text" id="niveau" name="niveau" placeholder="maternelle, primaire, secondaire" >
-                            <span class = "error_field error_field_unique school_error"></span>
+                            <span class = "error_field error_field_unique school_error not">entrée non valide</span>
                         </div>
                     </div>
                 </div>
@@ -219,9 +213,15 @@
             <div class = "school_list"></div>
             <div class = "bookcase_list"></div>
         </div>
-        <button id = "download">
-            telecharger la liste des infrastructures
-        </button>
+        <div class = "import_export">
+            <button id = "download">
+                telecharger la liste des infrastructures
+            </button>
+            <div>
+                <input id = "user_json_file_input" type="file" id="user_json_file" accept=".json">
+                <button id = "user_json_file_btn" >Charger le fichier JSON</button>
+            </div>
+        </div>
     </section>
 
 </body>

@@ -14,7 +14,7 @@ const detail_modal_close = document.querySelector (".detail_modal_close")
 // selections des éléments du formulaire
 const formulaire = document.querySelector (".form_section")
 const stop_form_close_propagation = document.querySelector (".form-container")
-const close_form = document.querySelector (".form_modal_close")
+const close_form_btn = document.querySelector (".form_modal_close_span")
 const rest_of_the_form = document.querySelector (".form_input_scroll")
 const submit_form = document.querySelector (".submit_form")
 
@@ -78,12 +78,16 @@ const bookcase_list_btn = document.querySelector (".bookcase_btn")
 
 const infrastructure_modal_close = document.querySelector (".infrastructure_modal_close")
 
-// const all_infrastructure_container = document.querySelector (".")
 
 const university_container = document.querySelector (".university_list")
 const hospital_container = document.querySelector (".hospital_list")
 const school_container = document.querySelector (".school_list")
 const bookcase_container = document.querySelector (".bookcase_list")
+
+// selection du boutton pour importer un fichier json
+
+const user_json_file_btn = document.getElementById ("user_json_file_btn")
+const user_json_file_input = document.getElementById ("user_json_file_input")
 
 // la classe principale qui contient les propriétés communes au quatres types d'infrastructures, ainsi que la logique de gestion des infrastructures
 class Infrastructure {
@@ -208,7 +212,7 @@ class Infrastructure {
         const niveau = document.querySelector (".detail_modal_niveau")
 
         switch (this.category) {
-            case "bibliotèque":
+            case "bookcase":
                 departement.classList.add ("not")
                 niveau.classList.add ("not")
                 service.classList.remove ("not")
@@ -452,8 +456,8 @@ class App {
     }
 
 // la méthode qui s'occupe de la gestion de l'hopital (il personnalise la destructuration des données de l'hopital)
-    hospital_management_function () {
-        this.#base_hospital.forEach (data => {
+    hospital_management_function (hospital_array) {
+        hospital_array.forEach (data => {
             const {
                 id,
                 name, 
@@ -473,14 +477,13 @@ class App {
                 },
                 service
             } = data
-            console.log (this.#map)
             new Hospital (id, this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
         })
     }
 
 // la méthode qui s'occupe de la gestion de l'université (il personnalise la destructuration des données de l'université)
-    University_management_function () {
-        this.#base_university.forEach (data => {
+    University_management_function (university_array) {
+        university_array.forEach (data => {
             const {
                 id,
                 name, 
@@ -504,8 +507,8 @@ class App {
     }
 
 // la méthode qui s'occupe de la gestion de l'école (il personnalise la destructuration des données de l'école)
-    school_management_function () {
-        this.#base_school.forEach (data => {
+    school_management_function (school_array) {
+        school_array.forEach (data => {
             const {
                 id,
                 name, 
@@ -529,8 +532,8 @@ class App {
     }
 
 // la méthode qui s'occupe de la gestion de la bibliothèque (il personnalise la destructuration des données de la bibliothèque)
-    bookcase_management_function () {
-        this.#base_bookCase.forEach (data => {
+    bookcase_management_function (bookcase_array) {
+        bookcase_array.forEach (data => {
             const {
                 id,
                 name, 
@@ -572,8 +575,8 @@ class App {
             }
             const data = await json_data.json ()
             this.data_separation (data)
-            this.hospital_management_function ()
-            this.school_management_function ()
+            this.hospital_management_function (this.#base_hospital)
+            this.school_management_function (this.#base_school)
         } catch (error) {
             console.log (error)
         }
@@ -600,27 +603,39 @@ class App {
 
     check_fields_in_letters (field, element) {
         if (!isNaN (Number (field.trim ()))) {
-            element.textContent = "champs non valide"
-            globale_error.classList.remove ("not")
-            console.log ("non valide")
+            if (element.classList.contains ("not")) {
+                element.classList.remove ("not")
+                globale_error.classList.remove ("not")
+                console.log ("non valide")
+                
+            }
             return false
         } else {
-            element.textContent = ""
-            globale_error.classList.add ("not")
-            console.log ("valide")
+            if (!element.classList.contains ("not")) {
+                element.classList.add ("not")
+                globale_error.classList.add ("not")
+                console.log ("valide")
+                
+            }
             return true
         }
     }
 
     check_number_field (field, element) {
         if (isNaN(Number(field.trim())) || field.trim ().length > 9) {
-            element.textContent = "Ce champ doit contenir 9 chiffres"
-            globale_error.classList.remove ("not")
-            console.log("Champ non valide")
+            if (element.classList.contains ("not")) {
+                element.classList.remove ("not")
+                globale_error.classList.remove ("not")
+                console.log("Champ non valide")
+                
+            }
             return false
         } else {
-            element.textContent = ""
-            globale_error.classList.add ("not")
+            if (!element.classList.contains ("not")) {
+                element.classList.add ("not")
+                globale_error.classList.add ("not")
+                
+            }
             return true
         }
     }
@@ -628,37 +643,51 @@ class App {
     check_table_field (field, element) {
         const isCorrect = field.every (word => isNaN(Number(word.trim())))
         if (!isCorrect) {
-            element.textContent = "entrez non valide"
-            globale_error.classList.remove ("not")
+            if (element.classList.contains ("not")) {
+                element.classList.remove ("not")
+                globale_error.classList.remove ("not")
+                
+            }
             return false
         } else {
-            element.textContent = ""
-            globale_error.classList.add ("not")
-            return true;
+            if (!element.classList.contains ("not")) {
+                element.classList.add ("not")
+                globale_error.classList.add ("not")
+                
+            }
+            return true
+            
         }
     }
 
     check_foundation_year_field (field, element) {
         if (isNaN(Number(field.trim())) || field < 1960 || field > 2025) {
-            element.textContent = "entrez une année valide"
-            globale_error.classList.remove ("not")
-            console.log("anee non")
+            if (element.classList.contains ("not")) {
+                element.classList.remove ("not")
+                globale_error.classList.remove ("not")
+                console.log("anee non")
+                
+            }
             return false
         } else {
-            element.textContent = ""
-            globale_error.classList.add ("not")
+            if (!element.classList.contains ("not")) {
+                element.classList.add ("not")
+                globale_error.classList.add ("not")
+                
+            }
             return true
         }
     }
 
     empty_error_field () {
-        name_error.textContent = ""
+        name_error.classList.add ("not")
         city_error.textContent = ""
         district_error.textContent = ""
         founder_error.textContent = ""
         type_error.textContent = ""
         contact_error.textContent = ""
         foundation_year_error.textContent = ""
+        globale_error.classList.add ("not")
     }
 
 // la méthode qui s'occupe de la gestion du formulaire
@@ -709,10 +738,7 @@ class App {
                 return
             }
 
-            let hospital
-            let universite
-            let school
-            let bookcase
+            let hospital, universite, school, bookcase
 
             switch (infrastructure_type.value) {
                 case "hospital":
@@ -741,6 +767,7 @@ class App {
                     break;
             }
             this.close_form ()
+            console.log ("après close form")
         })
     }
 
@@ -763,7 +790,6 @@ class App {
 
 // la méthode qui ferme le modal
     close_form () {
-        this.empty_error_field ()
         this.hide_form ()
         infrastructure_type.value = ""
         rest_of_the_form.classList.add ("not")
@@ -773,6 +799,10 @@ class App {
 // la méthode qui affiche le formulaire
     show_form () {
         oui_btn.addEventListener ("click", function () {
+            if (!name_error.classList.contains ("not")) {
+                name_error.classList.add ("not")
+            }
+            globale_error.classList.add ("not")
             confirm_modal.classList.add ("not")
             formulaire.classList.remove ("not")
             if (!infrastructure_list_interface.classList.contains ("not")) {
@@ -841,6 +871,7 @@ class App {
         })
         this.type_of_infrastructure_to_display ()
         this.close_infrastructure_modal ()
+        this.listening_click_to_import_button ()
     }
 
     university_display () {
@@ -1005,7 +1036,7 @@ class App {
         stop_modal.addEventListener ("click", function (e) {
             e.stopPropagation ()
         })
-        close_form.addEventListener ("click", this.close_form.bind (this))
+        close_form_btn.addEventListener ("click", this.close_form.bind (this))
         formulaire.addEventListener ("click", this.close_form.bind (this))
         stop_form_close_propagation.addEventListener ("click", function (e) {
             e.stopPropagation ()
@@ -1086,6 +1117,132 @@ class App {
             duration: 2,
         }); 
     }
+
+    listening_click_to_import_button () {
+        user_json_file_btn.addEventListener ("click", this.import_user_json_file.bind (this, this.#map))
+    }
+
+    import_user_json_file (map) {
+        
+        const file = user_json_file_input.files [0]
+        console.log ("import")
+        if (!file) {
+            alert ("Veuillez sélectionner un fichier json")
+            return
+        }
+
+        const reader = new FileReader ()
+        reader.onload = (event) => {
+            try {
+                let file_university, file_school, file_hospital, file_bookcase
+
+                const user_json_data = JSON.parse (event.target.result)
+                // this.data_separation (user_json_data)
+                const user_json_file_hopitals = user_json_data.filter (user_json_data => user_json_data.category === "hospital")
+                const user_json_file_university = user_json_data.filter (user_json_data => user_json_data.category === "University")
+                const user_json_file_school = user_json_data.filter (user_json_data => user_json_data.category === "ecole")
+                const user_json_file_bookcase = user_json_data.filter (user_json_data => user_json_data.category === "bibliotèque")
+                console.log (user_json_file_university)
+
+                user_json_file_university.forEach (data => {
+                    const {
+                        name, 
+                        category,
+                        type, 
+                        city, 
+                        district, 
+                        founder, 
+                        year_established, 
+                        coordinates: {
+                            latitude, 
+                            longitude
+                        }, 
+                        contact: {
+                            phone, 
+                            email
+                        }, departement
+                    } = data
+                    file_university = new University (null, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
+                    this.#user_school.push (file_university.university_simple_property ())
+                    this.store_data_in_local_storage ("school", this.#user_school)
+                })
+                user_json_file_school.forEach (data => {
+                    const {
+                        id,
+                        name, 
+                        category,
+                        type, 
+                        city, 
+                        district, 
+                        founder, 
+                        year_established, 
+                        coordinates: {
+                            latitude, 
+                            longitude
+                        }, 
+                        contact: {
+                            phone, 
+                            email
+                        }, niveau
+                    } = data
+                    new School (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau.join (", "))
+                    this.#user_school.push (file_school.school_simple_property ())
+                    this.store_data_in_local_storage ("school", this.#user_school)
+                })
+                user_json_file_hopitals.forEach (data => {
+                    const {
+                        id,
+                        name, 
+                        category,
+                        type, 
+                        city, 
+                        district, 
+                        founder, 
+                        year_established, 
+                        coordinates: {
+                            latitude, 
+                            longitude
+                        }, 
+                        contact: {
+                            phone, 
+                            email
+                        },
+                        service
+                    } = data
+                    new Hospital (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
+                    this.#user_school.push (file_hospital.hospital_simple_property ())
+                    this.store_data_in_local_storage ("school", this.#user_school)
+                })
+                user_json_file_bookcase.forEach (data => {
+                    const {
+                        id,
+                        name, 
+                        category,
+                        type, 
+                        city, 
+                        district, 
+                        founder, 
+                        year_established, 
+                        coordinates: {
+                            latitude, 
+                            longitude
+                        }, 
+                        contact: {
+                            phone, 
+                            email
+                        }, service
+                    } = data
+                    new Book_Case (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
+                    this.#user_school.push (file_bookcase.hospital_simple_property ())
+                    this.store_data_in_local_storage ("school", this.#user_school)
+                })
+            } catch (error) {
+                console.log (error)
+            }
+        }
+        reader.readAsText(file)
+    }
+
 }
 
 new App ()
