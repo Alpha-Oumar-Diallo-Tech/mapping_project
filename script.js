@@ -90,8 +90,8 @@ class Infrastructure {
     #marker
     #popup
     #marker_icon
-    constructor (map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email) {
-        this.id = this.generate_Id ()
+    constructor (id = null, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email) {
+        this.id = id || this.generate_Id ()
         this.map = map
         this.latitude = latitude
         this.longitude = longitude
@@ -208,7 +208,7 @@ class Infrastructure {
         const niveau = document.querySelector (".detail_modal_niveau")
 
         switch (this.category) {
-            case "bibliothèque":
+            case "bibliotèque":
                 departement.classList.add ("not")
                 niveau.classList.add ("not")
                 service.classList.remove ("not")
@@ -250,8 +250,7 @@ class Infrastructure {
         email.textContent = `Mail: ${this.email}`; 
         service.textContent = `Services: ${this.service || "Non spécifié"}`; 
         departement.textContent = `Départements: ${this.departement || "Non spécifié"}`; 
-        niveau.textContent = `Niveau: ${this.niveau || "Non spécifié"}`;  
-        
+        niveau.textContent = `Niveau: ${this.niveau || "Non spécifié"}`; 
     }
 
     // la méthode qui personnalise le modal des détails en fonction de la catégorie de l'infrastructure
@@ -356,12 +355,12 @@ class Infrastructure {
 
 // la classe de l'université qui hérite de la classe infrastructure
 class University extends Infrastructure {
-    constructor (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement) {
+    constructor (id = null, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement) {
         super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.departement = departement
     }
-    simple_property () {
-        const university_all_property = super.simple_property ()
+    university_simple_property () {
+        const university_all_property = this.simple_property ()
         university_all_property.departement = this.departement
         return university_all_property
     }
@@ -369,26 +368,25 @@ class University extends Infrastructure {
 
 // la classe de l'hopital qui hérite de la classe infrastructure
 class Hospital extends Infrastructure {
-    constructor (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
+    constructor (id = null, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
         super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.service = service
     }
-    simple_property () {
-        const hospital_all_property = super.simple_property ()
+    hospital_simple_property () {
+        const hospital_all_property = this.simple_property ()
         hospital_all_property.service = this.service
-        console.log (hospital_all_property)
         return hospital_all_property
     }
 }
 
 // la classe de l'école qui hérite de la classe infrastructure
 class School extends Infrastructure {
-    constructor (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau) {
+    constructor (id = null, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau) {
         super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.niveau = niveau
     }
-    simple_property () {
-        const school_all_property = super.simple_property ()
+    school_simple_property () {
+        const school_all_property = this.simple_property ()
         school_all_property.niveau = this.niveau
         return school_all_property
     }
@@ -396,12 +394,12 @@ class School extends Infrastructure {
 
 // la classe de la bibliothèque qui hérite de la classe infrastructure
 class Book_Case extends Infrastructure {
-    constructor (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
+    constructor (id = null, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service) {
         super (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
         this.service = service
     }
-    simple_property () {
-        const book_case_all_property = super.simple_property ()
+    bookcase_simple_property () {
+        const book_case_all_property = this.simple_property ()
         book_case_all_property.service = this.service
         return book_case_all_property
     }
@@ -422,9 +420,6 @@ class App {
     #user_hospital = new Array ()
     #user_school = new Array ()
     #user_bookCase = new Array ()
-
-// actuelle
-    #current_hospital
 
 // la variable qui contient la carte
     #map
@@ -478,8 +473,8 @@ class App {
                 },
                 service
             } = data
-            console.log (service)
-            new Hospital (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
+            console.log (this.#map)
+            new Hospital (id, this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
         })
     }
 
@@ -504,8 +499,7 @@ class App {
                     email
                 }, departement
             } = data
-            console.log (id)
-            new University (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement)
+            new University (id, this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, departement.join (", "))
         })
     }
 
@@ -530,8 +524,7 @@ class App {
                     email
                 }, niveau
             } = data
-            console.log (niveau)
-            new School (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau)
+            new School (id, this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau.join (", "))
         })
     }
 
@@ -556,8 +549,7 @@ class App {
                     email
                 }, service
             } = data
-            console.log (id)
-            new Book_Case (this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service)
+            new Book_Case (id, this.#map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
         })
     }
 
@@ -614,6 +606,7 @@ class App {
             return false
         } else {
             element.textContent = ""
+            globale_error.classList.add ("not")
             console.log ("valide")
             return true
         }
@@ -627,6 +620,7 @@ class App {
             return false
         } else {
             element.textContent = ""
+            globale_error.classList.add ("not")
             return true
         }
     }
@@ -639,6 +633,7 @@ class App {
             return false
         } else {
             element.textContent = ""
+            globale_error.classList.add ("not")
             return true;
         }
     }
@@ -651,6 +646,7 @@ class App {
             return false
         } else {
             element.textContent = ""
+            globale_error.classList.add ("not")
             return true
         }
     }
@@ -663,7 +659,6 @@ class App {
         type_error.textContent = ""
         contact_error.textContent = ""
         foundation_year_error.textContent = ""
-        globale_error.classList.add ("not")
     }
 
 // la méthode qui s'occupe de la gestion du formulaire
@@ -721,23 +716,23 @@ class App {
 
             switch (infrastructure_type.value) {
                 case "hospital":
-                    hospital = new Hospital (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
-                    this.#user_hospital.push (hospital.simple_property ())
+                    hospital = new Hospital (null, map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, hospital_service)
+                    this.#user_hospital.push (hospital.hospital_simple_property ())
                     this.store_data_in_local_storage ("hospital", this.#user_hospital)
                     break;
                 case "university":
-                    universite = new University (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, departement)
-                    this.#user_university.push (universite.simple_property ())
+                    universite = new University (null, map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, departement)
+                    this.#user_university.push (universite.university_simple_property ())
                     this.store_data_in_local_storage ("university", this.#user_university)
                     break;
                 case "ecole":
-                    school = new School (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, niveau)
-                    this.#user_school.push (school.simple_property ())
+                    school = new School (null, map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, niveau)
+                    this.#user_school.push (school.school_simple_property ())
                     this.store_data_in_local_storage ("school", this.#user_school)
                     break;
                 case "bookcase":
-                    bookcase = new Book_Case (map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, book_case_service)
-                    this.#user_bookCase.push (bookcase.simple_property ())
+                    bookcase = new Book_Case (null, map, this.#latitude, this.#longitude, name, infrastructure_type.value, type, city, district, founder, year_established, phone, email, book_case_service)
+                    this.#user_bookCase.push (bookcase.bookcase_simple_property ())
                     localStorage.setItem ("bookcase", JSON.stringify (this.#user_bookCase))
                     this.store_data_in_local_storage ("bookcase", this.#user_bookCase)
                     break;
@@ -745,8 +740,6 @@ class App {
                     
                     break;
             }
-            // this.store_data_in_local_storage ()
-            console.log ("sa prend")
             this.close_form ()
         })
     }
@@ -1031,28 +1024,28 @@ class App {
         if (university) {
             this.#user_university = university
             university.forEach (one_university => {
-                new University (map,  one_university.latitude, one_university.longitude, one_university.name, one_university.category, one_university.type, one_university.city, one_university.district, one_university.founder, one_university.year_established, one_university.phone, one_university.email, one_university.departement)
+                new University (one_university.id, map,  one_university.latitude, one_university.longitude, one_university.name, one_university.category, one_university.type, one_university.city, one_university.district, one_university.founder, one_university.year_established, one_university.phone, one_university.email, one_university.departement)
             })
         }
         
         if (hospital) {
             this.#user_hospital = hospital
             hospital.forEach (one_hospital => {
-                new Hospital (map, one_hospital.latitude, one_hospital.longitude, one_hospital.name, one_hospital.category, one_hospital.type, one_hospital.city, one_hospital.district, one_hospital.founder, one_hospital.year_established, one_hospital.phone, one_hospital.email, one_hospital.service)
+                new Hospital (one_hospital.id, map, one_hospital.latitude, one_hospital.longitude, one_hospital.name, one_hospital.category, one_hospital.type, one_hospital.city, one_hospital.district, one_hospital.founder, one_hospital.year_established, one_hospital.phone, one_hospital.email, one_hospital.service)
             })
         }
         
         if (school) {
             this.#user_school = school
             school.forEach (one_school => {
-                new School (map, one_school.latitude, one_school.longitude, one_school.name, one_school.category, one_school.type, one_school.city, one_school.district, one_school.founder, one_school.year_established, one_school.phone, one_school.email, one_school.niveau)
+                new School (one_school.id, map, one_school.latitude, one_school.longitude, one_school.name, one_school.category, one_school.type, one_school.city, one_school.district, one_school.founder, one_school.year_established, one_school.phone, one_school.email, one_school.niveau)
             })
         }
         
         if (bookcase) {
             this.#user_bookCase = bookcase
             bookcase.forEach (one_bookcase => {
-                new Book_Case (map,  one_bookcase.latitude, one_bookcase.longitude, one_bookcase.name, one_bookcase.category, one_bookcase.type, one_bookcase.city, one_bookcase.district, one_bookcase.founder, one_bookcase.year_established, one_bookcase.phone, one_bookcase.email, one_bookcase.service)
+                new Book_Case (one_bookcase.id, map,  one_bookcase.latitude, one_bookcase.longitude, one_bookcase.name, one_bookcase.category, one_bookcase.type, one_bookcase.city, one_bookcase.district, one_bookcase.founder, one_bookcase.year_established, one_bookcase.phone, one_bookcase.email, one_bookcase.service)
             })
         }
         // this.download_app_data (university, hospital, school, bookcase)
