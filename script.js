@@ -565,6 +565,8 @@ class App {
             this.data_separation (data)
             this.hospital_management_function (this.#base_hospital)
             this.school_management_function (this.#base_school)
+            this.University_management_function (this.#base_university)
+            this.bookcase_management_function (this.#base_bookCase)
         } catch (error) {
             console.log (error)
         }
@@ -576,7 +578,6 @@ class App {
             const {lat, lng} = e.latlng
             this.#latitude = lat
             this.#longitude = lng
-            console.log (lat, lng)
             if (detail_modal.classList.contains ("not")) {
                 confirm_modal.classList.remove ("not")
             } else {
@@ -594,16 +595,12 @@ class App {
             if (element.classList.contains ("not")) {
                 element.classList.remove ("not")
                 globale_error.classList.remove ("not")
-                console.log ("non valide")
-                
             }
             return false
         } else {
             if (!element.classList.contains ("not")) {
                 element.classList.add ("not")
                 globale_error.classList.add ("not")
-                console.log ("valide")
-                
             }
             return true
         }
@@ -755,7 +752,6 @@ class App {
                     break;
             }
             this.close_form ()
-            console.log ("après close form")
         })
     }
 

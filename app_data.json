@@ -207,5 +207,24 @@
             "email": "alpha629844429@gmail.com"
         },
         "niveau": ["primaire", "secondaire"]
+    },
+    {
+        "id": "id-1730911923729-786925",
+        "category": "university",
+        "type": "privé",
+        "name": "Universite de Mercure International",
+        "city": "Conakry",
+        "district": "Kipe",
+        "founder": "Pascal Tounkara",
+        "year_established":1998,
+        "coordinates": {
+            "latitude": 9.601139, 
+            "longitude": -13.6452116
+        },
+        "contact": {
+            "phone": "+224 624 73 74 75",
+            "email": "Contact@uni-gn.com"
+        },
+        "departement": ["ingénierie", "droit", "science de gestion"]
     }
 ]
