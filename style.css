@@ -133,11 +133,7 @@ body {
     animation: sortie 500ms ease-in 1;
 }
 
-@media (max-width: 740px) {
-    .detail_modal {
-        width: 100vw;
-    }
-}
+
 
 .detail_modal_name {
     /* animation: sortie 500ms ease-in 1; */
@@ -314,17 +310,7 @@ body {
   }
 
   /* Responsivité */
-  @media (max-width: 768px) {
-    body {
-      justify-content: flex-start;
-      padding: 10px;
-    }
-
-    .form-container {
-      width: 100%;
-      margin: 0;
-    }
-  }
+  
 
   /* champ de legende */
 
@@ -582,4 +568,14 @@ body {
 .import_export {
   display: flex;
   flex-direction: column;
+}
+
+@media (max-width: 740px) {
+  .detail_modal {
+    width: 100vw;
+  }
+  .form-container {
+    width: 100%;
+    max-width: 100%;
+  }
 }
