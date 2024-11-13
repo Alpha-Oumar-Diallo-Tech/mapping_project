@@ -75,7 +75,7 @@ Une fois sur la plateforme, laisser la magie oppérer
     - mise en place d'une méthode qui exploite le fichier json charger par l'utilisateur pour créer des instances de chaque objet présent dans le fichier.
     NB: vous pouvez utiliser le fichier intitulé "fichier_test.json" pour tester cette fonctionnalité. 
 ## DOCUMENTS
-    Vous trouverez le flowchart ainsi que l'architecture au sein des fichiers "flowchart.drawio.svg" et "architecture.drawio.svg"
+    - Vous trouverez le flowchart ainsi que l'architecture au sein des fichiers "flowchart.drawio.svg" et "architecture.drawio.svg"
 
 ## PROBLEMES RENCONTRES ET SOLUTIONS APPORTEES
 - PROBLEMES RENCONTRES: 
