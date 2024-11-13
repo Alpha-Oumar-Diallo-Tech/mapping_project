@@ -430,7 +430,7 @@ class App {
         this.map_click ()
         this.no_click ()
         this.show_form ()
-        
+        down_btn.addEventListener ("click", this.download_app_data.bind (this))
     }
 
 // la méthode qui sépare les données en fonction de la catégorie afin de ranger chacun dans le tableau correspondant
@@ -1063,14 +1063,10 @@ class App {
                 new Book_Case (one_bookcase.id, map,  one_bookcase.latitude, one_bookcase.longitude, one_bookcase.name, one_bookcase.category, one_bookcase.type, one_bookcase.city, one_bookcase.district, one_bookcase.founder, one_bookcase.year_established, one_bookcase.phone, one_bookcase.email, one_bookcase.service)
             })
         }
-        // this.download_app_data (university, hospital, school, bookcase)
-        down_btn.addEventListener ("click", this.download_app_data.bind (this, university, hospital, school, bookcase))
-
-        
     }
 
-    download_app_data (university, hospital, school, bookcase) {
-        this.#all_app_data = [this.#base_hospital, this.#base_university, this.#base_school, this.#base_bookCase, university, hospital, school, bookcase]
+    download_app_data () {
+        this.#all_app_data = [this.#base_hospital, this.#base_university, this.#base_school, this.#base_bookCase, this.#user_university, this.#user_hospital, this.#user_school, this.#user_bookCase]
         const data_download = JSON.stringify (this.#all_app_data, null, 2)
         const data_object = new Blob ([data_download], {type: "application/json"})
         const url = URL.createObjectURL (data_object)
@@ -1126,6 +1122,8 @@ class App {
                 const user_json_file_university = user_json_data.filter (user_json_data => user_json_data.category === "university")
                 const user_json_file_school = user_json_data.filter (user_json_data => user_json_data.category === "ecole")
                 const user_json_file_bookcase = user_json_data.filter (user_json_data => user_json_data.category === "bibliotèque")
+
+                
                 console.log (user_json_file_university)
 
                 user_json_file_university.forEach (data => {
@@ -1147,9 +1145,11 @@ class App {
                         }, departement
                     } = data
                     file_university = new University (null, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email)
-                    this.#user_school.push (file_university.university_simple_property ())
-                    this.store_data_in_local_storage ("school", this.#user_school)
+                    this.#user_university.push (file_university.university_simple_property ())
+                    this.store_data_in_local_storage ("university", this.#user_university)
                 })
+                this.university_hidden ()
+                this.university_display ()
                 user_json_file_school.forEach (data => {
                     const {
                         id,
@@ -1169,10 +1169,12 @@ class App {
                             email
                         }, niveau
                     } = data
-                    new School (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau.join (", "))
+                    file_school = new School (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, niveau.join (", "))
                     this.#user_school.push (file_school.school_simple_property ())
                     this.store_data_in_local_storage ("school", this.#user_school)
                 })
+                this.school_hidden ()
+                this.school_display ()
                 user_json_file_hopitals.forEach (data => {
                     const {
                         id,
@@ -1193,10 +1195,12 @@ class App {
                         },
                         service
                     } = data
-                    new Hospital (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
-                    this.#user_school.push (file_hospital.hospital_simple_property ())
-                    this.store_data_in_local_storage ("school", this.#user_school)
+                    file_hospital = new Hospital (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
+                    this.#user_hospital.push (file_hospital.hospital_simple_property ())
+                    this.store_data_in_local_storage ("hospital", this.#user_hospital)
                 })
+                this.hospital_hidden ()
+                this.hospital_display ()
                 user_json_file_bookcase.forEach (data => {
                     const {
                         id,
@@ -1216,16 +1220,18 @@ class App {
                             email
                         }, service
                     } = data
-                    new Book_Case (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
-                    this.#user_school.push (file_bookcase.hospital_simple_property ())
-                    this.store_data_in_local_storage ("school", this.#user_school)
+                    file_bookcase =  Book_Case (id, map, latitude, longitude, name, category, type, city, district, founder, year_established, phone, email, service.join (", "))
+                    this.#user_bookCase.push (file_bookcase.bookcase_simple_property ())
+                    this.store_data_in_local_storage ("bookcase", this.#user_bookCase)
                 })
-                this.university_display ()
+                this.bookcase_hidden ()
+                this.bookcase_display ()
             } catch (error) {
                 console.log (error)
             }
         }
         reader.readAsText(file)
+        
     }
 
 }
