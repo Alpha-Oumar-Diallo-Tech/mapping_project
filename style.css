@@ -437,7 +437,7 @@ body {
   left: 0;
   width: 30vw;
   height: 100vh;
-  background-color: rgba(255, 255, 255, 0.9);
+  background-color: rgb(255, 255, 255);
   animation: sortie 500ms 1 ease-in;
 }
 
@@ -492,9 +492,11 @@ body {
   flex-direction: column;
   gap: 10px;
   padding: 10px 20px;
-  background-color: green;
-  color: white;
+  background-color: white;
+  /* color: white; */
   opacity: 0.8;
+  align-items: start;
+  border-bottom: 1px black solid;
 }
 
 .infrastructure_container_title{
@@ -502,10 +504,47 @@ body {
   font-size: 20px;
 }
 
+.infrastructure_container_header {
+  display: flex;
+  /* gap: 20px; */
+  justify-content: space-between;
+  width: 100%;
+}
+
+.infrastructure_container_body {
+  display: flex;
+  /* gap: 20px; */
+  justify-content: space-between;
+  width: 100%;
+}
+
 .infrastructure_container_btn {
-  padding: 2px 4px;
+  padding: 4px 8px;
   cursor: pointer;
   border: 1px white solid;
+  background-color: blue;
+  color: white;
+}
+
+.infrastructure_container_category {
+  text-transform: capitalize;
+}
+
+.infrastructure_container_type {
+  text-transform: capitalize;
+}
+
+.infrastructure_container_city {
+  text-transform: capitalize;
+}
+
+.infrastructure_container_district {
+  text-transform: capitalize;
+}
+
+.infras_icone {
+  width: 20px;
+  height: 20px;
 }
 
 .close {

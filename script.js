@@ -867,14 +867,14 @@ class App {
         school_list_btn.classList.remove ("infras_btn_active")
         bookcase_list_btn.classList.remove ("infras_btn_active")
         this.#base_university.forEach (university => {
-            const content = this.infrastructure_content_in_list (university.name, university.id)
+            const content = this.infrastructure_content_in_list (university.name, university.id, university.category, university.type, university.city, university.district)
             university_container.insertAdjacentHTML ("afterbegin", content)
-            document.querySelector (".infrastructure_container").style.backgroundColor = "blue"
+            // document.querySelector (".infrastructure_container").style.backgroundColor = "blue"
         })
         this.#user_university.forEach (university => {
-            const content = this.infrastructure_content_in_list (university.name, university.id)
+            const content = this.infrastructure_content_in_list (university.name, university.id,  university.category, university.type, university.city, university.district)
             university_container.insertAdjacentHTML ("afterbegin", content)
-            document.querySelector (".infrastructure_container").style.backgroundColor = "blue"
+            // document.querySelector (".infrastructure_container").style.backgroundColor = "blue"
         })
         this.see_marker_on_map (university_container, this.#base_university, this.#user_university)
     }
@@ -892,14 +892,14 @@ class App {
         school_list_btn.classList.remove ("infras_btn_active")
         bookcase_list_btn.classList.remove ("infras_btn_active")
         this.#base_hospital.forEach (hospital => {
-            const content = this.infrastructure_content_in_list (hospital.name, hospital.id)
+            const content = this.infrastructure_content_in_list (hospital.name, hospital.id, hospital.category, hospital.type, hospital.city, hospital.district)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
-            document.querySelector (".infrastructure_container").style.backgroundColor = "red"
+            // document.querySelector (".infrastructure_container").style.backgroundColor = "red"
         })
         this.#user_hospital.forEach (hospital => {
-            const content = this.infrastructure_content_in_list (hospital.name, hospital.id)
+            const content = this.infrastructure_content_in_list (hospital.name, hospital.id, hospital.category, hospital.type, hospital.city, hospital.district)
             hospital_container.insertAdjacentHTML ("afterbegin", content)
-            document.querySelector (".infrastructure_container").style.backgroundColor = "red"
+            // document.querySelector (".infrastructure_container").style.backgroundColor = "red"
         })
         this.see_marker_on_map (hospital_container, this.#base_hospital, this.#user_hospital)
     }
@@ -924,16 +924,16 @@ class App {
         school_list_btn.classList.add ("infras_btn_active")
         bookcase_list_btn.classList.remove ("infras_btn_active")
         this.#base_school.forEach (school => {
-            const content = this.infrastructure_content_in_list (school.name, school.id)
+            const content = this.infrastructure_content_in_list (school.name, school.id, school.category, school.type, school.city, school.district)
             school_container.insertAdjacentHTML ("afterbegin", content)
-            document.querySelector (".infrastructure_container").style.backgroundColor = "yellow"
-            document.querySelector (".infrastructure_container").style.color = "black"
+            // document.querySelector (".infrastructure_container").style.backgroundColor = "yellow"
+            // document.querySelector (".infrastructure_container").style.color = "black"
         })
         this.#user_school.forEach (school => {
-            const content = this.infrastructure_content_in_list (school.name, school.id)
+            const content = this.infrastructure_content_in_list (school.name, school.id, school.category, school.type, school.city, school.district)
             school_container.insertAdjacentHTML ("afterbegin", content)
-            document.querySelector (".infrastructure_container").style.backgroundColor = "yellow"
-            document.querySelector (".infrastructure_container").style.color = "black"
+            // document.querySelector (".infrastructure_container").style.backgroundColor = "yellow"
+            // document.querySelector (".infrastructure_container").style.color = "black"
         })
         this.see_marker_on_map (school_container, this.#base_school, this.#user_school)
     }
@@ -951,14 +951,14 @@ class App {
         school_list_btn.classList.remove ("infras_btn_active")
         bookcase_list_btn.classList.add ("infras_btn_active")
         this.#base_bookCase.forEach (bookcase => {
-            const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id)
+            const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id, bookcase.category, bookcase.type, bookcase.city, bookcase.district)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
-            document.querySelector (".infrastructure_container").style.backgroundColor = "green"
+            // document.querySelector (".infrastructure_container").style.backgroundColor = "green"
         })
         this.#user_bookCase.forEach (bookcase => {
-            const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id)
+            const content = this.infrastructure_content_in_list (bookcase.name, bookcase.id, bookcase.category, bookcase.type, bookcase.city, bookcase.district)
             bookcase_container.insertAdjacentHTML ("afterbegin", content)
-            document.querySelector (".infrastructure_container").style.backgroundColor = "green"
+            // document.querySelector (".infrastructure_container").style.backgroundColor = "green"
         })
         this.see_marker_on_map (bookcase_container, this.#base_bookCase, this.#user_bookCase)
     }
@@ -995,15 +995,33 @@ class App {
         })
     }
 
-    infrastructure_content_in_list (name, id) {
+    infrastructure_content_in_list (name, id, category, type, city, district) {
         const content = `
         <div class = "infrastructure_container">
             <h1 class = "infrastructure_container_title">${name}</h1>
+            <div class = "infrastructure_container_header">
+                <div>
+                    <img class = "infras_icone" src = "infrastructure.svg" alt = "type_icone"/>
+                    <span class = "infrastructure_container_category">${category}</span>
+                </div>
+                
+                <div>
+                    <img class = "infras_icone" src = "city.svg" alt = "type_icone"/>
+                    <span class = "infrastructure_container_type">${type}</span>
+                </div>
+            </div>
+            <div class = "infrastructure_container_body">
+                <div>
+                    <img class = "infras_icone" src = "ville.svg" alt = "type_icone"/>
+                    <span class = "infrastructure_container_city">${city}</span>
+                </div>
+                <div>
+                    <img class = "infras_icone" src = "district.svg" alt = "type_icone"/>
+                    <span class = "infrastructure_container_district">${district}</span>
+                </div>
+            </div>
             <div>
-                <!-- <button class = "infrastructure_container_btn">En savoir plus</button> -->
-                <!--<button class = "infrastructure_container_btn">Modifier</button>-->
-                <!--<button class = "infrastructure_container_btn red">Supprimer</button>-->
-                <button data-id="${id}" class = "infrastructure_container_btn marker_on_map_btn green">voir sur la carte</button>
+                <button data-id="${id}" class = "infrastructure_container_btn marker_on_map_btn">voir sur la carte</button>
             </div>
         </div>`
         return content
