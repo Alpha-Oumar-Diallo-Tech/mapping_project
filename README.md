@@ -34,7 +34,9 @@ Une fois sur la plateforme, laisser la magie oppérer
 - Cliquer sur le bouttons "Afficher toutes les infrastructures" pour afficher la liste des infrastructures en fonction de leur catégorie.
 - Cliquer le bouton "Voir sur la carte" associé à chaque établissement pour voir l'emplacement de l'infrastructure sur la carte.
 - Dans cette même interface, cliquer sur le bouton "Télécharger la liste des infrastructures" pour télécharger la liste de toutes les infrastructures
+- Juste en dessous, cliquez sur le champs "choisir un fichier" choisissez un fichier json qui à la même structure que le fichier json exporter (télécharger), et ensuite cliquer sur le bouton "charger le fichier" pour exploiter les données dans ce fichier afin de les afficher sur la carte.
 - Cliquer sur le bouton "masquer toutes les infrastructures" pour fermer cette interface
+
 
 ## CHOIX TECHNIQUE EFFECTUES
 - LANGAGE DE PROGRAMMATION:
@@ -67,7 +69,13 @@ Une fois sur la plateforme, laisser la magie oppérer
     - mise en place d'une méthode qui écoute le clic sur le bouton "Afficher toutes les infrastructures" et qui affiche une interface de la liste des établissemnts en fonction de la catégorie.
 - AFFICHAGE DE L'INFRASTRUCTURE SUR LA CARTE AU CLIC SUR LE BOUTON "Voir sur la carte":
     - mise en place d'une méthode qui écoute le clic sur le bouton "Voir sur la carte" et qui recherche cet établissement dans le tableau des établissements, puis récupère ce objet afin d'extraire ces coordonées et l'afficher sur la carte
-
+- EXPORTATION DES DONNEES:
+    - mise en place d'une méthode qui écoute le clic sur le boutton "Télécharger la liste des infrastructures" pour télécharger la liste de toutes les infrastructures au format json
+- IMPORTATION DES DONNEES:
+    - mise en place d'une méthode qui exploite le fichier json charger par l'utilisateur pour créer des instances de chaque objet présent dans le fichier.
+    NB: vous pouvez utiliser le fichier intitulé "fichier_test.json" pour tester cette fonctionnalité. 
+## DOCUMENTS
+    Vous trouverez le flowchart ainsi que l'architecture au sein des fichiers "flowchart.drawio.svg" et "architecture.drawio.svg"
 
 ## PROBLEMES RENCONTRES ET SOLUTIONS APPORTEES
 - PROBLEMES RENCONTRES: 
