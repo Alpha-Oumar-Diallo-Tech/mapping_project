@@ -74,6 +74,10 @@ Une fois sur la plateforme, laisser la magie oppérer
 - IMPORTATION DES DONNEES:
     - mise en place d'une méthode qui exploite le fichier json charger par l'utilisateur pour créer des instances de chaque objet présent dans le fichier.
     NB: vous pouvez utiliser le fichier intitulé "fichier_test.json" pour tester cette fonctionnalité. 
+
+## VERSION MOBILE:
+    - la plateforme est aussi utilisable sur mobile
+    
 ## DOCUMENTS
     - Vous trouverez le flowchart ainsi que l'architecture au sein des fichiers "flowchart.drawio.svg" et "architecture.drawio.svg"
 
